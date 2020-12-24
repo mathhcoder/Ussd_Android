@@ -14,7 +14,6 @@ class HomeFragment : BaseFragment() {
         ViewModelProvider(this).get(HomeViewModel::class.java)
     }
 
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
