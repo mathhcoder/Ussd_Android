@@ -1,6 +1,557 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<ScrollView
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="62dp">
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/notifBackround"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="24dp"
+                android:layout_marginTop="9dp"
+                app:cardBackgroundColor="@color/mobile_color"
+                app:cardCornerRadius="12dp">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/numberNotif"
+                    android:textSize="12sp"
+                    android:text="1"
+                    android:textAppearance="@style/numberNotif"
+                    android:layout_gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="62dp"
+                android:orientation="horizontal"
+                android:paddingVertical="16dp"
+                >
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_marginHorizontal="16dp"
+                    android:id="@+id/mobileIcon"
+                    android:layout_width="30dp"
+                    android:layout_height="match_parent"/>
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/mobileName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:textSize="16sp"
+                    />
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/arrow_bottom"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/ic_arrow_down"
+                    android:layout_marginHorizontal="12dp"
+
+                    />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:layout_marginEnd="16dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/ic_notif"
+                        />
+
+                </RelativeLayout>
+
+
+            </LinearLayout>
+
+
+        </RelativeLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:orientation="horizontal"
+            android:layout_marginTop="16dp"
+            android:layout_marginHorizontal="8dp"
+            >
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/balance"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginHorizontal="8dp"
+                app:cardCornerRadius="16dp"
+                app:cardBackgroundColor="#F4F4F4">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/cardIcon"
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="16dp"
+                        app:cardCornerRadius="18dp"
+                        app:cardBackgroundColor="@color/mobile_color"
+                        >
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_margin="9dp"
+                            app:srcCompat="@drawable/ic_balance"
+                            tools:ignore="VectorDrawableCompat" />
+
+                    </com.google.android.material.card.MaterialCardView>
+
+
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_centerHorizontal="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="60dp"
+                        android:maxWidth="100dp"
+                        android:text="Balansni tekshirish"
+                        android:textAlignment="center"
+                        android:textSize="12sp"
+                        android:textColor="#19181F" />
+
+                </RelativeLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/packets"
+
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginHorizontal="8dp"
+                app:cardCornerRadius="16dp"
+                app:cardBackgroundColor="#F4F4F4">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/mtarif"
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="16dp"
+                        app:cardBackgroundColor="@color/mobile_color"
+                        app:cardCornerRadius="18dp"
+                        >
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:layout_height="match_parent"
+                            android:layout_width="match_parent"
+                            android:layout_margin="9dp"
+                            app:srcCompat="@drawable/ic_tariff"
+
+                            tools:ignore="VectorDrawableCompat" />
+
+                    </com.google.android.material.card.MaterialCardView>
+
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_centerHorizontal="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="60dp"
+                        android:maxWidth="80dp"
+                        android:lines="2"
+                        android:text="Paket qoldiqlar"
+                        android:textAlignment="center"
+                        android:textSize="12sp"
+                        android:textColor="#19181F" />
+
+                </RelativeLayout>
+            </androidx.cardview.widget.CardView>
+
+        </LinearLayout>
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_marginTop="32dp"
+            android:layout_marginHorizontal="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="16dp"
+            app:cardBackgroundColor="#F4F4F4">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:id="@+id/tariffs"
+                    android:layout_width="match_parent"
+                    android:layout_height="68dp"
+                    android:orientation="horizontal">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="20dp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_marginEnd="22dp"
+                            android:layout_centerVertical="true"
+                            android:background="@drawable/ic_arrow_next" />
+
+                        <com.google.android.material.card.MaterialCardView
+                            android:id="@+id/icon_tariff"
+                            android:layout_width="36dp"
+                            android:layout_height="36dp"
+                            android:layout_centerVertical="true"
+                            android:layout_marginStart="16dp"
+                            app:cardBackgroundColor="@color/mobile_color"
+                            app:cardCornerRadius="18dp"
+                            >
+                            <androidx.appcompat.widget.AppCompatImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:padding="9dp"
+                                app:srcCompat="@drawable/ic_tariff"
+                                android:layout_gravity="center"
+                                tools:ignore="VectorDrawableCompat" />
+
+
+                        </com.google.android.material.card.MaterialCardView>
+
+
+
+                        <androidx.appcompat.widget.AppCompatTextView
+
+
+                            android:id="@+id/textViewTariff"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/tariffs"
+                            android:textAppearance="@style/tariflar"
+                            android:layout_marginStart="60dp"
+                            android:layout_marginEnd="52dp"
+                            android:layout_centerVertical="true"
+                            />
+
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/services"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#93949B"
+                    android:orientation="horizontal" />
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="68dp"
+                    android:orientation="horizontal">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="20dp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginEnd="22dp"
+                            android:background="@drawable/ic_arrow_next" />
+
+                        <com.google.android.material.card.MaterialCardView
+                            android:id="@+id/service_bacground"
+                            android:layout_width="36dp"
+                            android:layout_height="36dp"
+                            android:padding="10dp"
+                            android:layout_centerVertical="true"
+                            android:layout_marginStart="16dp"
+                            app:cardBackgroundColor="@color/mobile_color"
+                            app:cardCornerRadius="18dp">
+
+                            <androidx.appcompat.widget.AppCompatImageView
+
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_gravity="center"
+                                android:padding="9dp"
+                                app:srcCompat="@drawable/ic_service"
+
+                                tools:ignore="VectorDrawableCompat" />
+                        </com.google.android.material.card.MaterialCardView>
+
+
+                        <androidx.appcompat.widget.AppCompatTextView
+
+                            android:id="@+id/textViewTariff2"
+                            android:textAppearance="@style/tariflar"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginStart="60dp"
+                            android:layout_marginEnd="52dp"
+
+                            android:text="@string/services"
+
+                            />
+                    </RelativeLayout>
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+        </com.google.android.material.card.MaterialCardView>
+
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:layout_marginStart="16dp"
+            android:text="@string/pakets"
+            android:textColor="#19181F"
+            android:textAppearance="@style/paketlar"
+            android:textSize="16dp"
+            />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="90dp"
+            android:orientation="horizontal"
+            android:layout_marginTop="16dp"
+            android:layout_marginHorizontal="8dp"
+            >
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/packetInternet"
+                android:layout_weight="1"
+                app:cardCornerRadius="16dp"
+                android:layout_width="0dp"
+                android:layout_marginHorizontal="8dp"
+                android:layout_height="match_parent"
+                app:cardBackgroundColor="#F4F4F4">
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/Iconbackround"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="16dp"
+                    app:cardBackgroundColor="@color/mobile_color"
+                    app:cardCornerRadius="18dp">
+
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/icon_Internet"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="9dp"
+                        android:src="@drawable/ic_internet"
+
+                        />
+
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <androidx.appcompat.widget.AppCompatTextView
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="60dp"
+                    android:layout_marginHorizontal="16dp"
+                    android:textAppearance="@style/smallText"
+                    android:text="@string/internet"
+                    />
+
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/packetMinutes"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginHorizontal="8dp"
+                app:cardBackgroundColor="#F4F4F4"
+                app:cardCornerRadius="16dp"
+                >
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/MinutesBackround"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="16dp"
+                    app:cardBackgroundColor="@color/mobile_color"
+                    app:cardCornerRadius="18dp">
+
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/icon_Minutes"
+                        android:layout_margin="9dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+
+                        android:src="@drawable/ic_minutes"
+
+                        />
+
+
+                </com.google.android.material.card.MaterialCardView>
+                <androidx.appcompat.widget.AppCompatTextView
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="60dp"
+                    android:layout_marginHorizontal="16dp"
+                    android:text="@string/minutes"
+                    android:textAppearance="@style/smallText"
+                    />
+
+
+            </com.google.android.material.card.MaterialCardView>
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/packetSMS"
+                android:layout_weight="1"
+                android:layout_marginHorizontal="8dp"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                app:cardBackgroundColor="#F4F4F4"
+                app:cardCornerRadius="16dp"
+                >
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/SMSBackround"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="16dp"
+                    app:cardBackgroundColor="@color/mobile_color"
+                    app:cardCornerRadius="18dp">
+
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/icon_Sms"
+                        android:layout_margin="9dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+
+                        android:src="@drawable/ic_minutes"
+
+                        />
+
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <androidx.appcompat.widget.AppCompatTextView
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="60dp"
+                    android:layout_marginHorizontal="16dp"
+                    android:textAppearance="@style/smallText"
+                    android:text="@string/sms"
+                    />
+
+
+
+            </com.google.android.material.card.MaterialCardView>
+
+            
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="32dp">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="@string/reklama"
+                android:textAppearance="@style/reklama"
+                android:textColor="#19181F"
+                android:textSize="16dp" />
+
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/aboutUs"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_centerVertical="true"
+                android:layout_alignParentEnd="true"
+                android:text="@string/aboutUs"
+                android:textColor="#93949B"
+                android:textAppearance="@style/about_us"
+               />
+
+        </RelativeLayout>
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="96dp"
+            android:layout_margin="16dp"
+            app:cardCornerRadius="16dp"
+            app:cardBackgroundColor="#F4F4F4"
+            >
+
+
+
+
+        <FrameLayout
+            android:layout_width="match_parent"
+
+            android:layout_height="match_parent">
+
+
+            <androidx.viewpager.widget.ViewPager
+                android:id="@+id/viewPager"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clipToPadding="false"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                />
+
+            <com.rd.PageIndicatorView
+                android:id="@+id/pageIndicatorView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal|bottom"
+                android:layout_marginBottom="8dp"
+                app:piv_animationType="worm"
+                app:piv_dynamicCount="true"
+                app:piv_interactiveAnimation="true"
+                app:piv_padding="4dp"
+                app:piv_radius="4dp"
+                app:piv_selectedColor="@color/mobile_color"
+                app:piv_unselectedColor="@color/colorPrimaryLight"
+                app:piv_viewPager="@id/viewPager" />
+        </FrameLayout>
+        </com.google.android.material.card.MaterialCardView>
+    </LinearLayout>
+
+</ScrollView>

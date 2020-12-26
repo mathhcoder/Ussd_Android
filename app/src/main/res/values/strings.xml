@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">Ussd</string>
+    <string name="pakets">Paketlar</string>
+    <string name="minutes">Daqaiqa</string>
+    <string name="sms">SMS</string>
+    <string name="internet">Internet</string>
+    <string name="reklama">Reklama</string>
+    <string name="aboutUs">Biz haqimizda</string>
+    <string name="tariffs">Tariflar</string>
+    <string name="services">Xizmatlar</string>
 </resources>
