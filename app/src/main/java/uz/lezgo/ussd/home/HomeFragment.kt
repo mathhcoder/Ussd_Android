@@ -6,17 +6,17 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
-import androidx.cardview.widget.CardView
-import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.google.android.material.card.MaterialCardView
+import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.fragment_home.*
 import uz.lezgo.ussd.Banner
 import uz.lezgo.ussd.BaseFragment
 import uz.lezgo.ussd.R
 import uz.lezgo.ussd.adapter.BannerPagerAdapter
+
+import uz.lezgo.ussd.data.ProviderModel
+import uz.lezgo.ussd.dialog.BottomSheet
 
 
 class HomeFragment : BaseFragment() {
@@ -24,55 +24,54 @@ class HomeFragment : BaseFragment() {
     private val viewModel by lazy {
         ViewModelProvider(this).get(HomeViewModel::class.java)
     }
-
     private val pagerAdapter by lazy {
         BannerPagerAdapter(childFragmentManager)
     }
 
-    override fun onCreateView( inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View? {
-        val rootView: View =
-            inflater.inflate(R.layout.fragment_home, container, false)
+    private val dialog by lazy {
+        context?.let {
+            BottomSheet(it) { cat ->
 
-        return rootView
+                viewModel.providerData.postValue(cat)
+            }
+        }
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        return inflater.inflate(R.layout.fragment_home, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        viewPager.adapter = pagerAdapter
 
-        val arr =
-            arrayListOf(
-                notifBackround, cardIcon, mtarif, icon_tariff, service_bacground, Iconbackround,
-                MinutesBackround, SMSBackround
-            ) as ArrayList<MaterialCardView>
+        viewModel.provider.let {
 
-
-        Log.e("testColor", viewModel.provider.toString())
-        notifBackround.setCardBackgroundColor(Color.parseColor("#123132"))
-
-
-
-
-        viewModel?.provider?.let {
             it.value?.let { provider ->
-                Log.e("provider", provider.toString())
-                arr.forEach { card ->
-                    card.setCardBackgroundColor(Color.parseColor(provider.color))
-                }
-                pageIndicatorView.selectedColor = Color.parseColor(provider.color)
-
-
+                onProvider(provider)
             }
+
             it.observe(viewLifecycleOwner, Observer { provider ->
-                arr.forEach { card ->
-                    Log.e("provider", provider.toString())
-                    card.setCardBackgroundColor(Color.parseColor(provider.color))
-                }
-                pageIndicatorView.selectedColor = Color.parseColor(provider.color)
+                onProvider(provider)
             })
         }
 
-        viewModel?.banners?.let {
+        viewModel.providers.let {
+
+            it.value?.let { providers ->
+                onProviders(providers)
+            }
+
+            it.observe(viewLifecycleOwner, Observer { providers ->
+                onProviders(providers)
+            })
+        }
+
+        viewModel.banners.let {
             it.value?.let { data ->
                 onBanners(data)
             }
@@ -81,24 +80,41 @@ class HomeFragment : BaseFragment() {
             })
         }
 
+        show_bottomSheet.setOnClickListener {
+            Log.e("DATAProvider", dialog?.data.toString())
+            dialog?.show()
+        }
+
     }
 
-    fun onBanners(data : ArrayList<Banner>){
-
+    private fun onBanners(data: List<Banner>) {
         pagerAdapter.data = data
+    }
+
+    private fun onProvider(data: ProviderModel) {
+
+        arrayListOf(
+            cardNotification, cardIcon, mtarif, icon_tariff, service_bacground, Iconbackround,
+            cardMinutes, SMSBackround
+        ).forEach {
+            it.setCardBackgroundColor(Color.parseColor(data.color))
+        }
+
+        pageIndicatorView.selectedColor = Color.parseColor(data.color)
+        dialog?.data = dialog?.data?.map { it.copy(selected = it.id == data.id) } ?: emptyList()
+
+        textViewProviderName.text = data.name
+
+        Glide.with(imageViewProvider)
+            .load(data.icon)
+            .into(imageViewProvider)
+
+    }
+
+    private fun onProviders(data: List<ProviderModel>) {
+        dialog?.data = data
     }
 
 }
 
-
-
-
-
-//
-//
-//
-//        arr?.forEach {
-//            Log.e("aaaaaa" , it.id.toString())
-//            it.setCardBackgroundColor(Color.parseColor(viewModel.rcolor))
-//        }
 

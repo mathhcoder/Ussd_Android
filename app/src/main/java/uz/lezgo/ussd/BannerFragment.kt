@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.TransformationUtils.centerCrop
 import kotlinx.android.synthetic.main.fragment_banner.*
 
 
@@ -49,9 +50,12 @@ class BannerFragment : Fragment() {
 
         banner.image?.let {
             Log.e("Banner" , banner.toString())
-            Glide.with(context)
-                .load(banner.image)
+            Glide.with(this)
+                .load(banner.image) // image url
+                .placeholder(R.drawable.ic_launcher_background) // any placeholder to load at start
+                .error(R.drawable.ic_launcher_foreground)  // any image in case of error
                 .centerCrop()
+                .fitCenter()// resizing
                 .into(imageView)
 
         }

@@ -9,5 +9,10 @@
     <color name="white">#FFFFFFFF</color>
     <color name="colorPrimary">#3F7DF6</color>
     <color name="mobile_color">#089918</color>
-<color name="colorPrimaryLight">#123F7DF6</color>
+    <color name="colorPrimaryLight">#123F7DF6</color>
+
+
+    <color name="colorTextPrimary">#19181F</color>
+    <color name="colorCardBackground">#F4F4F4</color>
+    <color name="colorDivider">#93949B</color>
 </resources>
