@@ -6,9 +6,63 @@
 
     <fragment
         android:id="@+id/fragment_home"
-        android:name="uz.lezgo.ussd.home.HomeFragment">
+        android:name="uz.lezgo.ussd.fragment.home.HomeFragment">
+        <action
+            android:id="@+id/action_fragment_home_to_fragment_news"
+            app:destination="@id/fragment_news" />
+        <action
+            android:id="@+id/action_fragment_home_to_fragment_about"
+            app:destination="@id/fragment_about" />
+        <action
+            android:id="@+id/action_fragment_home_to_fragment_tariffs"
+            app:destination="@id/fragment_tariffs" />
+        <action
+            android:id="@+id/action_fragment_home_to_fragment_services"
+            app:destination="@id/fragment_services" />
+        <action
+            android:id="@+id/action_fragment_home_to_fragment_packages"
+            app:destination="@id/fragment_packages" />
+    </fragment>
 
+    <fragment
+        android:id="@+id/fragment_about"
+        android:name="uz.lezgo.ussd.fragment.about.AboutFragment">
+        <action
+            android:id="@+id/action_fragment_about_to_fragment_home"
+            app:destination="@id/fragment_home" />
+    </fragment>
 
+    <fragment
+        android:id="@+id/fragment_news"
+        android:name="uz.lezgo.ussd.fragment.news.NewsFragment">
+        <action
+            android:id="@+id/action_fragment_news_to_fragment_home"
+            app:destination="@id/fragment_home" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragment_tariffs"
+        android:name="uz.lezgo.ussd.fragment.tariffs.TariffFragment">
+
+        <action
+            android:id="@+id/action_fragment_tariffs_to_fragment_home"
+            app:destination="@id/fragment_home" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragment_services"
+        android:name="uz.lezgo.ussd.fragment.service.ServiceFragment">
+        <action
+            android:id="@+id/action_fragment_services_to_fragment_home"
+            app:destination="@id/fragment_home" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragment_packages"
+        android:name="uz.lezgo.ussd.fragment.Packages.PackagesFragment">
+        <action
+            android:id="@+id/action_fragment_packages_to_fragment_home"
+            app:destination="@id/fragment_home" />
     </fragment>
 
 </navigation>

@@ -2,6 +2,7 @@ package uz.lezgo.ussd.dialog
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.widget.FrameLayout
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -11,6 +12,7 @@ import uz.lezgo.ussd.R
 import uz.lezgo.ussd.adapter.BottomSheetDialogAdapter
 import uz.lezgo.ussd.data.ProviderModel
 import uz.lezgo.ussd.R.layout.*
+import uz.lezgo.ussd.fragment.COLOR
 
 class BottomSheet(
     context : Context ,
@@ -22,6 +24,12 @@ class BottomSheet(
             listAdapter.data = value
             field = value
         }
+    var   color : String = "#FFFFFF"
+    set(value) {
+        listAdapter.selectedColor = value
+        Log.e(COLOR ,value)
+        field = value
+    }
 
     private val listAdapter by lazy {
         BottomSheetDialogAdapter {
@@ -41,6 +49,7 @@ class BottomSheet(
         window?.findViewById<RecyclerView>(R.id.recyclerView)?.let {
             it.layoutManager = GridLayoutManager(context , 2)
             it.adapter = listAdapter
+
         }
     }
 

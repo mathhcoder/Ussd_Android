@@ -1,4 +1,4 @@
-package uz.lezgo.ussd.home
+package uz.lezgo.ussd.fragment.home
 
 
 import androidx.lifecycle.LiveData

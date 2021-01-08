@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
+
+
+        <LinearLayout
+            android:id="@+id/layoutHead"
+            android:layout_marginHorizontal="16dp"
+            android:layout_width="wrap_content"
+            android:layout_height="52dp"
+            android:orientation="horizontal">
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/imageViewBack"
+                android:layout_width="wrap_content"
+                android:layout_height="13dp"
+                android:background="@drawable/ic_back"
+                android:layout_marginEnd="18dp"
+                android:layout_gravity="center_vertical"
+                />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/aboutUs"
+                android:layout_gravity="center_vertical"
+                />
+
+
+        </LinearLayout>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_marginTop="16dp"
+            android:layout_marginHorizontal="16dp"
+            android:id="@+id/textViewAbout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <GridLayout
+            android:id="@+id/grideLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:columnCount="2"
+
+
+            >
+
+            <TextView
+                android:id="@+id/_1"
+                android:layout_width="0dp"
+                android:layout_height="100dp"
+                android:layout_columnWeight="1"
+                android:background="@color/colorCardBackground"
+                android:gravity="center"
+                android:text="Tile1" />
+
+            <TextView
+                android:id="@+id/_2"
+                android:layout_width="0dp"
+                android:layout_height="100dp"
+                android:layout_columnWeight="1"
+                android:background="@color/colorCardBackground"
+                android:gravity="center"
+                android:text="Tile2" />
+
+            <TextView
+                android:id="@+id/_3"
+                android:layout_width="0dp"
+                android:layout_height="100dp"
+                android:layout_columnWeight="1"
+                android:background="@color/colorCardBackground"
+                android:gravity="center"
+                android:text="Tile3"
+                />
+
+            <TextView
+                android:id="@+id/_4"
+                android:layout_width="0dp"
+                android:layout_height="100dp"
+                android:layout_columnWeight="1"
+                android:layout_gravity="center_vertical"
+                android:background="@color/colorCardBackground"
+                android:gravity="center"
+                android:text="Tile4" />
+
+            <TextView
+                android:id="@+id/_5"
+                android:layout_width="0dp"
+                android:layout_height="100dp"
+                android:layout_columnWeight="1"
+                android:layout_gravity="center_vertical"
+                android:background="@color/colorCardBackground"
+                android:gravity="center"
+                android:text="Tile5" />
+            <TextView
+                android:id="@+id/_6"
+                android:layout_width="0dp"
+                android:layout_height="100dp"
+                android:layout_columnWeight="1"
+                android:layout_gravity="center_vertical"
+                android:background="@color/colorCardBackground"
+                android:gravity="center"
+                android:text="Tile5" />
+            <TextView
+                android:id="@+id/_7"
+                android:layout_width="0dp"
+                android:layout_height="100dp"
+                android:layout_columnWeight="1"
+                android:layout_gravity="center_vertical"
+                android:background="@color/colorCardBackground"
+                android:gravity="center"
+                android:text="Tile5" />
+            <TextView
+                android:id="@+id/_8"
+                android:layout_width="0dp"
+                android:layout_height="100dp"
+                android:layout_columnWeight="1"
+                android:layout_gravity="center_vertical"
+                android:background="@color/colorCardBackground"
+                android:gravity="center"
+                android:text="Tile5" />
+            <TextView
+                android:id="@+id/_9"
+                android:layout_width="0dp"
+                android:layout_height="100dp"
+                android:layout_columnWeight="1"
+                android:layout_gravity="center_vertical"
+                android:background="@color/colorCardBackground"
+                android:gravity="center"
+                android:text="Tile5" />
+            <TextView
+                android:id="@+id/_10"
+                android:layout_width="0dp"
+                android:layout_height="100dp"
+                android:layout_columnWeight="1"
+                android:layout_gravity="center_vertical"
+                android:background="@color/colorCardBackground"
+                android:gravity="center"
+                android:text="Tile5" />
+            <TextView
+                android:id="@+id/_11"
+                android:layout_width="0dp"
+                android:layout_height="100dp"
+                android:layout_columnWeight="1"
+                android:layout_gravity="center_vertical"
+                android:background="@color/colorCardBackground"
+                android:gravity="center"
+                android:text="Tile5" />
+            <TextView
+                android:id="@+id/_12"
+                android:layout_width="0dp"
+                android:layout_height="100dp"
+                android:layout_columnWeight="1"
+                android:layout_gravity="center_vertical"
+                android:background="@color/colorCardBackground"
+                android:gravity="center"
+                android:text="Tile5" />
+
+
+
+        </GridLayout>
+
+
+    </LinearLayout>
+
+
+
+
+</ScrollView>

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardBackgroundColor="@color/colorCardBackground"
+    app:cardCornerRadius="16dp"
+    android:layout_marginHorizontal="16dp"
+    android:layout_marginVertical="8dp"
+
+    >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textViewTitle"
+            android:layout_marginTop="16dp"
+            android:layout_marginHorizontal="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/middleText"
+            android:fontFamily="@font/bold"
+            />
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textViewBody"
+            android:layout_marginTop="16dp"
+            android:layout_marginHorizontal="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/smallWhite"
+            android:fontFamily="@font/regular"
+            />
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardViewSerivcePrice"
+            app:cardCornerRadius="16dp"
+            app:cardBackgroundColor="#FCE387"
+            android:layout_width="wrap_content"
+            android:layout_height="46dp"
+            android:layout_gravity="end"
+            android:layout_margin="16dp"
+
+
+            >
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewServicePrice"
+                android:layout_width="wrap_content"
+                android:layout_height="14dp"
+                android:layout_gravity="center"
+                android:text="8400 so'm/oyiga"
+                android:layout_margin="16dp"
+                android:textAppearance="@style/normalText"
+                android:fontFamily="@font/regular"
+                />
+
+        </com.google.android.material.card.MaterialCardView>
+
+
+
+    </LinearLayout>
+
+</com.google.android.material.card.MaterialCardView>
