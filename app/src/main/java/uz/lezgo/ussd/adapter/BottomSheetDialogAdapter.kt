@@ -1,5 +1,6 @@
 package uz.lezgo.ussd.adapter
 
+import android.graphics.Color
 import android.opengl.Visibility
 import android.view.LayoutInflater
 import android.view.View
@@ -17,6 +18,8 @@ class BottomSheetDialogAdapter(
     private val onItemSelected: (provider: ProviderModel) -> (Unit)
 ) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+
+    var selectedColor : String = "#FFFFFF"
 
 
     var data: List<ProviderModel> = ArrayList()
@@ -47,6 +50,7 @@ class BottomSheetDialogAdapter(
     inner class BottomSheetViewHolder(view: View) : RecyclerView.ViewHolder(view){
         fun bind(provider : ProviderModel){
             itemView.textViewBottomProviderName.text = provider.name
+            itemView.BottomProviderChecked.setCardBackgroundColor(Color.parseColor(selectedColor))
 
             if(provider.selected)
                 itemView.BottomProviderChecked.visibility = View.VISIBLE

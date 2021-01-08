@@ -10,4 +10,5 @@
     <string name="services">Xizmatlar</string>
     <string name="chooseProvider">Operatorni tanlang</string>
     <string name="chekBalance">Balansni tekshirish</string>
+    <string name="news">Yangiliklar</string>
 </resources>
