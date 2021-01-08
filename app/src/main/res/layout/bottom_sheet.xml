@@ -1,21 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/rootView"
     android:background="@drawable/background_bottom_sheet_dialog"
-    android:orientation="vertical"
-    >
+    android:orientation="vertical">
+
     <androidx.appcompat.widget.AppCompatTextView
         android:layout_marginTop="32dp"
         android:layout_marginHorizontal="16dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/chooseProvider"
-        android:textAppearance="@style/middleText"
         />
-
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_marginTop="8dp"

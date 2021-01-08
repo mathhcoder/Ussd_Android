@@ -28,7 +28,6 @@
             android:layout_height="wrap_content"
             android:text="@string/tariffs"
             android:fontFamily="@font/bold"
-            android:textAppearance="@style/middleText"
             android:layout_gravity="center_vertical"
             />
 

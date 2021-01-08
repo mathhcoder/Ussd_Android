@@ -1,43 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="36dp"
-    android:orientation="horizontal"
     android:layout_marginHorizontal="16dp"
     android:layout_marginTop="16dp"
-    >
+    android:orientation="horizontal">
+
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/imageViewIcon"
         android:layout_width="36dp"
-        android:layout_height="36dp"
-        />
+        android:layout_height="36dp" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        >
+        android:orientation="vertical">
+
         <androidx.appcompat.widget.AppCompatTextView
-            android:layout_marginStart="8dp"
             android:id="@+id/textViewLimit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/medium"
-            android:textAppearance="@style/smallText"
-            android:layout_marginTop="4dp"/>
-        <androidx.appcompat.widget.AppCompatTextView
             android:layout_marginStart="8dp"
             android:layout_marginTop="4dp"
+            android:fontFamily="@font/medium" />
+
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/textViewLimitDate"
             android:layout_width="wrap_content"
-            android:fontFamily="@font/regular"
-            android:textAppearance="@style/smallWhite"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="4dp"
+            android:fontFamily="@font/regular" />
 
 
-        
     </LinearLayout>
-
 
 
 </LinearLayout>

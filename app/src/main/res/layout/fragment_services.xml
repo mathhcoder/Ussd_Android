@@ -30,7 +30,6 @@
                 android:layout_height="wrap_content"
                 android:text="@string/services"
                 android:fontFamily="@font/bold"
-                android:textAppearance="@style/middleText"
                 android:layout_gravity="center_vertical"
                 />
 

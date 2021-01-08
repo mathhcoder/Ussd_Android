@@ -21,7 +21,6 @@
             android:layout_marginHorizontal="16dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textAppearance="@style/middleText"
             android:fontFamily="@font/bold"
             />
         <androidx.appcompat.widget.AppCompatTextView
@@ -30,7 +29,6 @@
             android:layout_marginHorizontal="16dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textAppearance="@style/smallWhite"
             android:fontFamily="@font/regular"
             />
         <com.google.android.material.card.MaterialCardView
@@ -51,7 +49,6 @@
                 android:layout_gravity="center"
                 android:text="8400 so'm/oyiga"
                 android:layout_margin="16dp"
-                android:textAppearance="@style/normalText"
                 android:fontFamily="@font/regular"
                 />
 

@@ -20,7 +20,6 @@
             android:layout_marginHorizontal="16dp"
             android:layout_marginTop="16dp"
             android:fontFamily="@font/bold"
-            android:textAppearance="@style/middleText"
 
             />
 
@@ -48,7 +47,6 @@
             android:id="@+id/textViewPrice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="@style/normalText"
             android:fontFamily="@font/regular"
             android:text="3900 som" />
 

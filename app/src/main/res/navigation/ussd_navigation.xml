@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/fragment_home"
-        android:name="uz.lezgo.ussd.fragment.home.HomeFragment">
+        android:name="tech.appme.ussd.fragment.home.HomeFragment">
         <action
             android:id="@+id/action_fragment_home_to_fragment_news"
             app:destination="@id/fragment_news" />
@@ -26,7 +26,7 @@
 
     <fragment
         android:id="@+id/fragment_about"
-        android:name="uz.lezgo.ussd.fragment.about.AboutFragment">
+        android:name="tech.appme.ussd.fragment.about.AboutFragment">
         <action
             android:id="@+id/action_fragment_about_to_fragment_home"
             app:destination="@id/fragment_home" />
@@ -34,7 +34,7 @@
 
     <fragment
         android:id="@+id/fragment_news"
-        android:name="uz.lezgo.ussd.fragment.news.NewsFragment">
+        android:name="tech.appme.ussd.fragment.news.NewsFragment">
         <action
             android:id="@+id/action_fragment_news_to_fragment_home"
             app:destination="@id/fragment_home" />
@@ -42,7 +42,7 @@
 
     <fragment
         android:id="@+id/fragment_tariffs"
-        android:name="uz.lezgo.ussd.fragment.tariffs.TariffFragment">
+        android:name="tech.appme.ussd.fragment.tariffs.TariffFragment">
 
         <action
             android:id="@+id/action_fragment_tariffs_to_fragment_home"
@@ -51,7 +51,7 @@
 
     <fragment
         android:id="@+id/fragment_services"
-        android:name="uz.lezgo.ussd.fragment.service.ServiceFragment">
+        android:name="tech.appme.ussd.fragment.service.ServiceFragment">
         <action
             android:id="@+id/action_fragment_services_to_fragment_home"
             app:destination="@id/fragment_home" />
@@ -59,7 +59,7 @@
 
     <fragment
         android:id="@+id/fragment_packages"
-        android:name="uz.lezgo.ussd.fragment.Packages.PackagesFragment">
+        android:name="tech.appme.ussd.fragment.Packages.PackagesFragment">
         <action
             android:id="@+id/action_fragment_packages_to_fragment_home"
             app:destination="@id/fragment_home" />
