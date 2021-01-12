@@ -325,7 +325,7 @@
             </com.google.android.material.card.MaterialCardView>
 
 
-            <androidx.appcompat.widget.AppCompatTextView
+            [<androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"

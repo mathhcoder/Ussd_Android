@@ -14,7 +14,7 @@
         android:orientation="vertical">
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/textViewTitle"
+            android:id="@+id/textViewNameService"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
@@ -23,7 +23,7 @@
             android:maxLines="2" />
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/textViewBody"
+            android:id="@+id/textViewDescritionService"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"

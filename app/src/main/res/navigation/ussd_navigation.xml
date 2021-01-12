@@ -22,6 +22,9 @@
         <action
             android:id="@+id/action_fragment_home_to_fragment_packages"
             app:destination="@id/fragment_packages" />
+        <action
+            android:id="@+id/action_fragment_home_to_fragment_tariff"
+            app:destination="@id/fragment_tariff" />
     </fragment>
 
     <fragment
@@ -42,11 +45,14 @@
 
     <fragment
         android:id="@+id/fragment_tariffs"
-        android:name="tech.appme.ussd.fragment.tariffs.TariffFragment">
+        android:name="tech.appme.ussd.fragment.tariffs.TariffsFragment">
 
         <action
             android:id="@+id/action_fragment_tariffs_to_fragment_home"
             app:destination="@id/fragment_home" />
+        <action
+            android:id="@+id/action_fragment_tariffs_to_fragment_tariff"
+            app:destination="@id/fragment_tariff" />
     </fragment>
 
     <fragment
@@ -63,6 +69,16 @@
         <action
             android:id="@+id/action_fragment_packages_to_fragment_home"
             app:destination="@id/fragment_home" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragment_tariff"
+        android:name="tech.appme.ussd.fragment.tariff.TariffFragment">
+
+
+        <action
+            android:id="@+id/action_fragment_tariff_to_fragment_tariffs"
+            app:destination="@id/fragment_tariffs" />
     </fragment>
 
 </navigation>

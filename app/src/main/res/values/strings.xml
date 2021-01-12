@@ -11,4 +11,10 @@
     <string name="chooseProvider">Operatorni tanlang</string>
     <string name="chekBalance">Balansni tekshirish</string>
     <string name="news">Yangiliklar</string>
+    <string name="tariffPalan">Tariff rejasi</string>
+    <string name="changePrice">"O'tkazish narxi: "</string>
+    <string name="goTariff">"Ushbu tarif rejasiga  o'tish"</string>
+    <string name="abonamentLimits">Abonament limit</string>
+    <string name="outLimitsPrice">Limitdan tashqari narxlar</string>
+    <string name="tariffConditions">"Tarifga o'tish shartlari"</string>
 </resources>

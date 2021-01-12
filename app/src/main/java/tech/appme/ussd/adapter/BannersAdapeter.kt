@@ -3,8 +3,9 @@ package tech.appme.ussd.adapter
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
-import uz.appme.ussd.Banner
+
 import tech.appme.ussd.BannerFragment
+import tech.appme.ussd.data.Banner
 
 class BannerPagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
 

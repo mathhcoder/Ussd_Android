@@ -14,7 +14,7 @@ import tech.appme.ussd.R
 import tech.appme.ussd.adapter.SectionAdapter
 import tech.appme.ussd.adapter.ServiceAdapter
 import tech.appme.ussd.data.Provider
-import tech.appme.ussd.data.Section
+import tech.appme.ussd.data.Category
 import tech.appme.ussd.data.Service
 import tech.appme.ussd.fragment.PROVIDER
 
@@ -92,7 +92,7 @@ class ServiceFragment : BaseFragment(){
     }
 
 
-    fun onSections(sections : ArrayList<Section>){
+    fun onSections(sections : ArrayList<Category>){
         adapterSection.data = sections
     }
 
@@ -100,7 +100,7 @@ class ServiceFragment : BaseFragment(){
         adapterService.data = services
     }
 
-    private fun onSectionSelected(section: Section) {
+    private fun onSectionSelected(section: Category) {
         adapterSection.data = adapterSection.data.map { it.copy(selected = it.id == section.id) }
     }
 }

@@ -1,6 +1,7 @@
 package tech.appme.ussd.fragment.tariffs
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,26 +9,27 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import kotlinx.android.synthetic.main.fragment_tariff.*
+import kotlinx.android.synthetic.main.fragment_tariffs.*
 import tech.appme.ussd.BaseFragment
 import tech.appme.ussd.R
 import tech.appme.ussd.adapter.SectionAdapter
 import tech.appme.ussd.adapter.TariffsAdapter
 import tech.appme.ussd.data.Provider
-import tech.appme.ussd.data.Section
+import tech.appme.ussd.data.Category
 import tech.appme.ussd.data.Tariff
 import tech.appme.ussd.fragment.PROVIDER
 
 
-class TariffFragment : BaseFragment() {
+class TariffsFragment : BaseFragment() {
 
     private val viewModel by lazy {
-        ViewModelProvider(this).get(TariffViewModel::class.java)
+        ViewModelProvider(this).get(TariffsViewModel::class.java)
     }
     private val adapterTariff by lazy {
-        TariffsAdapter({
-
-        })
+        TariffsAdapter {
+            Log.e("TARIFF" , it.toString() + " clicled")
+            findNavController().navigate(R.id.action_fragment_tariffs_to_fragment_tariff)
+        }
     }
 
     private val adapterSection by lazy {
@@ -48,7 +50,7 @@ class TariffFragment : BaseFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_tariff, container, false)
+        return inflater.inflate(R.layout.fragment_tariffs, container, false)
     }
 
 
@@ -86,7 +88,7 @@ class TariffFragment : BaseFragment() {
             LinearLayoutManager(recyclerViewSections.context, LinearLayoutManager.HORIZONTAL, false)
         recyclerViewSections.adapter = adapterSection
 
-        imageViewBack.setOnClickListener({
+        imageViewTariffsBack.setOnClickListener({
             findNavController().popBackStack()
         })
 
@@ -100,14 +102,14 @@ class TariffFragment : BaseFragment() {
 
     }
 
-    private fun onSection(data: ArrayList<Section>) {
+    private fun onSection(data: ArrayList<Category>) {
         adapterSection.data = data
         data.getOrNull(0)?.let {
             onSectionSelected(it)
         }
     }
 
-    private fun onSectionSelected(section: Section) {
+    private fun onSectionSelected(section: Category) {
         adapterSection.data = adapterSection.data.map { it.copy(selected = it.id == section.id) }
     }
 }

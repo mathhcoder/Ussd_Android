@@ -1,6 +1,5 @@
 package tech.appme.ussd.adapter
 
-import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,14 +7,14 @@ import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.cell_section_tariffs.view.*
 import tech.appme.ussd.R
 import tech.appme.ussd.data.Provider
-import tech.appme.ussd.data.Section
+import tech.appme.ussd.data.Category
 
 
 class SectionAdapter(
-    val onItemSelected: (section: Section) -> Unit
+    val onItemSelected: (section: Category) -> Unit
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    var data: List<Section> = ArrayList()
+    var data: List<Category> = ArrayList()
         set(value) {
             field = value
             notifyDataSetChanged()
@@ -42,15 +41,15 @@ class SectionAdapter(
 
 
     inner class SectionTariffsViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        fun bind(section: Section) {
+        fun bind(section: Category) {
 
             itemView.textViewSection.text = if (lang == "uz") section.nameUz else section.nameRu
 
-            if (section.selected) {
-                itemView.cardViewSection.setCardBackgroundColor(Color.parseColor(provider?.color))
-            } else {
-                itemView.cardViewSection.setCardBackgroundColor(Color.parseColor("#FFFFFF"))
-            }
+//            if (section.selected) {
+//                itemView.cardViewSection.setCardBackgroundColor(Color.parseColor(provider?.color))
+//            } else {
+//                itemView.cardViewSection.setCardBackgroundColor(Color.parseColor("#FFFFFF"))
+//            }
 
             itemView.setOnClickListener {
                 onItemSelected(section)

@@ -1,10 +1,21 @@
 package tech.appme.ussd.data
 
+import androidx.room.Entity
+import java.io.Serializable
+
+@Entity(tableName = "service", primaryKeys = ["id"])
 data class Service(
-    var titleUz : String ,
-    var titleRu : String ,
-    var bodyUz : String ,
-    var bodyRu : String ,
-    var priceUz : String,
-    var priceRu : String
-)
+    val id : Long = 0,
+    val nameUz : String? = null,
+    val nameRu : String? = null,
+    val descriptionUz : String? =null,
+    val descriptionRu : String? = null,
+    val subscriptionPriceUz : String? = null,
+    val subscriptionPriceRu : String? = null,
+    val firstTimePriceUz: String? = null,
+    val firstTimePriceRu: String? = null,
+    val termsUz: String? = null,
+    val termsRu: String? = null,
+    val ussd: String? = null,
+    val priority: String? = null
+) : Serializable

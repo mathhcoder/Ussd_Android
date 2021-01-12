@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import kotlinx.android.synthetic.main.fragment_about.*
 import tech.appme.ussd.BaseFragment
+import tech.appme.ussd.MainViewModel
 import tech.appme.ussd.R
 import tech.appme.ussd.data.Provider
 import tech.appme.ussd.fragment.PROVIDER
@@ -22,7 +23,7 @@ class AboutFragment : BaseFragment() {
     lateinit var mcontext : Context
 
     private val viewModel by lazy {
-        ViewModelProvider(this).get(AboutViewModel::class.java)
+        ViewModelProvider(this).get(MainViewModel::class.java)
     }
 
     override fun onAttach(context: Context) {
@@ -43,15 +44,7 @@ class AboutFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         provider = arguments?.getSerializable(PROVIDER) as Provider?
-        viewModel.discription.let{
-            it.value?.let{data ->
-                onDescription(data)
-            }
-            it.observe(viewLifecycleOwner, Observer { data ->
-                onDescription(data)
-            })
 
-        }
 
 
         imageViewBack.setOnClickListener({

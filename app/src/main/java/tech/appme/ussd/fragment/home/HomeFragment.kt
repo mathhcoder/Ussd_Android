@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.fragment_home.*
@@ -15,9 +16,10 @@ import kotlinx.coroutines.launch
 import tech.appme.ussd.BaseFragment
 import tech.appme.ussd.R
 import tech.appme.ussd.adapter.BannerPagerAdapter
+import tech.appme.ussd.data.Banner
 import tech.appme.ussd.data.Provider
 import tech.appme.ussd.dialog.ProviderDialog
-import uz.appme.ussd.Banner
+
 
 
 class HomeFragment : BaseFragment() {
@@ -89,6 +91,17 @@ class HomeFragment : BaseFragment() {
             findNavController().navigate(R.id.action_fragment_home_to_fragment_news)
         }
 
+        packetInternet.setOnClickListener({
+            findNavController().navigate(R.id.action_fragment_home_to_fragment_packages)
+        })
+
+        tariffs.setOnClickListener({
+            findNavController().navigate(R.id.action_fragment_home_to_fragment_tariff)
+        })
+
+
+
+
     }
 
     private fun onBanners(data: List<Banner>) {
@@ -122,11 +135,11 @@ class HomeFragment : BaseFragment() {
 
         pageIndicatorView.selectedColor = Color.parseColor(data.color)
         dialog?.data = dialog?.data?.map { it.copy(selected = it.id == data.id) } ?: emptyList()
-        dialog?.color = data.color
-        textViewProviderName.text = data.name
+        dialog?.color = data.color!!
+        textViewProviderName.text = data.nameUz
 
         Glide.with(imageViewProvider)
-            .load(data.icon)
+            .load(data.image)
             .into(imageViewProvider)
 
         GlobalScope.launch {

@@ -43,10 +43,10 @@ class ServiceAdapter (
 
     inner class ServiceViewHolder(view: View) : RecyclerView.ViewHolder(view){
         fun bind(service : Service){
-            itemView.textViewTitle.text = if(lang == "uz") service.titleUz else service.titleRu
-            itemView.textViewBody.text = if(lang == "uz") service.bodyUz else service.bodyRu
+            itemView.textViewNameService.text = if(lang == "uz") service.nameUz else service.nameRu
+            itemView.textViewDescritionService.text = if(lang == "uz") service.descriptionUz else service.descriptionRu
             itemView.cardViewSerivcePrice.setCardBackgroundColor(Color.parseColor(provider?.color))
-            itemView.textViewServicePrice.text = if(lang == "uz") service.priceUz else service.priceRu
+            itemView.textViewServicePrice.text = if(lang == "uz") service.subscriptionPriceUz else service.subscriptionPriceRu
         }
 
     }

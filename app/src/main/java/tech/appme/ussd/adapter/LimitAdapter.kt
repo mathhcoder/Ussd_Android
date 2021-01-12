@@ -12,7 +12,7 @@ import kotlin.collections.ArrayList
 
 class LimitAdapter :RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    var data =  ArrayList<Limit>()
+    var data : List<Limit> = emptyList()
         set(value){
             field = value
             notifyDataSetChanged()
@@ -41,8 +41,8 @@ class LimitAdapter :RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     inner class LimitViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         fun bind(limit: Limit) {
-            itemView.textViewLimit.text = if(lang == "uz") limit.limitUz else limit.limitRu
-            itemView.textViewLimitDate.text = if(lang == "uz") limit.timeUz else limit.timeRu
+            itemView.textViewLimit.text = if(lang == "uz") limit.nameUz else limit.nameRu
+            itemView.textViewLimitDate.text = if(lang == "uz") limit.valueUz else limit.valueRu
         }
     }
 }

@@ -45,7 +45,7 @@ class BottomSheetDialogAdapter(
 
     inner class BottomSheetViewHolder(view: View) : RecyclerView.ViewHolder(view){
         fun bind(provider : Provider){
-            itemView.textViewBottomProviderName.text = provider.name
+            itemView.textViewBottomProviderName.text = provider.nameUz
             itemView.BottomProviderChecked.setCardBackgroundColor(Color.parseColor(selectedColor))
 
             if(provider.selected)
@@ -54,7 +54,7 @@ class BottomSheetDialogAdapter(
                 itemView.BottomProviderChecked.visibility = View.INVISIBLE
 
             Glide.with(itemView.context)
-                .load(provider.icon) // image url
+                .load(provider.image) // image url
                 .centerCrop()
                 .fitCenter()// resizing
                 .into(itemView.imageViewBottomProvider)
