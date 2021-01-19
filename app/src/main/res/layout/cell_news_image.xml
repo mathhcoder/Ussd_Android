@@ -16,7 +16,7 @@
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/imageViewNews"
             android:layout_width="match_parent"
-            android:layout_height="150dp" />
+            android:layout_height="144dp" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/textViewTitleImage"
@@ -24,8 +24,9 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
             android:layout_marginTop="16dp"
-            android:ellipsize="end"
-            android:maxLines="2" />
+            android:fontFamily="@font/bold"
+            android:textColor="@color/colorTextPrimary"
+            android:textSize="16sp" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/textViewBodyImage"
@@ -33,15 +34,21 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
             android:layout_marginTop="4dp"
-            android:ellipsize="end"
-            android:maxLines="4" />
+            android:fontFamily="@font/regular"
+            android:textColor="@color/colorTextSecondary"
+            android:textSize="12sp" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/textViewDateImage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
-            android:layout_margin="16dp" />
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="16dp"
+            android:fontFamily="@font/regular"
+            android:textColor="@color/colorTextPrimary"
+            android:textSize="14sp" />
 
     </LinearLayout>
 

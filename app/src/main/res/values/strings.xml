@@ -9,6 +9,7 @@
     <string name="tariffs">Tariflar</string>
     <string name="services">Xizmatlar</string>
     <string name="chooseProvider">Operatorni tanlang</string>
-    <string name="chekBalance">Balansni tekshirish</string>
+    <string name="check_balance">Balansni\ntekshirish</string>
+    <string name="check_packages">Paket\nqoldiqlari</string>
     <string name="news">Yangiliklar</string>
 </resources>
