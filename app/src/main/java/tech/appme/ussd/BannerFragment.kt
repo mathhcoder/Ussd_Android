@@ -9,9 +9,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.observe
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.fragment_banner.*
 import tech.appme.ussd.data.Banner
+import tech.appme.ussd.io.BaseRepository
+
 
 class BannerFragment : Fragment() {
 
@@ -48,13 +52,14 @@ class BannerFragment : Fragment() {
     private fun onData(context: Context, banner: Banner) {
 
         banner.image?.let {
-            Log.e("Banner" , banner.toString())
-            Glide.with(this)
-                .load(banner.image) // image url
-                .placeholder(R.drawable.ic_launcher_background) // any placeholder to load at start
-                .error(R.drawable.ic_launcher_foreground)  // any image in case of error
+
+            val image = if (!it.startsWith("http")) {
+                BaseRepository.imageUrl + it
+            } else it
+
+            Glide.with(context)
+                .load(image)
                 .centerCrop()
-                .fitCenter()// resizing
                 .into(imageView)
 
         }

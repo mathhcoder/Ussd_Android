@@ -9,6 +9,7 @@ import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.cell_bottom_sheet.view.*
 import tech.appme.ussd.R
 import tech.appme.ussd.data.Provider
+import tech.appme.ussd.io.StockPreference
 
 class BottomSheetDialogAdapter(
     private val onItemSelected: (provider: Provider) -> (Unit)
@@ -24,7 +25,9 @@ class BottomSheetDialogAdapter(
             notifyDataSetChanged()
         }
 
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+
         return BottomSheetViewHolder(
             LayoutInflater.from(parent.context)
                 .inflate(R.layout.cell_bottom_sheet, parent, false)
@@ -36,6 +39,7 @@ class BottomSheetDialogAdapter(
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
 
+
         if(holder is BottomSheetViewHolder)
             data.getOrNull(position)?.let {
                 holder.bind(it)
@@ -45,7 +49,9 @@ class BottomSheetDialogAdapter(
 
     inner class BottomSheetViewHolder(view: View) : RecyclerView.ViewHolder(view){
         fun bind(provider : Provider){
-            itemView.textViewBottomProviderName.text = provider.nameUz
+            var prefrence = StockPreference(itemView.context)
+            var lang = prefrence.lang
+            itemView.textViewBottomProviderName.text =if(lang == "uz") provider.nameUz else provider.nameRu
             itemView.BottomProviderChecked.setCardBackgroundColor(Color.parseColor(selectedColor))
 
             if(provider.selected)

@@ -18,6 +18,7 @@ import tech.appme.ussd.MainViewModel
 import tech.appme.ussd.R
 import tech.appme.ussd.adapter.NewsAdapter
 import tech.appme.ussd.data.News
+import tech.appme.ussd.io.StockPreference
 
 
 class NewsFragment : BaseFragment() {
@@ -68,6 +69,8 @@ class NewsFragment : BaseFragment() {
         cardBack?.setOnClickListener {
             findNavController().popBackStack()
         }
+
+        adapter.lang = StockPreference(recyclerView.context).lang
 
     }
 

@@ -39,24 +39,20 @@ class MainViewModel :BaseViewModel() {
 
     var lang = "uz"
     init{
-        getFromDatabase()
+        getDataFromDB()
     }
-
-    fun getFromDatabase(){
-        disposable.add(
-            BaseRepository.roomDatabase.bannerDao().getData()
+    private fun getDataFromDB() {
+        disposable.add(BaseRepository.roomDatabase.bannerDao().getData()
             .flatMap {
                 bannersData.postValue(it.sortedBy { d -> d.priority })
                 BaseRepository.roomDatabase.contactDao().getData()
             }.flatMap {
                 it.firstOrNull()?.let { c ->
                     contactData.postValue(c)
-                    Log.e("DATA" , c.toString())
                 }
                 BaseRepository.roomDatabase.packageDao().getData()
             }.flatMap {
                 packagesData.postValue(it.sortedBy { d -> d.priority })
-                    Log.e("DATA" , it.toString())
                 BaseRepository.roomDatabase.categoryDao().getData()
             }.flatMap {
                 categoriesData.postValue(it.sortedBy { d -> d.priority })
@@ -77,12 +73,11 @@ class MainViewModel :BaseViewModel() {
             })
         )
     }
-
     private fun getDataFromNetwork() {
-
         disposable.add(
             BaseRepository.api.getData().subscribeOn(Schedulers.io())
                 .doOnSuccess {
+
                     BaseRepository.roomDatabase.tariffDao().deleteAll()
                     BaseRepository.roomDatabase.tariffDao().insertAll(it.tariffs)
                     tariffsData.postValue(it.tariffs.sortedBy { d -> d.priority })
@@ -128,12 +123,19 @@ class MainViewModel :BaseViewModel() {
 
                 })
         )
-
     }
+
+
+
+
 
     override fun onCleared() {
         super.onCleared()
         disposable.dispose()
         disposable.clear()
+    }
+
+    fun LogOut(string : String){
+        Log.e("DATA_" , string)
     }
 }

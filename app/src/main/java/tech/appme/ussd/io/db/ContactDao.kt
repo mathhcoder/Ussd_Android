@@ -5,6 +5,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import io.reactivex.Single
+import tech.appme.ussd.data.Category
 import tech.appme.ussd.data.Contact
 
 @Dao
@@ -18,5 +19,6 @@ interface ContactDao {
 
     @Query("DELETE  FROM contact")
     fun deleteAll()
+
 
 }

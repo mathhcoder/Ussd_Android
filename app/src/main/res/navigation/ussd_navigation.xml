@@ -11,9 +11,6 @@
             android:id="@+id/action_fragment_home_to_fragment_news"
             app:destination="@id/fragment_news" />
         <action
-            android:id="@+id/action_fragment_home_to_fragment_about"
-            app:destination="@id/fragment_about" />
-        <action
             android:id="@+id/action_fragment_home_to_fragment_tariffs"
             app:destination="@id/fragment_tariffs" />
         <action
@@ -23,16 +20,19 @@
             android:id="@+id/action_fragment_home_to_fragment_packages"
             app:destination="@id/fragment_packages" />
         <action
-            android:id="@+id/action_fragment_home_to_fragment_tariff"
-            app:destination="@id/fragment_tariff" />
+            android:id="@+id/action_fragment_home_to_fragment_settings"
+            app:destination="@id/fragment_settings" />
+        <action
+            android:id="@+id/action_fragment_home_to_fragment_ussd"
+            app:destination="@id/fragment_ussd" />
     </fragment>
 
     <fragment
         android:id="@+id/fragment_about"
         android:name="tech.appme.ussd.fragment.about.AboutFragment">
         <action
-            android:id="@+id/action_fragment_about_to_fragment_home"
-            app:destination="@id/fragment_home" />
+            android:id="@+id/action_fragment_about_to_fragment_settings"
+            app:destination="@id/fragment_settings" />
     </fragment>
 
     <fragment
@@ -80,5 +80,29 @@
             android:id="@+id/action_fragment_tariff_to_fragment_tariffs"
             app:destination="@id/fragment_tariffs" />
     </fragment>
+
+    <fragment
+        android:id="@+id/fragment_settings"
+        android:name="tech.appme.ussd.fragment.SettingsFragment"
+        >
+        <action
+            android:id="@+id/action_fragment_settings_to_fragment_home"
+            app:destination="@id/fragment_home" />
+        <action
+            android:id="@+id/action_fragment_settings_to_fragment_about"
+            app:destination="@id/fragment_about" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragment_ussd"
+        android:name="tech.appme.ussd.fragment.USSDCodesFragment"
+        >
+        <action
+            android:id="@+id/action_fragment_ussd_to_fragment_home"
+            app:destination="@id/fragment_home" />
+
+    </fragment>
+
+
 
 </navigation>

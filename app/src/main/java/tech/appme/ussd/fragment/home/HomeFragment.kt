@@ -2,30 +2,38 @@ package tech.appme.ussd.fragment.home
 
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.fragment_home.*
+import kotlinx.android.synthetic.main.fragment_home.cardViewTariff
+import kotlinx.android.synthetic.main.fragment_home.layoutNews
+import kotlinx.android.synthetic.main.fragment_home.layoutUssdCodes
+import kotlinx.android.synthetic.main.fragment_settings.*
+import kotlinx.android.synthetic.main.fragment_tariff.*
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import tech.appme.ussd.BaseFragment
+import tech.appme.ussd.MainViewModel
 import tech.appme.ussd.R
 import tech.appme.ussd.adapter.BannerPagerAdapter
 import tech.appme.ussd.data.Banner
 import tech.appme.ussd.data.Provider
 import tech.appme.ussd.dialog.ProviderDialog
-
+import tech.appme.ussd.io.StockPreference
 
 
 class HomeFragment : BaseFragment() {
 
     private val viewModel by lazy {
-        ViewModelProvider(this).get(HomeViewModel::class.java)
+        ViewModelProvider(this).get(MainViewModel::class.java)
     }
 
     private val pagerAdapter by lazy {
@@ -34,11 +42,12 @@ class HomeFragment : BaseFragment() {
 
     private val dialog by lazy {
         context?.let {
-            ProviderDialog(it) { cat ->
-                viewModel.providerData.postValue(cat)
+            ProviderDialog(it) {
+
             }
         }
     }
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -53,51 +62,75 @@ class HomeFragment : BaseFragment() {
 
         viewPager.adapter = pagerAdapter
 
-        viewModel.providers.let {
+//        viewModel.providers.let {
+//
+//            it.value?.let { providers ->
+//                onProviders(providers)
+//            }
+//
+//            it.observe(viewLifecycleOwner, { providers ->
+//                onProviders(providers)
+//            })
+//        }
+        val preference = StockPreference(viewPager.context)
+        val lang = preference.lang
+        preference.lang = lang
 
-            it.value?.let { providers ->
-                onProviders(providers)
-            }
-
-            it.observe(viewLifecycleOwner, { providers ->
-                onProviders(providers)
-            })
-        }
-
-        viewModel.provider.let {
-            it.value?.let { provider ->
-                onProvider(provider)
-            }
-
-            it.observe(viewLifecycleOwner, { provider ->
-                onProvider(provider)
-            })
-        }
-
-        viewModel.banners.let {
-            it.value?.let { data ->
-                onBanners(data)
-            }
-            it.observe(viewLifecycleOwner, { data ->
-                onBanners(data)
-            })
-        }
+//
+//        viewModel.banners.let {
+//            it.value?.let { data ->
+//                onBanners(data)
+//            }
+//            it.observe(viewLifecycleOwner, { data ->
+//                onBanners(data)
+//            })
+//        }
 
         layoutProvider?.setOnClickListener {
             dialog?.show()
         }
 
-        cardNotification?.setOnClickListener {
-            findNavController().navigate(R.id.action_fragment_home_to_fragment_news)
-        }
+        imageViewSettings.setOnClickListener({
+            findNavController().navigate(R.id.action_fragment_home_to_fragment_settings)
+        })
 
-        packetInternet.setOnClickListener({
+
+        cardViewTariff.setOnClickListener({
+            findNavController().navigate(R.id.action_fragment_home_to_fragment_tariffs)
+        })
+
+        cardViewService.setOnClickListener({
+            findNavController().navigate(R.id.action_fragment_home_to_fragment_services)
+        })
+
+
+        cardViewInternet.setOnClickListener({
             findNavController().navigate(R.id.action_fragment_home_to_fragment_packages)
         })
 
-        tariffs.setOnClickListener({
-            findNavController().navigate(R.id.action_fragment_home_to_fragment_tariff)
+        cardViewSMS.setOnClickListener({
+            findNavController().navigate(R.id.action_fragment_home_to_fragment_packages)
         })
+
+        cardViewMinutes.setOnClickListener({
+            findNavController().navigate(R.id.action_fragment_home_to_fragment_packages)
+        })
+
+
+        layoutNews.setOnClickListener({
+            findNavController().navigate(R.id.action_fragment_home_to_fragment_news)
+        })
+        layoutUssdCodes.setOnClickListener({
+            findNavController().navigate(R.id.action_fragment_home_to_fragment_ussd)
+        })
+
+        layoutPromotions.setOnClickListener({
+            findNavController().navigate(R.id.action_fragment_home_to_fragment_news)
+        })
+
+
+//        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+
 
 
 
@@ -105,7 +138,8 @@ class HomeFragment : BaseFragment() {
     }
 
     private fun onBanners(data: List<Banner>) {
-        pagerAdapter.data = data
+        Log.e("BANNERS" , data.toString())
+//        pagerAdapter.data = data
     }
 
     private fun onProviders(data: List<Provider>) {
@@ -115,20 +149,19 @@ class HomeFragment : BaseFragment() {
     private fun onProvider(data: Provider) {
 
         try {
-            Color.parseColor(data.color).let { col ->
-                imageViewBadge?.setColorFilter(col)
-                arrayListOf(
-                    cardIcon,
-                    mtarif,
-                    icon_tariff,
-                    service_bacground,
-                    Iconbackround,
-                    cardMinutes,
-                    SMSBackround
-                ).forEach {
-                    it.setCardBackgroundColor(Color.parseColor(data.color))
-                }
-            }
+//            Color.parseColor(data.color).let { col ->
+//                arrayListOf(
+//                    cardIcon,
+//                    mtarif,
+//                    icon_tariff,
+//                    service_bacground,
+//                    Iconbackround,
+//                    cardMinutes,
+//                    SMSBackround
+//                ).forEach {
+//                    it.setCardBackgroundColor(Color.parseColor(data.color))
+//                }
+//            }
         } catch (e: Exception) {
 
         }

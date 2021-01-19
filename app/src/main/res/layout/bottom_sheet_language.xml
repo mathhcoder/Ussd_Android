@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:layout_height="192dp"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="64dp"
+        android:layout_height="4dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="16dp"
+        app:cardCornerRadius="2dp"
+        app:cardBackgroundColor="@color/themeColorNormal"
+        />
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardViewUzb"
+        android:layout_width="match_parent"
+        android:layout_height="46dp"
+        app:cardBackgroundColor="@color/themeColorNormal"
+        android:layout_marginTop="32dp"
+        android:layout_marginHorizontal="16dp"
+        app:cardCornerRadius="16dp">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textViewUzb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="O'zbek tili"
+            android:layout_gravity="center"
+            android:fontFamily="@font/regular"
+            android:textSize="14sp"
+            android:textColor="@color/themeColorDark"
+            />
+
+    </com.google.android.material.card.MaterialCardView>
+
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardViewRu"
+        android:layout_width="match_parent"
+        android:layout_height="46dp"
+        app:cardBackgroundColor="@color/themeColorNormal"
+        android:layout_marginTop="16dp"
+        android:layout_marginHorizontal="16dp"
+        app:cardCornerRadius="16dp">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textViewRu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Rus tili"
+            android:layout_gravity="center"
+            android:fontFamily="@font/regular"
+            android:textSize="14sp"
+            android:textColor="@color/themeColorDark"
+            />
+
+    </com.google.android.material.card.MaterialCardView>
+
+
+</LinearLayout>

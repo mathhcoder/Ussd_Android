@@ -11,6 +11,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import kotlinx.android.synthetic.main.fragment_about.*
+import kotlinx.android.synthetic.main.layout_header.*
 import tech.appme.ussd.BaseFragment
 import tech.appme.ussd.MainViewModel
 import tech.appme.ussd.R
@@ -47,9 +48,11 @@ class AboutFragment : BaseFragment() {
 
 
 
-        imageViewBack.setOnClickListener({
+        cardBack.setOnClickListener({
             findNavController().popBackStack()
         })
+
+        textViewHeader.setText(R.string.aboutUs)
 
 
         var textViews = ArrayList<TextView>()

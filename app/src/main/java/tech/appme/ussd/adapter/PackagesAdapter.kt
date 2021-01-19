@@ -13,6 +13,7 @@ class PackagesAdapter(
 
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
 
+
     var data = ArrayList<Package>()
         set(value) {
             field = value

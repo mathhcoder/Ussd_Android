@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@color/themeColorLight"
+    >
+
+    <include layout="@layout/layout_header" />
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="16dp"
+        app:cardBackgroundColor="@color/themeColorNormal"
+        app:cardCornerRadius="16dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/layoutUssdCodes"
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:orientation="horizontal">
+
+
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <com.google.android.material.switchmaterial.SwitchMaterial
+                        android:id="@+id/switchTheme"
+                        android:layout_width="19dp"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+
+                        />
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/imageViewMode"
+                        android:layout_width="16dp"
+                        android:layout_height="18dp"
+                        android:layout_centerVertical="true"
+                        android:layout_marginHorizontal="20dp"
+                        app:srcCompat="@drawable/ic_moon"
+                        app:tint="@color/colorPrimary"
+                         />
+
+
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="60dp"
+                        android:layout_marginEnd="60dp"
+                        android:text="@string/theme" />
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+            <View
+
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/themeColorPale" />
+
+            <LinearLayout
+                android:id="@+id/layoutLang"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingVertical="16dp"
+                android:orientation="horizontal">
+
+                <RelativeLayout
+
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="20dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="22dp"
+                        android:background="@drawable/ic_arrow_down" />
+
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/imageViewLanguage"
+                        android:layout_width="16dp"
+                        android:layout_height="18dp"
+                        android:layout_centerVertical="true"
+                        android:layout_marginHorizontal="20dp"
+                        app:srcCompat="@drawable/ic_language"
+                        app:tint="@color/colorPrimary"
+                      />
+
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="60dp"
+                        android:textSize="12sp"
+                        app:fontFamily="@font/bold"
+                        android:layout_marginEnd="52dp"
+                        android:text="@string/language" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="60dp"
+                        android:layout_marginTop="14dp"
+                        android:textSize="12sp"
+                        app:fontFamily="@font/bold"
+                        android:layout_marginEnd="52dp"
+                        android:text="O'zbek tili" />
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+            <View
+
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/themeColorPale" />
+
+            <LinearLayout
+                android:id="@+id/layoutInfo"
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:orientation="horizontal">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="20dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="22dp"
+                        android:background="@drawable/ic_arrow_next" />
+
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/imageViewInfo"
+                        android:layout_width="16dp"
+                        android:layout_height="18dp"
+                        android:layout_centerVertical="true"
+                        android:layout_marginHorizontal="20dp"
+                        app:srcCompat="@drawable/ic_info"
+                        app:tint="@color/colorPrimary"
+                       />
+
+
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="60dp"
+                        android:layout_marginEnd="52dp"
+                        android:text="@string/info" />
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+
+
+        </LinearLayout>
+
+
+    </com.google.android.material.card.MaterialCardView>
+
+
+
+</LinearLayout>
