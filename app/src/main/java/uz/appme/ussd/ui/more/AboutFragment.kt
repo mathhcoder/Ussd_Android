@@ -1,4 +1,4 @@
-package uz.appme.ussd.ui.about
+package uz.appme.ussd.ui.more
 
 import android.content.Context
 import android.os.Bundle
@@ -7,13 +7,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import kotlinx.android.synthetic.main.fragment_about.*
+import kotlinx.android.synthetic.main.layout_header.*
 import uz.appme.ussd.BaseFragment
+import uz.appme.ussd.MainViewModel
 import uz.appme.ussd.R
-import uz.appme.ussd.data.Provider
+import uz.appme.ussd.data.Operator
 import uz.appme.ussd.ui.PROVIDER
 
 
@@ -22,7 +23,7 @@ class AboutFragment : BaseFragment() {
     lateinit var mcontext : Context
 
     private val viewModel by lazy {
-        ViewModelProvider(this).get(AboutViewModel::class.java)
+        ViewModelProvider(this).get(MainViewModel::class.java)
     }
 
     override fun onAttach(context: Context) {
@@ -37,26 +38,20 @@ class AboutFragment : BaseFragment() {
         return inflater.inflate(R.layout.fragment_about, container, false)
     }
 
-    var provider : Provider? = null
+    var operator : Operator? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        provider = arguments?.getSerializable(PROVIDER) as Provider?
-        viewModel.discription.let{
-            it.value?.let{data ->
-                onDescription(data)
-            }
-            it.observe(viewLifecycleOwner, Observer { data ->
-                onDescription(data)
-            })
-
-        }
+        operator = arguments?.getSerializable(PROVIDER) as Operator?
 
 
-        imageViewBack.setOnClickListener({
+
+        cardBack.setOnClickListener({
             findNavController().popBackStack()
         })
+
+        textViewHeader.setText(R.string.aboutUs)
 
 
         var textViews = ArrayList<TextView>()

@@ -1,9 +1,12 @@
 package uz.appme.ussd.data
 
+import androidx.room.Entity
 import java.io.Serializable
 
+@Entity(tableName = "banner", primaryKeys = ["id"])
 data class Banner(
     val id: Long? = null,
     val image: String? = null,
-    val url: String? = null
+    val link: String? = null,
+    val priority : Int? = null
 ): Serializable

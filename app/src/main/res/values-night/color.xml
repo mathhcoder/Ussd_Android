@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="themeColorDark">#FFFFFF</color>
+    <color name="themeColorLight">#1F1E25</color>
+    <color name="themeColorNormal">#19181F</color>
+    <color name="themeColorPale">#C8C8C8</color>
+    <color name="themeColorMidum">#C8C8C8</color>
+
+</resources>

@@ -1,6 +1,5 @@
 package uz.appme.ussd.adapter
 
-import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,12 +7,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.cell_tariffs.view.*
 import uz.appme.ussd.R
-import uz.appme.ussd.data.News
-import uz.appme.ussd.data.Provider
+import uz.appme.ussd.data.Operator
 import uz.appme.ussd.data.Tariff
 
 class TariffsAdapter(
-    private val onItemSelected: (news: News) -> (Unit)
+    private val onItemSelected: (tariff: Tariff) -> (Unit)
 ) :   RecyclerView.Adapter<RecyclerView.ViewHolder>(){
 
     var data  = arrayListOf<Tariff>()
@@ -26,10 +24,10 @@ class TariffsAdapter(
     private val adatper by lazy{
         LimitAdapter()
     }
-    var provider : Provider? = null
+    var operator : Operator? = null
         set(value) {
             field = value
-            adatper.provider = value
+            adatper.operator = value
             notifyDataSetChanged()
         }
 
@@ -57,12 +55,16 @@ class TariffsAdapter(
        fun bind(tariff : Tariff  ){
 
            itemView.textViewTariffName.text = if(lang == "uz") tariff.nameUz else tariff.nameRu
-           itemView.textViewPrice.text = if(lang == "uz") tariff.priceUz else tariff.priceRu
-           itemView.cardViewPrice.setCardBackgroundColor(Color.parseColor(provider?.color))
+           itemView.textViewPrice.text = if(lang == "uz") tariff.subscriptionPriceUz else tariff.subscriptionPriceRu
+//           itemView.cardViewPrice.setCardBackgroundColor(Color.parseColor(provider?.color))
 
            itemView.recyclerViewLimits.layoutManager = LinearLayoutManager(itemView.context , LinearLayoutManager.VERTICAL , false)
            itemView.recyclerViewLimits.adapter = adatper
            adatper.data = tariff.limits
+
+           itemView.recyclerViewLimits.setOnClickListener({
+               onItemSelected(tariff)
+           })
 
        }
     }

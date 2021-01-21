@@ -20,7 +20,7 @@ class NewsAdapter(
     private val onItemSelected: (news: News) -> (Unit)
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    var data = ArrayList<News>()
+    var data : List<News> = emptyList()
         set(value) {
             field = value
             notifyDataSetChanged()
@@ -72,8 +72,8 @@ class NewsAdapter(
     inner class SimpleViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
         fun bind(news: News) {
-            itemView.textViewTitle.text = if (lang == RU) news.titleRu else news.titleUz
-            itemView.textViewBody.text = if (lang == RU) news.bodyRu else news.bodyUz
+            itemView.textViewNameService.text = if (lang == RU) news.titleRu else news.titleUz
+            itemView.textViewDescritionService.text = if (lang == RU) news.bodyRu else news.bodyUz
             itemView.textViewDate.text =
                 SimpleDateFormat(TIME_FORMAT, Locale.getDefault()).format(news.date)
             itemView.setOnClickListener { onItemSelected(news) }

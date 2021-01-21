@@ -9,15 +9,15 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import uz.appme.ussd.R
 import uz.appme.ussd.adapter.ProvidersAdapter
-import uz.appme.ussd.data.Provider
+import uz.appme.ussd.data.Operator
 import uz.appme.ussd.ui.COLOR
 
 class ProviderDialog(
     context : Context ,
-    private val onItemSelected: (provider : Provider) -> (Unit)
+    private val onItemSelected: (operator : Operator) -> (Unit)
 ) : BottomSheetDialog(context) {
 
-    var data : List<Provider> = emptyList()
+    var data : List<Operator> = emptyList()
         set(value) {
             listAdapter.data = value
             field = value

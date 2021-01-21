@@ -10,11 +10,12 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.fragment_services.*
 import uz.appme.ussd.BaseFragment
+import uz.appme.ussd.MainViewModel
 import uz.appme.ussd.R
 import uz.appme.ussd.adapter.SectionAdapter
 import uz.appme.ussd.adapter.ServiceAdapter
-import uz.appme.ussd.data.Provider
-import uz.appme.ussd.data.Section
+import uz.appme.ussd.data.Category
+import uz.appme.ussd.data.Operator
 import uz.appme.ussd.data.Service
 import uz.appme.ussd.ui.PROVIDER
 
@@ -22,7 +23,7 @@ import uz.appme.ussd.ui.PROVIDER
 class ServiceFragment : BaseFragment(){
 
     private val viewModel by lazy {
-        ViewModelProvider(this).get(ServiceViewModel::class.java)
+        ViewModelProvider(this).get(MainViewModel::class.java)
     }
 
     private val adapterSection by lazy{
@@ -31,11 +32,11 @@ class ServiceFragment : BaseFragment(){
         })
     }
 
-    private var provider : Provider?= null
+    private var operator : Operator?= null
         set(value) {
             field = value
-            adapterSection.provider = value
-            adapterService.provider = value
+            adapterSection.operator = value
+            adapterService.operator = value
         }
 
     private val adapterService by lazy{
@@ -53,20 +54,20 @@ class ServiceFragment : BaseFragment(){
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        provider = arguments?.getSerializable(PROVIDER) as Provider?
+        operator = arguments?.getSerializable(PROVIDER) as Operator?
 
 
 
-        viewModel.sections.let {
-
-            it.value?.let { sections ->
-                onSections(sections)
-            }
-
-            it.observe(viewLifecycleOwner, Observer { sections ->
-                onSections(sections)
-            })
-        }
+//        viewModel.sections.let {
+//
+//            it.value?.let { sections ->
+//                onSections(sections)
+//            }
+//
+//            it.observe(viewLifecycleOwner, Observer { sections ->
+//                onSections(sections)
+//            })
+//        }
 
         viewModel.services.let{
             it.value?.let{services ->
@@ -92,15 +93,15 @@ class ServiceFragment : BaseFragment(){
     }
 
 
-    fun onSections(sections : ArrayList<Section>){
+    fun onSections(sections : List<Category>){
         adapterSection.data = sections
     }
 
-    fun onServices(services : ArrayList<Service>){
+    fun onServices(services : List<Service>){
         adapterService.data = services
     }
 
-    private fun onSectionSelected(section: Section) {
+    private fun onSectionSelected(section: Category) {
         adapterSection.data = adapterSection.data.map { it.copy(selected = it.id == section.id) }
     }
 }

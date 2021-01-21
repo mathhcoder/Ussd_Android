@@ -1,5 +1,8 @@
 package uz.appme.ussd.data
 
+import androidx.room.Entity
+
+@Entity(tableName = "news", primaryKeys = ["id"])
 data class News(
     val id: Long? = null,
     val date: Long? = null,

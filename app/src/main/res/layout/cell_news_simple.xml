@@ -5,7 +5,7 @@
     android:layout_height="wrap_content"
     android:layout_marginHorizontal="16dp"
     android:layout_marginTop="16dp"
-    app:cardBackgroundColor="@color/colorCardBackground"
+    app:cardBackgroundColor="@color/themeColorNormal"
     app:cardCornerRadius="16dp">
 
     <LinearLayout
@@ -14,7 +14,7 @@
         android:orientation="vertical">
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/textViewTitle"
+            android:id="@+id/textViewNameService"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
@@ -25,7 +25,7 @@
             />
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/textViewBody"
+            android:id="@+id/textViewDescritionService"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"

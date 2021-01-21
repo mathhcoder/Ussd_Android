@@ -8,25 +8,26 @@
         android:id="@+id/fragment_home"
         android:name="uz.appme.ussd.ui.home.HomeFragment">
 
+
     </fragment>
 
     <fragment
         android:id="@+id/fragment_about"
-        android:name="uz.appme.ussd.ui.about.AboutFragment">
+        android:name="uz.appme.ussd.ui.more.AboutFragment">
         <action
-            android:id="@+id/action_fragment_about_to_fragment_home"
-            app:destination="@id/fragment_home" />
+            android:id="@+id/action_fragment_about_to_fragment_settings"
+            app:destination="@id/fragment_settings" />
     </fragment>
 
     <fragment
         android:id="@+id/fragment_news"
-        android:name="uz.appme.ussd.ui.news.NewsFragment">
+        android:name="uz.appme.ussd.ui.more.NewsFragment">
 
     </fragment>
 
     <fragment
         android:id="@+id/fragment_tariffs"
-        android:name="uz.appme.ussd.ui.tariffs.TariffFragment">
+        android:name="uz.appme.ussd.ui.tariffs.TariffsFragment">
 
     </fragment>
 
@@ -41,5 +42,21 @@
         android:name="uz.appme.ussd.ui.packages.PackagesFragment">
 
     </fragment>
+
+    <fragment
+        android:id="@+id/fragment_tariff"
+        android:name="tech.appme.ussd.fragment.tariff.TariffFragment">
+
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragment_settings"
+        android:name="tech.appme.ussd.fragment.SettingsFragment"
+        >
+
+    </fragment>
+
+
 
 </navigation>

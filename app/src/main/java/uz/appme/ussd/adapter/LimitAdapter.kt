@@ -7,12 +7,11 @@ import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.cell_limits.view.*
 import uz.appme.ussd.R
 import uz.appme.ussd.data.Limit
-import uz.appme.ussd.data.Provider
-import kotlin.collections.ArrayList
+import uz.appme.ussd.data.Operator
 
 class LimitAdapter :RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    var data =  ArrayList<Limit>()
+    var data : List<Limit> = emptyList()
         set(value){
             field = value
             notifyDataSetChanged()
@@ -20,7 +19,7 @@ class LimitAdapter :RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     var lang = "uz"
 
-    var provider : Provider? = null
+    var operator : Operator? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return LimitViewHolder(
@@ -41,8 +40,8 @@ class LimitAdapter :RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     inner class LimitViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         fun bind(limit: Limit) {
-            itemView.textViewLimit.text = if(lang == "uz") limit.limitUz else limit.limitRu
-            itemView.textViewLimitDate.text = if(lang == "uz") limit.timeUz else limit.timeRu
+            itemView.textViewLimit.text = if(lang == "uz") limit.nameUz else limit.nameRu
+            itemView.textViewLimitDate.text = if(lang == "uz") limit.valueUz else limit.valueRu
         }
     }
 }

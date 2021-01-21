@@ -7,21 +7,21 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.cell_service.view.*
 import uz.appme.ussd.R
-import uz.appme.ussd.data.Provider
+import uz.appme.ussd.data.Operator
 import uz.appme.ussd.data.Service
 
 class ServiceAdapter (
     private val onItemSelected : (service : Service) -> Unit
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
 
-    var data = ArrayList<Service>()
+    var data : List<Service> = ArrayList()
         set(value) {
             field = value
             notifyDataSetChanged()
         }
 
     var lang = "uz"
-    var provider : Provider? = null
+    var operator : Operator? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return ServiceViewHolder(
@@ -43,10 +43,10 @@ class ServiceAdapter (
 
     inner class ServiceViewHolder(view: View) : RecyclerView.ViewHolder(view){
         fun bind(service : Service){
-            itemView.textViewTitle.text = if(lang == "uz") service.titleUz else service.titleRu
-            itemView.textViewBody.text = if(lang == "uz") service.bodyUz else service.bodyRu
-            itemView.cardViewSerivcePrice.setCardBackgroundColor(Color.parseColor(provider?.color))
-            itemView.textViewServicePrice.text = if(lang == "uz") service.priceUz else service.priceRu
+            itemView.textViewNameService.text = if(lang == "uz") service.nameUz else service.nameRu
+            itemView.textViewDescritionService.text = if(lang == "uz") service.descriptionUz else service.descriptionRu
+            itemView.cardViewSerivcePrice.setCardBackgroundColor(Color.parseColor(operator?.color))
+            itemView.textViewServicePrice.text = if(lang == "uz") service.subscriptionPriceUz else service.subscriptionPriceRu
         }
 
     }

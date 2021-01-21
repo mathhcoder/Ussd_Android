@@ -6,16 +6,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import uz.appme.ussd.BaseFragment
+import uz.appme.ussd.MainViewModel
 import uz.appme.ussd.R
 import uz.appme.ussd.adapter.BannerPagerAdapter
-import uz.appme.ussd.data.Provider
+import uz.appme.ussd.data.Operator
 import uz.appme.ussd.dialog.ProviderDialog
 import uz.appme.ussd.data.Banner
 
@@ -23,17 +23,17 @@ import uz.appme.ussd.data.Banner
 class HomeFragment : BaseFragment() {
 
     private val viewModel by lazy {
-        ViewModelProvider(this).get(HomeViewModel::class.java)
+        ViewModelProvider(this).get(MainViewModel::class.java)
     }
 
     private val pagerAdapter by lazy {
         BannerPagerAdapter(childFragmentManager)
     }
 
-    private val dialog by  lazy {
+    private val dialog by lazy {
         context?.let {
             ProviderDialog(it) { cat ->
-                viewModel.providerData.postValue(cat)
+                // viewModel.providers.postValue(cat)
             }
         }
     }
@@ -62,15 +62,15 @@ class HomeFragment : BaseFragment() {
             })
         }
 
-        viewModel.provider.let {
-            it.value?.let { provider ->
-                onProvider(provider)
-            }
-
-            it.observe(viewLifecycleOwner, { provider ->
-                onProvider(provider)
-            })
-        }
+//        viewModel.provider.let {
+//            it.value?.let { provider ->
+//                onProvider(provider)
+//            }
+//
+//            it.observe(viewLifecycleOwner, { provider ->
+//                onProvider(provider)
+//            })
+//        }
 
         viewModel.banners.let {
             it.value?.let { data ->
@@ -81,21 +81,14 @@ class HomeFragment : BaseFragment() {
             })
         }
 
-        layoutProvider?.setOnClickListener {
-            dialog?.show()
-        }
+//        layoutProvider?.setOnClickListener {
+//            dialog?.show()
+//        }
 
         cardNotification?.setOnClickListener {
 
         }
 
-        cardBalance?.setOnClickListener {
-
-        }
-
-        cardPacks?.setOnClickListener {
-
-        }
 
     }
 
@@ -103,31 +96,30 @@ class HomeFragment : BaseFragment() {
         pagerAdapter.data = data
     }
 
-    private fun onProviders(data: List<Provider>) {
+    private fun onProviders(data: List<Operator>) {
         dialog?.data = data
     }
 
-    private fun onProvider(data: Provider) {
+    private fun onProvider(data: Operator) {
 
         try {
             Color.parseColor(data.color).let { col ->
 
-                arrayListOf(
-                    icon_tariff,
-                    service_bacground,
-                    Iconbackround,
-                    cardMinutes,
-                    SMSBackround
-                ).forEach {
-                    it.setCardBackgroundColor(Color.parseColor(data.color))
-                }
+//                arrayListOf(
+//                    icon_tariff,
+//                    service_bacground,
+//                    Iconbackround,
+//                    cardMinutes,
+//                    SMSBackround
+//                ).forEach {
+//                    it.setCardBackgroundColor(Color.parseColor(data.color))
+//                }
 
-                arrayListOf(
-                    imageViewBadge,
-                    imageViewBalance
-                ).forEach {
-                    it.setColorFilter(col)
-                }
+//                arrayListOf(
+//
+//                ).forEach {
+//                    it.setColorFilter(col)
+//                }
 
             }
         } catch (e: Exception) {
@@ -136,11 +128,11 @@ class HomeFragment : BaseFragment() {
 
         pageIndicatorView.selectedColor = Color.parseColor(data.color)
         dialog?.data = dialog?.data?.map { it.copy(selected = it.id == data.id) } ?: emptyList()
-        dialog?.color = data.color
+        dialog?.color = data.color ?: "#fff"
         textViewProviderName.text = data.name
 
         Glide.with(imageViewProvider)
-            .load(data.icon)
+            .load(data.image)
             .into(imageViewProvider)
 
         GlobalScope.launch {

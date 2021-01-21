@@ -8,22 +8,24 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.cell_bottom_sheet.view.*
 import uz.appme.ussd.R
-import uz.appme.ussd.data.Provider
+import uz.appme.ussd.data.Operator
 
 class ProvidersAdapter(
-    private val onItemSelected: (provider: Provider) -> (Unit)
+    private val onItemSelected: (operator: Operator) -> (Unit)
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     var selectedColor: String = "#FFFFFF"
 
 
-    var data: List<Provider> = ArrayList()
+    var data: List<Operator> = ArrayList()
         set(value) {
             field = value
             notifyDataSetChanged()
         }
 
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+
         return BottomSheetViewHolder(
             LayoutInflater.from(parent.context)
                 .inflate(R.layout.cell_bottom_sheet, parent, false)
@@ -35,7 +37,7 @@ class ProvidersAdapter(
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
 
-        if (holder is BottomSheetViewHolder)
+        if(holder is BottomSheetViewHolder)
             data.getOrNull(position)?.let {
                 holder.bind(it)
             }
@@ -43,23 +45,23 @@ class ProvidersAdapter(
 
 
     inner class BottomSheetViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        fun bind(provider: Provider) {
-            itemView.textViewBottomProviderName.text = provider.name
+        fun bind(operator: Operator) {
+            //itemView.textViewBottomProviderName.text = provider.name
             itemView.BottomProviderChecked.setCardBackgroundColor(Color.parseColor(selectedColor))
 
-            if (provider.selected)
+            if (operator.selected)
                 itemView.BottomProviderChecked.visibility = View.VISIBLE
             else
                 itemView.BottomProviderChecked.visibility = View.INVISIBLE
 
             Glide.with(itemView.context)
-                .load(provider.icon) // image url
+                .load(operator.image) // image url
                 .centerCrop()
                 .fitCenter()// resizing
                 .into(itemView.imageViewBottomProvider)
 
             itemView.setOnClickListener({
-                onItemSelected(provider)
+                onItemSelected(operator)
             })
         }
     }
