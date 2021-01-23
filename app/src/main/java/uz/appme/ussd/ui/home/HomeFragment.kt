@@ -78,8 +78,40 @@ class HomeFragment : BaseFragment() {
             dialog?.show()
         }
 
-        cardSettings?.setOnClickListener {
+        cardViewSettings?.setOnClickListener {
             findNavController().navigate(R.id.action_fragment_home_to_fragment_settings)
+        }
+
+        cardViewTariff?.setOnClickListener {
+            findNavController().navigate(R.id.action_fragment_home_to_fragment_tariffs)
+        }
+
+        cardViewService?.setOnClickListener {
+            findNavController().navigate(R.id.action_fragment_home_to_fragment_services)
+        }
+
+        cardViewInternet?.setOnClickListener {
+            findNavController().navigate(R.id.action_fragment_home_to_fragment_packages)
+        }
+
+        cardViewMinutes?.setOnClickListener {
+            findNavController().navigate(R.id.action_fragment_home_to_fragment_packages)
+        }
+
+        cardViewSMS?.setOnClickListener {
+            findNavController().navigate(R.id.action_fragment_home_to_fragment_packages)
+        }
+
+        cardViewCodes?.setOnClickListener {
+            findNavController().navigate(R.id.action_fragment_home_to_fragment_packages)
+        }
+
+        cardViewNews?.setOnClickListener {
+            findNavController().navigate(R.id.action_fragment_home_to_fragment_packages)
+        }
+
+        cardViewSales?.setOnClickListener {
+            findNavController().navigate(R.id.action_fragment_home_to_fragment_packages)
         }
 
 

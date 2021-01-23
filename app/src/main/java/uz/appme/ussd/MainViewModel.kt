@@ -104,7 +104,7 @@ class MainViewModel : BaseViewModel() {
     }
 
     private fun getDataFromNetwork() {
-        networkDisposable = BaseRepository.mainApi.getData(1).subscribeOn(Schedulers.io())
+        networkDisposable = BaseRepository.mainApi.getData().subscribeOn(Schedulers.io())
             .observeOn(Schedulers.io())
             .subscribe({
                 BaseRepository.roomDatabase.tariffDao().deleteAll()
@@ -184,6 +184,7 @@ class MainViewModel : BaseViewModel() {
                     }
                     401 -> {
                         BaseRepository.preference.token = ""
+                        start()
                     }
                 }
             }, {

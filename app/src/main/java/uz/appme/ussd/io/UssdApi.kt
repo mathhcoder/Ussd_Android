@@ -16,6 +16,6 @@ interface UssdApi {
     fun updateVersion(@Body device: Device): Single<Response<Any>>
 
     @GET("data")
-    fun getData(@Query("provider") operator: Long): Single<DataResponse>
+    fun getData(): Single<DataResponse>
 
 }

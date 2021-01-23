@@ -50,7 +50,7 @@
         </LinearLayout>
 
         <com.google.android.material.card.MaterialCardView
-            android:id="@+id/cardSettings"
+            android:id="@+id/cardViewSettings"
             android:layout_width="64dp"
             android:layout_height="64dp"
             app:cardBackgroundColor="#00000000"
@@ -118,7 +118,7 @@
                             android:layout_gravity="center_horizontal"
                             android:layout_marginTop="4dp"
                             android:layout_marginBottom="4dp"
-                            android:maxWidth="100dp"
+                            android:gravity="center"
                             android:text="@string/tariffs"
                             android:textAlignment="center"
                             android:textColor="@color/colorTextPrimary"
@@ -150,7 +150,7 @@
                             android:layout_height="20dp"
                             android:layout_gravity="center_horizontal"
                             android:layout_marginTop="16dp"
-                            app:srcCompat="@drawable/ic_tariff"
+                            app:srcCompat="@drawable/ic_service"
                             app:tint="@color/colorPrimary"
                             tools:ignore="VectorDrawableCompat" />
 
@@ -160,8 +160,8 @@
                             android:layout_gravity="center_horizontal"
                             android:layout_marginTop="4dp"
                             android:layout_marginBottom="4dp"
-                            android:maxWidth="100dp"
-                            android:text="@string/tariffs"
+                            android:gravity="center"
+                            android:text="@string/services"
                             android:textAlignment="center"
                             android:textColor="@color/colorTextPrimary"
                             android:textSize="12sp"
@@ -348,7 +348,7 @@
                     android:orientation="vertical">
 
                     <com.google.android.material.card.MaterialCardView
-                        android:id="@+id/layoutCodes"
+                        android:id="@+id/cardViewCodes"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
@@ -376,7 +376,7 @@
                                 android:layout_marginStart="24dp"
                                 android:layout_marginEnd="24dp"
                                 android:layout_weight="1"
-                                android:text="@string/ussdCode"
+                                android:text="@string/codes"
                                 android:textColor="@color/colorTextPrimary"
                                 android:textSize="12sp"
                                 app:fontFamily="@font/bold" />
@@ -398,7 +398,7 @@
                         android:background="@color/themeColorLight" />
 
                     <com.google.android.material.card.MaterialCardView
-                        android:id="@+id/layoutNews"
+                        android:id="@+id/cardViewNews"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
@@ -415,7 +415,7 @@
                                 android:id="@+id/imageViewNews"
                                 android:layout_width="24dp"
                                 android:layout_height="24dp"
-                                app:srcCompat="@drawable/ic_tariff"
+                                app:srcCompat="@drawable/ic_notification"
                                 app:tint="@color/colorPrimary"
                                 tools:ignore="VectorDrawableCompat" />
 
@@ -426,7 +426,7 @@
                                 android:layout_marginStart="20dp"
                                 android:layout_marginEnd="20dp"
                                 android:layout_weight="1"
-                                android:text="@string/ussdCode"
+                                android:text="@string/news"
                                 android:textColor="@color/colorTextPrimary"
                                 android:textSize="12sp"
                                 app:fontFamily="@font/bold" />
@@ -448,7 +448,7 @@
                         android:background="@color/themeColorLight" />
 
                     <com.google.android.material.card.MaterialCardView
-                        android:id="@+id/layoutSales"
+                        android:id="@+id/cardViewSales"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
@@ -465,7 +465,7 @@
                                 android:id="@+id/imageViewSales"
                                 android:layout_width="24dp"
                                 android:layout_height="24dp"
-                                app:srcCompat="@drawable/ic_tariff"
+                                app:srcCompat="@drawable/ic_gift"
                                 app:tint="@color/colorPrimary"
                                 tools:ignore="VectorDrawableCompat" />
 
@@ -476,7 +476,7 @@
                                 android:layout_marginStart="20dp"
                                 android:layout_marginEnd="20dp"
                                 android:layout_weight="1"
-                                android:text="@string/ussdCode"
+                                android:text="@string/promotions"
                                 android:textColor="@color/colorTextPrimary"
                                 android:textSize="12sp"
                                 app:fontFamily="@font/bold" />
