@@ -22,12 +22,13 @@ class SelectOperatorDialog(
             listAdapter.data = value
             field = value
         }
+
     var   color : String = "#FFFFFF"
-    set(value) {
-        listAdapter.selectedColor = value
-        Log.e(COLOR ,value)
-        field = value
-    }
+        set(value) {
+            listAdapter.selectedColor = value
+            Log.e(COLOR ,value)
+            field = value
+        }
 
     private val listAdapter by lazy {
         ProvidersAdapter {
