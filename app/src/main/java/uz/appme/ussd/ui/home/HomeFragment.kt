@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.coroutines.GlobalScope
@@ -15,9 +16,9 @@ import uz.appme.ussd.BaseFragment
 import uz.appme.ussd.MainViewModel
 import uz.appme.ussd.R
 import uz.appme.ussd.adapter.BannerPagerAdapter
-import uz.appme.ussd.data.Operator
-import uz.appme.ussd.dialog.ProviderDialog
 import uz.appme.ussd.data.Banner
+import uz.appme.ussd.data.Operator
+import uz.appme.ussd.dialog.SelectOperatorDialog
 
 
 class HomeFragment : BaseFragment() {
@@ -32,8 +33,8 @@ class HomeFragment : BaseFragment() {
 
     private val dialog by lazy {
         context?.let {
-            ProviderDialog(it) { cat ->
-                // viewModel.providers.postValue(cat)
+            SelectOperatorDialog(it) { cat ->
+                viewModel.selectOperator(cat)
             }
         }
     }
@@ -51,42 +52,34 @@ class HomeFragment : BaseFragment() {
 
         viewPager.adapter = pagerAdapter
 
-        viewModel.providers.let {
+        viewModel.operators.let {
 
             it.value?.let { providers ->
-                onProviders(providers)
+                onOperators(providers)
             }
 
             it.observe(viewLifecycleOwner, { providers ->
-                onProviders(providers)
+                onOperators(providers)
             })
         }
 
-//        viewModel.provider.let {
-//            it.value?.let { provider ->
-//                onProvider(provider)
-//            }
-//
-//            it.observe(viewLifecycleOwner, { provider ->
-//                onProvider(provider)
-//            })
-//        }
-
         viewModel.banners.let {
+
             it.value?.let { data ->
                 onBanners(data)
             }
+
             it.observe(viewLifecycleOwner, { data ->
                 onBanners(data)
             })
         }
 
-//        layoutProvider?.setOnClickListener {
-//            dialog?.show()
-//        }
+        layoutOperator?.setOnClickListener {
+            dialog?.show()
+        }
 
-        cardNotification?.setOnClickListener {
-
+        cardSettings?.setOnClickListener {
+            findNavController().navigate(R.id.action_fragment_home_to_fragment_settings)
         }
 
 
@@ -96,11 +89,19 @@ class HomeFragment : BaseFragment() {
         pagerAdapter.data = data
     }
 
-    private fun onProviders(data: List<Operator>) {
+    private fun onOperators(data: List<Operator>) {
         dialog?.data = data
+        data.firstOrNull { it.selected }?.let {
+            onOperator(it)
+        }
     }
 
-    private fun onProvider(data: Operator) {
+    private fun onOperator(data: Operator) {
+        dialog?.dismiss()
+        textViewProviderName.text = data.name
+        Glide.with(imageViewProvider)
+            .load(data.image)
+            .into(imageViewProvider)
 
         try {
             Color.parseColor(data.color).let { col ->
@@ -124,20 +125,6 @@ class HomeFragment : BaseFragment() {
             }
         } catch (e: Exception) {
 
-        }
-
-        pageIndicatorView.selectedColor = Color.parseColor(data.color)
-        dialog?.data = dialog?.data?.map { it.copy(selected = it.id == data.id) } ?: emptyList()
-        dialog?.color = data.color ?: "#fff"
-        textViewProviderName.text = data.name
-
-        Glide.with(imageViewProvider)
-            .load(data.image)
-            .into(imageViewProvider)
-
-        GlobalScope.launch {
-            delay(200L)
-            dialog?.dismiss()
         }
 
     }

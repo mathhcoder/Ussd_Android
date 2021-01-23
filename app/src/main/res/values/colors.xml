@@ -18,9 +18,12 @@
     <color name="themeColorPale">#93949B</color>
     <color name="themeColorMidum">#93949B</color>
 
-    <color name="colorTextPrimary">#19181F</color>
     <color name="colorTextSecondary">#93949B</color>
     <color name="colorCardBackground">#F4F4F4</color>
     <color name="colorDivider">#93949B</color>
+
+
+    <color name="colorTextPrimary">#19181F</color>
+    <color name="colorCardBg">#F4F4F4</color>
 
 </resources>

@@ -12,7 +12,7 @@ import uz.appme.ussd.adapter.ProvidersAdapter
 import uz.appme.ussd.data.Operator
 import uz.appme.ussd.ui.COLOR
 
-class ProviderDialog(
+class SelectOperatorDialog(
     context : Context ,
     private val onItemSelected: (operator : Operator) -> (Unit)
 ) : BottomSheetDialog(context) {
@@ -36,7 +36,7 @@ class ProviderDialog(
     }
 
     init{
-        setContentView(R.layout.bottom_sheet)
+        setContentView(R.layout.dialog_select_operator)
         window?.findViewById<FrameLayout>(R.id.design_bottom_sheet)?.setBackgroundResource(
             R.drawable.background_bottom_sheet_dialog
         )

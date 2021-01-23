@@ -4,6 +4,12 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 
 def dealer_code = "test"
+def base_url = "http://ussd.appme.uz/"
+def app_version = 1
+
+def keystorePropertiesFile = rootProject.file("keystore.properties")
+def keystoreProperties = new Properties()
+keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
 
 android {
     compileSdkVersion 29
@@ -21,9 +27,17 @@ android {
         vectorDrawables.useSupportLibrary = true
         multiDexEnabled true
 
+
     }
 
     buildTypes {
+
+        applicationVariants.all { variant ->
+            buildConfigField "String", "BASE_URL", "\"${base_url}\""
+            buildConfigField "String", "BASE_API", "\"${base_url}api/v$app_version/\""
+            buildConfigField "String", "DEALER", "\"${dealer_code}\""
+        }
+
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
@@ -35,6 +49,16 @@ android {
     }
     kotlinOptions {
         jvmTarget = '1.8'
+    }
+
+    signingConfigs {
+
+        release {
+            storeFile file(keystoreProperties['storeFile'])
+            storePassword keystoreProperties['storePassword']
+            keyAlias keystoreProperties['keyAlias']
+            keyPassword keystoreProperties['keyPassword']
+        }
     }
 }
 

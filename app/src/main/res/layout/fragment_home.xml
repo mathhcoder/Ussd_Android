@@ -7,15 +7,18 @@
     android:background="@color/themeColorLight"
     android:orientation="vertical">
 
-    <FrameLayout
+    <LinearLayout
         android:id="@+id/layoutHeader"
         android:layout_width="match_parent"
         android:layout_height="64dp"
+        android:gravity="end"
         android:orientation="horizontal">
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:id="@+id/layoutOperator"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:layout_weight="1"
             android:orientation="horizontal">
 
             <androidx.appcompat.widget.AppCompatImageView
@@ -32,7 +35,7 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginStart="16dp"
                 android:text="Beeline"
-                android:textColor="@color/themeColorDark"
+                android:textColor="@color/colorTextPrimary"
                 android:textSize="16sp"
                 app:fontFamily="@font/bold" />
 
@@ -41,15 +44,15 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_marginStart="8dp"
-                app:srcCompat="@drawable/ic_arrow_down" />
+                app:srcCompat="@drawable/ic_arrow_down"
+                app:tint="@color/colorTextPrimary" />
 
         </LinearLayout>
 
         <com.google.android.material.card.MaterialCardView
-            android:id="@+id/cardNotification"
+            android:id="@+id/cardSettings"
             android:layout_width="64dp"
             android:layout_height="64dp"
-            android:layout_gravity="end"
             app:cardBackgroundColor="#00000000"
             app:cardCornerRadius="32dp"
             app:cardElevation="0dp">
@@ -65,7 +68,7 @@
 
         </com.google.android.material.card.MaterialCardView>
 
-    </FrameLayout>
+    </LinearLayout>
 
     <ScrollView
         android:layout_width="match_parent"
@@ -90,7 +93,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="8dp"
                     android:layout_weight="1"
-                    app:cardBackgroundColor="@color/colorCardBackground"
+                    app:cardBackgroundColor="@color/colorCardBg"
                     app:cardCornerRadius="16dp"
                     app:contentPadding="16dp">
 
@@ -118,7 +121,7 @@
                             android:maxWidth="100dp"
                             android:text="@string/tariffs"
                             android:textAlignment="center"
-                            android:textColor="@color/themeColorDark"
+                            android:textColor="@color/colorTextPrimary"
                             android:textSize="12sp"
                             app:fontFamily="@font/bold" />
 
@@ -132,7 +135,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="8dp"
                     android:layout_weight="1"
-                    app:cardBackgroundColor="@color/colorCardBackground"
+                    app:cardBackgroundColor="@color/colorCardBg"
                     app:cardCornerRadius="16dp"
                     app:contentPadding="16dp">
 
@@ -160,7 +163,7 @@
                             android:maxWidth="100dp"
                             android:text="@string/tariffs"
                             android:textAlignment="center"
-                            android:textColor="@color/themeColorDark"
+                            android:textColor="@color/colorTextPrimary"
                             android:textSize="12sp"
                             app:fontFamily="@font/bold" />
 
@@ -204,7 +207,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="76dp"
+                android:layout_height="wrap_content"
                 android:layout_marginHorizontal="8dp"
                 android:layout_marginTop="16dp"
                 android:orientation="horizontal">
@@ -215,31 +218,36 @@
                     android:layout_height="match_parent"
                     android:layout_marginHorizontal="8dp"
                     android:layout_weight="1"
-                    app:cardBackgroundColor="@color/themeColorNormal"
+                    app:cardBackgroundColor="@color/colorCardBg"
                     app:cardCornerRadius="16dp">
 
-                    <androidx.appcompat.widget.AppCompatImageView
-                        android:id="@+id/imageViewInternet"
-                        android:layout_width="20dp"
-                        android:layout_height="18dp"
-                        android:layout_gravity="center_horizontal"
-                        android:layout_marginTop="19dp"
-                        app:srcCompat="@drawable/ic_internet"
-                        app:tint="@color/colorPrimary"
-                        tools:ignore="VectorDrawableCompat" />
-
-
-                    <androidx.appcompat.widget.AppCompatTextView
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="16dp"
-                        android:layout_marginTop="48dp"
-                        android:gravity="center"
-                        android:text="@string/internet"
-                        android:textColor="@color/themeColorDark"
-                        android:textSize="12sp"
-                        app:fontFamily="@font/bold" />
+                        android:orientation="vertical">
 
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/imageViewInternet"
+                            android:layout_width="28dp"
+                            android:layout_height="28dp"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginTop="16dp"
+                            app:srcCompat="@drawable/ic_internet"
+                            app:tint="@color/colorPrimary"
+                            tools:ignore="VectorDrawableCompat" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginBottom="16dp"
+                            android:gravity="center_horizontal"
+                            android:text="@string/internet"
+                            android:textColor="@color/colorTextPrimary"
+                            android:textSize="12sp"
+                            app:fontFamily="@font/bold" />
+
+                    </LinearLayout>
 
                 </com.google.android.material.card.MaterialCardView>
 
@@ -250,30 +258,36 @@
                     android:layout_height="match_parent"
                     android:layout_marginHorizontal="8dp"
                     android:layout_weight="1"
-                    app:cardBackgroundColor="@color/themeColorNormal"
+                    app:cardBackgroundColor="@color/colorCardBg"
                     app:cardCornerRadius="16dp">
 
-                    <androidx.appcompat.widget.AppCompatImageView
-                        android:id="@+id/imageViewMinutes"
-                        android:layout_width="20dp"
-                        android:layout_height="18dp"
-                        android:layout_gravity="center_horizontal"
-                        android:layout_marginTop="19dp"
-                        app:srcCompat="@drawable/ic_minutes"
-                        app:tint="@color/colorPrimary"
-                        tools:ignore="VectorDrawableCompat" />
-
-
-                    <androidx.appcompat.widget.AppCompatTextView
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="16dp"
-                        android:layout_marginTop="48dp"
-                        android:gravity="center"
-                        android:text="@string/minutes"
-                        android:textColor="@color/themeColorDark"
-                        android:textSize="12sp"
-                        app:fontFamily="@font/bold" />
+                        android:orientation="vertical">
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/imageViewMinutes"
+                            android:layout_width="28dp"
+                            android:layout_height="28dp"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginTop="16dp"
+                            app:srcCompat="@drawable/ic_minutes"
+                            app:tint="@color/colorPrimary"
+                            tools:ignore="VectorDrawableCompat" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginBottom="16dp"
+                            android:gravity="center_horizontal"
+                            android:text="@string/minutes"
+                            android:textColor="@color/colorTextPrimary"
+                            android:textSize="12sp"
+                            app:fontFamily="@font/bold" />
+
+                    </LinearLayout>
 
 
                 </com.google.android.material.card.MaterialCardView>
@@ -284,31 +298,36 @@
                     android:layout_height="match_parent"
                     android:layout_marginHorizontal="8dp"
                     android:layout_weight="1"
-                    app:cardBackgroundColor="@color/themeColorNormal"
+                    app:cardBackgroundColor="@color/colorCardBg"
                     app:cardCornerRadius="16dp">
 
-                    <androidx.appcompat.widget.AppCompatImageView
-                        android:id="@+id/imageViewSMS"
-                        android:layout_width="20dp"
-                        android:layout_height="18dp"
-                        android:layout_gravity="center_horizontal"
-                        android:layout_marginTop="19dp"
-                        android:src="@drawable/ic_sms"
-                        app:tint="@color/colorPrimary"
-                        tools:ignore="VectorDrawableCompat" />
-
-
-                    <androidx.appcompat.widget.AppCompatTextView
-
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="16dp"
-                        android:layout_marginTop="48dp"
-                        android:gravity="center"
-                        android:text="@string/sms"
-                        android:textColor="@color/themeColorDark"
-                        android:textSize="12sp"
-                        app:fontFamily="@font/bold" />
+                        android:orientation="vertical">
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/imageViewSMS"
+                            android:layout_width="28dp"
+                            android:layout_height="28dp"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginTop="16dp"
+                            app:srcCompat="@drawable/ic_sms"
+                            app:tint="@color/colorPrimary"
+                            tools:ignore="VectorDrawableCompat" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginBottom="16dp"
+                            android:gravity="center_horizontal"
+                            android:text="@string/sms"
+                            android:textColor="@color/colorTextPrimary"
+                            android:textSize="12sp"
+                            app:fontFamily="@font/bold" />
+
+                    </LinearLayout>
 
                 </com.google.android.material.card.MaterialCardView>
 
@@ -333,42 +352,49 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
-                        app:cardBackgroundColor="@color/themeColorNormal">
+                        app:cardBackgroundColor="@color/colorCardBg">
 
-                        <androidx.appcompat.widget.AppCompatImageView
-                            android:id="@+id/imageViewCode"
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:layout_margin="16dp"
-                            android:layout_marginStart="32dp"
-                            app:srcCompat="@drawable/ic_tariff"
-                            app:tint="@color/colorPrimary"
-                            tools:ignore="VectorDrawableCompat" />
-
-                        <androidx.appcompat.widget.AppCompatTextView
+                        <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginStart="84dp"
-                            android:layout_marginEnd="68dp"
-                            android:text="@string/ussdCode"
-                            android:textColor="@color/themeColorDark"
-                            android:textSize="12sp"
-                            app:fontFamily="@font/bold" />
+                            android:gravity="center"
+                            android:orientation="horizontal"
+                            android:padding="20dp">
 
-                        <androidx.appcompat.widget.AppCompatImageView
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:layout_gravity="end|center_vertical"
-                            android:layout_marginEnd="32dp"
-                            app:srcCompat="@drawable/ic_arrow_next"
-                            app:tint="@color/themeColorDark" />
+                            <androidx.appcompat.widget.AppCompatImageView
+                                android:id="@+id/imageViewCode"
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
+                                app:srcCompat="@drawable/ic_tariff"
+                                app:tint="@color/colorPrimary"
+                                tools:ignore="VectorDrawableCompat" />
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginStart="24dp"
+                                android:layout_marginEnd="24dp"
+                                android:layout_weight="1"
+                                android:text="@string/ussdCode"
+                                android:textColor="@color/colorTextPrimary"
+                                android:textSize="12sp"
+                                app:fontFamily="@font/bold" />
+
+                            <androidx.appcompat.widget.AppCompatImageView
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:layout_gravity="center_vertical"
+                                app:srcCompat="@drawable/ic_arrow_next"
+                                app:tint="@color/colorTextPrimary" />
+
+                        </LinearLayout>
 
                     </com.google.android.material.card.MaterialCardView>
 
                     <View
                         android:layout_width="match_parent"
-                        android:layout_height="2dp"
+                        android:layout_height="3dp"
                         android:background="@color/themeColorLight" />
 
                     <com.google.android.material.card.MaterialCardView
@@ -376,42 +402,49 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
-                        app:cardBackgroundColor="@color/themeColorNormal">
+                        app:cardBackgroundColor="@color/colorCardBg">
 
-                        <androidx.appcompat.widget.AppCompatImageView
-                            android:id="@+id/imageViewNews"
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:layout_margin="16dp"
-                            android:layout_marginStart="32dp"
-                            app:srcCompat="@drawable/ic_tariff"
-                            app:tint="@color/colorPrimary"
-                            tools:ignore="VectorDrawableCompat" />
-
-                        <androidx.appcompat.widget.AppCompatTextView
+                        <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginStart="84dp"
-                            android:layout_marginEnd="68dp"
-                            android:text="@string/ussdCode"
-                            android:textColor="@color/themeColorDark"
-                            android:textSize="12sp"
-                            app:fontFamily="@font/bold" />
+                            android:gravity="center"
+                            android:orientation="horizontal"
+                            android:padding="20dp">
 
-                        <androidx.appcompat.widget.AppCompatImageView
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:layout_gravity="end|center_vertical"
-                            android:layout_marginEnd="32dp"
-                            app:srcCompat="@drawable/ic_arrow_next"
-                            app:tint="@color/themeColorDark" />
+                            <androidx.appcompat.widget.AppCompatImageView
+                                android:id="@+id/imageViewNews"
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
+                                app:srcCompat="@drawable/ic_tariff"
+                                app:tint="@color/colorPrimary"
+                                tools:ignore="VectorDrawableCompat" />
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginStart="20dp"
+                                android:layout_marginEnd="20dp"
+                                android:layout_weight="1"
+                                android:text="@string/ussdCode"
+                                android:textColor="@color/colorTextPrimary"
+                                android:textSize="12sp"
+                                app:fontFamily="@font/bold" />
+
+                            <androidx.appcompat.widget.AppCompatImageView
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:layout_gravity="center_vertical"
+                                app:srcCompat="@drawable/ic_arrow_next"
+                                app:tint="@color/colorTextPrimary" />
+
+                        </LinearLayout>
 
                     </com.google.android.material.card.MaterialCardView>
 
                     <View
                         android:layout_width="match_parent"
-                        android:layout_height="2dp"
+                        android:layout_height="3dp"
                         android:background="@color/themeColorLight" />
 
                     <com.google.android.material.card.MaterialCardView
@@ -419,36 +452,43 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
-                        app:cardBackgroundColor="@color/themeColorNormal">
+                        app:cardBackgroundColor="@color/colorCardBg">
 
-                        <androidx.appcompat.widget.AppCompatImageView
-                            android:id="@+id/imageSales"
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:layout_margin="16dp"
-                            android:layout_marginStart="32dp"
-                            app:srcCompat="@drawable/ic_tariff"
-                            app:tint="@color/colorPrimary"
-                            tools:ignore="VectorDrawableCompat" />
-
-                        <androidx.appcompat.widget.AppCompatTextView
+                        <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginStart="84dp"
-                            android:layout_marginEnd="68dp"
-                            android:text="@string/ussdCode"
-                            android:textColor="@color/themeColorDark"
-                            android:textSize="12sp"
-                            app:fontFamily="@font/bold" />
+                            android:gravity="center"
+                            android:orientation="horizontal"
+                            android:padding="20dp">
 
-                        <androidx.appcompat.widget.AppCompatImageView
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:layout_gravity="end|center_vertical"
-                            android:layout_marginEnd="32dp"
-                            app:srcCompat="@drawable/ic_arrow_next"
-                            app:tint="@color/themeColorDark" />
+                            <androidx.appcompat.widget.AppCompatImageView
+                                android:id="@+id/imageViewSales"
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
+                                app:srcCompat="@drawable/ic_tariff"
+                                app:tint="@color/colorPrimary"
+                                tools:ignore="VectorDrawableCompat" />
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginStart="20dp"
+                                android:layout_marginEnd="20dp"
+                                android:layout_weight="1"
+                                android:text="@string/ussdCode"
+                                android:textColor="@color/colorTextPrimary"
+                                android:textSize="12sp"
+                                app:fontFamily="@font/bold" />
+
+                            <androidx.appcompat.widget.AppCompatImageView
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:layout_gravity="center_vertical"
+                                app:srcCompat="@drawable/ic_arrow_next"
+                                app:tint="@color/colorTextPrimary" />
+
+                        </LinearLayout>
 
                     </com.google.android.material.card.MaterialCardView>
 

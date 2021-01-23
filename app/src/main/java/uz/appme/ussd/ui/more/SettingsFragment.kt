@@ -12,7 +12,6 @@ import kotlinx.android.synthetic.main.layout_header.*
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import tech.appme.ussd.io.StockPreference
 import uz.appme.ussd.BaseFragment
 import uz.appme.ussd.R
 import uz.appme.ussd.dialog.LanguageDialog
@@ -65,15 +64,15 @@ class SettingsFragment : BaseFragment(){
             }
         })
 
-        textViewHeader.text =if(StockPreference(view.context).lang == "uz") getString(R.string.settingsUz)else getString(R.string.settingsRu)
+     //   textViewHeader.text =if(StockPreference(view.context).lang == "uz") getString(R.string.settingsUz)else getString(R.string.settingsRu)
 
     }
 
 
     fun changeLanguage(lang: String , context : Context){
 
-        var reference = StockPreference(context)
-        reference.lang = lang
+        //var reference = StockPreference(context)
+        //reference.lang = lang
 
         GlobalScope.launch {
             delay(200L)

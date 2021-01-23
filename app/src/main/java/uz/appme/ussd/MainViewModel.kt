@@ -1,18 +1,18 @@
 package uz.appme.ussd
 
-import android.util.Log
+import android.os.Build
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import uz.appme.ussd.data.*
 import uz.appme.ussd.io.BaseRepository
 
 
-class MainViewModel :BaseViewModel() {
+class MainViewModel : BaseViewModel() {
 
-    private val providersData = MutableLiveData<List<Operator>>()
-    val providers : LiveData<List<Operator>> = providersData
+    private val operatorsData = MutableLiveData<List<Operator>>()
+    val operators: LiveData<List<Operator>> = operatorsData
 
     private val bannersData = MutableLiveData<List<Banner>>()
     val banners: LiveData<List<Banner>> = bannersData
@@ -35,14 +35,44 @@ class MainViewModel :BaseViewModel() {
     private val contactData = MutableLiveData<Contact>()
     val contact: LiveData<Contact> = contactData
 
-    private val disposable = CompositeDisposable()
+    private var databaseDisposable: Disposable? = null
+    private var networkDisposable: Disposable? = null
+    private var authDisposable: Disposable? = null
 
     var lang = "uz"
-    init{
-        getDataFromDB()
+
+    init {
+        start()
+        val beeline = Operator(0, "", "#fff", "Beeline")
+        val mobiuz = Operator(1, "", "#fff", "Mobiuz")
+        val uzmobile = Operator(2, "", "#fff", "Uzmobile")
+        operatorsData.postValue(arrayListOf(beeline, mobiuz, uzmobile))
     }
+
+    fun selectOperator(operator: Operator) {
+        operators.value?.let {
+            it.map { o ->
+                o.copy(
+                    selected = o.id == operator.id
+                )
+            }
+        }?.let {
+            operatorsData.postValue(it)
+        }
+    }
+
+    private fun start() {
+        if (BaseRepository.preference.token.isEmpty()) {
+            auth()
+        } else {
+            getDataFromDB()
+            updateVersion()
+        }
+    }
+
     private fun getDataFromDB() {
-        disposable.add(BaseRepository.roomDatabase.bannerDao().getData()
+        databaseDisposable?.dispose()
+        databaseDisposable = BaseRepository.roomDatabase.bannerDao().getData()
             .flatMap {
                 bannersData.postValue(it.sortedBy { d -> d.priority })
                 BaseRepository.roomDatabase.contactDao().getData()
@@ -52,7 +82,7 @@ class MainViewModel :BaseViewModel() {
                 }
                 BaseRepository.roomDatabase.packageDao().getData()
             }.flatMap {
-               // packagesData.postValue(it.sortedBy { d -> d.priority })
+                // packagesData.postValue(it.sortedBy { d -> d.priority })
                 BaseRepository.roomDatabase.categoryDao().getData()
             }.flatMap {
                 categoriesData.postValue(it.sortedBy { d -> d.priority })
@@ -61,7 +91,7 @@ class MainViewModel :BaseViewModel() {
                 tariffsData.postValue(it.sortedBy { d -> d.priority })
                 BaseRepository.roomDatabase.serviceDao().getData()
             }.flatMap {
-               // servicesData.postValue(it.sortedBy { d -> d.priority })
+                // servicesData.postValue(it.sortedBy { d -> d.priority })
                 BaseRepository.roomDatabase.newsDao().getData()
             }.observeOn(Schedulers.io())
             .subscribeOn(Schedulers.io())
@@ -71,71 +101,100 @@ class MainViewModel :BaseViewModel() {
             }, {
 
             })
-        )
     }
+
     private fun getDataFromNetwork() {
-        disposable.add(
-            BaseRepository.api.getData().subscribeOn(Schedulers.io())
-                .doOnSuccess {
+        networkDisposable = BaseRepository.mainApi.getData(1).subscribeOn(Schedulers.io())
+            .observeOn(Schedulers.io())
+            .subscribe({
+                BaseRepository.roomDatabase.tariffDao().deleteAll()
+                BaseRepository.roomDatabase.tariffDao().insertAll(it.tariffs)
+                tariffsData.postValue(it.tariffs.sortedBy { d -> d.priority })
 
-                    BaseRepository.roomDatabase.tariffDao().deleteAll()
-                  //  BaseRepository.roomDatabase.tariffDao().insertAll(it.tariffs)
-                    //tariffsData.postValue(it.tariffs.sortedBy { d -> d.priority })
+                BaseRepository.roomDatabase.serviceDao().deleteAll()
+                BaseRepository.roomDatabase.serviceDao().insertAll(it.services)
+                servicesData.postValue(it.services.sortedBy { d -> d.priority })
 
-                    BaseRepository.roomDatabase.serviceDao().deleteAll()
-                  //  BaseRepository.roomDatabase.serviceDao().insertAll(it.services)
-                   // servicesData.postValue(it.services.sortedBy { d -> d.priority })
+                BaseRepository.roomDatabase.categoryDao().deleteAll()
+                BaseRepository.roomDatabase.categoryDao().insertAll(it.categories)
+                categoriesData.postValue(it.categories.sortedBy { d -> d.priority })
 
-                    BaseRepository.roomDatabase.categoryDao().deleteAll()
-                  //  BaseRepository.roomDatabase.categoryDao().insertAll(it.categories)
-                   // categoriesData.postValue(it.categories.sortedBy { d -> d.priority })
+                BaseRepository.roomDatabase.packageDao().deleteAll()
+                BaseRepository.roomDatabase.packageDao().insertAll(it.packages)
+                packagesData.postValue(it.packages.sortedBy { d -> d.priority })
 
-                    BaseRepository.roomDatabase.packageDao().deleteAll()
-                 //   BaseRepository.roomDatabase.packageDao().insertAll(it.packages)
-                  //  packagesData.postValue(it.packages.sortedBy { d -> d.priority })
-
-                    BaseRepository.roomDatabase.contactDao().deleteAll()
-//                    it.contacts?.let { c ->
-//                        BaseRepository.roomDatabase.contactDao().insert(c)
-//                        contactData.postValue(c)
-//                    }
-
+                BaseRepository.roomDatabase.contactDao().deleteAll()
+                it.contacts?.let { c ->
+                    BaseRepository.roomDatabase.contactDao().insert(c)
+                    contactData.postValue(c)
                 }
-                .flatMap {
-                    BaseRepository.api.getUpdate()
-                }
-                .doOnSuccess {
-                    BaseRepository.roomDatabase.bannerDao().deleteAll()
-                 //   BaseRepository.roomDatabase.bannerDao().insertAll(it.banners)
-                  //  bannersData.postValue(it.banners.sortedBy { d -> d.priority })
 
-                    BaseRepository.roomDatabase.newsDao().deleteAll()
-                   // BaseRepository.roomDatabase.newsDao().insertAll(it.news)
-                  //  newsData.postValue(it.news.sortedByDescending { d -> d.date })
-                }
-                .doOnError {
+                BaseRepository.roomDatabase.bannerDao().deleteAll()
+                BaseRepository.roomDatabase.bannerDao().insertAll(it.banners)
+                bannersData.postValue(it.banners.sortedBy { d -> d.priority })
 
-                }
-                .observeOn(Schedulers.io())
-                .subscribe({
+                BaseRepository.roomDatabase.newsDao().deleteAll()
+                BaseRepository.roomDatabase.newsDao().insertAll(it.news)
+                newsData.postValue(it.news.sortedByDescending { d -> d.date })
+            }, {
 
-                }, {
-
-                })
-        )
+            })
     }
 
+    private fun auth() {
+        val device = Device(
+            os = "1",
+            appVersion = BuildConfig.VERSION_NAME,
+            osVersion = Build.VERSION.RELEASE,
+            model = Build.MODEL,
+            dealer = BuildConfig.DEALER
+        )
+        authDisposable?.dispose()
+        authDisposable = BaseRepository.authApi.auth(device)
+            .subscribeOn(Schedulers.io())
+            .observeOn(Schedulers.io())
+            .subscribe({
+                if (it.code() == 200) {
+                    BaseRepository.preference.token = it.body()?.token ?: ""
+                    getDataFromNetwork()
+                }
+            }, {
 
+            })
+    }
 
+    private fun updateVersion() {
 
+        val device = Device(
+            os = "1",
+            appVersion = BuildConfig.VERSION_NAME,
+            osVersion = Build.VERSION.RELEASE,
+            model = Build.MODEL,
+            dealer = BuildConfig.DEALER
+        )
+
+        authDisposable?.dispose()
+        authDisposable = BaseRepository.mainApi.updateVersion(device)
+            .subscribeOn(Schedulers.io())
+            .observeOn(Schedulers.io())
+            .subscribe({
+                when (it.code()) {
+                    200 -> {
+                        getDataFromNetwork()
+                    }
+                    401 -> {
+                        BaseRepository.preference.token = ""
+                    }
+                }
+            }, {
+
+            })
+    }
 
     override fun onCleared() {
         super.onCleared()
-        disposable.dispose()
-        disposable.clear()
-    }
-
-    fun LogOut(string : String){
-        Log.e("DATA_" , string)
+        databaseDisposable?.dispose()
+        networkDisposable?.dispose()
+        authDisposable?.dispose()
     }
 }

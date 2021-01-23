@@ -6,4 +6,10 @@
     <color name="themeColorPale">#C8C8C8</color>
     <color name="themeColorMidum">#C8C8C8</color>
 
+
+    <color name="colorTextPrimary">#FFF</color>
+    <color name="colorCardBg">#19181F</color>
+
+
+
 </resources>
