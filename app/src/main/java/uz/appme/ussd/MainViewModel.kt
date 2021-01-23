@@ -11,6 +11,9 @@ import uz.appme.ussd.io.BaseRepository
 
 class MainViewModel : BaseViewModel() {
 
+    private val isDarkData = MutableLiveData<Boolean>()
+    val isDark: LiveData<Boolean> = isDarkData
+
     private val operatorsData = MutableLiveData<List<Operator>>()
     val operators: LiveData<List<Operator>> = operatorsData
 
@@ -59,6 +62,21 @@ class MainViewModel : BaseViewModel() {
         }?.let {
             operatorsData.postValue(it)
         }
+    }
+
+    fun setTheme(isDark: Boolean) {
+        BaseRepository.preference.isDark = if (isDark) 1 else 0
+        isDarkData.postValue(isDark)
+    }
+
+    fun changeTheme() {
+        val isDark = BaseRepository.preference.isDark == 1
+        BaseRepository.preference.isDark = if (isDark) 0 else 1
+        isDarkData.postValue(isDark)
+    }
+
+    fun isDark(): Int {
+        return BaseRepository.preference.isDark
     }
 
     private fun start() {
