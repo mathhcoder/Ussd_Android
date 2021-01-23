@@ -13,6 +13,7 @@ import uz.appme.ussd.R
 import uz.appme.ussd.adapter.PackagesAdapter
 import uz.appme.ussd.adapter.CategoryAdapter
 import uz.appme.ussd.data.Category
+import uz.appme.ussd.data.Operator
 import uz.appme.ussd.data.Pack
 import uz.appme.ussd.ui.TYPE
 
@@ -38,6 +39,10 @@ class PackagesFragment : BaseFragment() {
 
     private val type by lazy {
         arguments?.getInt(TYPE)
+    }
+
+    private val operator by lazy{
+        arguments?.getSerializable("key") as Operator
     }
 
 
@@ -83,11 +88,11 @@ class PackagesFragment : BaseFragment() {
     }
 
     private fun onCategories(data: List<Category>) {
-        categoryAdapter.data = data.filter { it.type == type }
+        categoryAdapter.data = data.filter { it.type == type && it.provideId == operator.id }
     }
 
     private fun onPackages(data: List<Pack>) {
-        packsAdapter.data = data.filter { it.categoryId == selectedCategory?.id }
+        packsAdapter.data = data.filter { it.categoryId == selectedCategory?.id && it.operatorId == operator.id }
     }
 
     private fun onCategory(data: Category) {

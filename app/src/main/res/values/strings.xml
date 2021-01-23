@@ -1,18 +1,21 @@
 <resources>
     <string name="app_name">Ussd</string>
-    <string name="pakets">Paketlar</string>
+
+    <string name="internet">Internet</string>
     <string name="minutes">Daqiqa</string>
     <string name="sms">SMS</string>
-    <string name="internet">Internet</string>
-    <string name="reklama">Reklama</string>
-    <string name="aboutUs">Biz haqimizda</string>
+
     <string name="tariffs">Tariflar</string>
-    <string name="ussdCode">Tekshiruv kodlar</string>
     <string name="services">Xizmatlar</string>
-    <string name="chooseProvider">Operatorni tanlang</string>
-    <string name="check_balance">Balansni\ntekshirish</string>
-    <string name="check_packages">Paket\nqoldiqlari</string>
+
+    <string name="codes">Tekshiruv kodlar</string>
     <string name="news">Yangiliklar</string>
+    <string name="promotions">Aksiyalar</string>
+
+    <string name="chooseProvider">Operatorni tanlang</string>
+
+    <string name="aboutUs">Biz haqimizda</string>
+    <string name="check_packages">Paket\nqoldiqlari</string>
     <string name="tariffPalan">Tariff rejasi</string>
     <string name="changePrice">"O'tkazish narxi: "</string>
     <string name="goTariff">"Ushbu tarif rejasiga  o'tish"</string>
@@ -20,7 +23,6 @@
     <string name="outLimitsPrice">Limitdan tashqari narxlar</string>
     <string name="tariffConditions">"Tarifga o'tish shartlari"</string>
     <string name="theme">Tungi rejim</string>
-    <string name="promotions">Aksiyalar</string>
     <string name="info">Info</string>
     <string name="settingsUz">Sozlamalar</string>
     <string name="settingsRu">настройки</string>

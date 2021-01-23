@@ -3,31 +3,9 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <LinearLayout android:id="@+id/layoutHead"
-        android:layout_marginHorizontal="16dp"
-        android:layout_width="wrap_content"
-        android:layout_height="52dp"
-        android:orientation="horizontal">
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/imageViewBack"
-            android:layout_width="wrap_content"
-            android:layout_height="13dp"
-            android:background="@drawable/ic_back"
-            android:layout_marginEnd="18dp"
-            android:layout_gravity="center_vertical"
-            />
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/textViewHead"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/tariffs"
-            android:fontFamily="@font/bold"
-            android:layout_gravity="center_vertical"
-            />
-
-
-    </LinearLayout>
+    <include
+        layout="@layout/layout_header"
+        />
 
 
     <androidx.core.widget.NestedScrollView
@@ -50,6 +28,17 @@
                 android:layout_marginTop="16dp"
                 android:layout_marginHorizontal="16dp"
                 >
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/imageViewTariff"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#88000000"/>
 
 
                 <LinearLayout
@@ -116,7 +105,7 @@
                             />
 
                         <androidx.appcompat.widget.AppCompatTextView
-                            android:id="@+id/AbonamentPrice"
+                            android:id="@+id/textViewOnPrice"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity=""
@@ -151,7 +140,7 @@
                             />
 
                         <androidx.appcompat.widget.AppCompatTextView
-                            android:id="@+id/changePrice"
+                            android:id="@+id/textViewPrice"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity=""
@@ -243,7 +232,7 @@
                 app:cardBackgroundColor="@color/themeColorNormal">
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recyclerViewOutLimits"
+                    android:id="@+id/recyclerViewOvertLimits"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="16dp"

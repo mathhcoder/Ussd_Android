@@ -41,7 +41,7 @@ class USSDCodesFragment : BaseFragment() {
         cardBack.setOnClickListener {
             findNavController().popBackStack()
         }
-        textViewHeader.text = getString(R.string.ussdCode)
+        textViewHeader.text = getString(R.string.codes)
 
 //        val dividerItemDecoration = DividerItemDecoration(
 //            recyclerViewUssd.getContext(),

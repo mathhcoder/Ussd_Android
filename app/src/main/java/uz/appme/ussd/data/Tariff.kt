@@ -7,7 +7,7 @@ import java.io.Serializable
 data class Tariff(
     val id  : Long,
     val categoryId : Long ,
-    val providerId: Int = 1,
+    val providerId: Long = 1,
     val nameUz : String? = null,
     val nameRu : String? = null,
     val onPriceUz: String? = null,

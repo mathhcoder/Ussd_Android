@@ -15,8 +15,11 @@ import uz.appme.ussd.R
 import uz.appme.ussd.adapter.CategoryAdapter
 import uz.appme.ussd.adapter.TariffsAdapter
 import uz.appme.ussd.data.Category
+import uz.appme.ussd.data.Operator
 import uz.appme.ussd.data.Tariff
+import uz.appme.ussd.ui.OPERATOR
 import uz.appme.ussd.ui.TARIFF
+import uz.appme.ussd.ui.TYPE
 
 class TariffsFragment : BaseFragment() {
     private val viewModel by lazy {
@@ -49,9 +52,13 @@ class TariffsFragment : BaseFragment() {
             adapterCategory.data = value
         }
 
-    private val providerId by lazy{
-        1
+    private val operator by lazy{
+        arguments?.getSerializable(OPERATOR) as Operator
     }
+
+    private val type = 1
+
+
 
 
     override fun onCreateView(
@@ -83,6 +90,7 @@ class TariffsFragment : BaseFragment() {
                 onCategory(data)
             })
         }
+
         recyclerViewCategory.layoutManager = LinearLayoutManager(recyclerViewCategory.context)
         recyclerViewCategory.adapter = adapterCategory
 
@@ -93,11 +101,11 @@ class TariffsFragment : BaseFragment() {
             findNavController().popBackStack()
         }
 
-
     }
 
     private fun onCategorySelected(category: Category){
         selectedCategory = category
+
     }
 
     private fun onTariffSelected(tariff: Tariff){
@@ -107,11 +115,11 @@ class TariffsFragment : BaseFragment() {
     }
 
     private fun onTariffs(data: List<Tariff>){
-        tariffs = data
+        tariffs = data.filter{it.providerId == operator.id && it.categoryId == selectedCategory?.id}
     }
 
     private fun onCategory(data : List<Category>){
-        categories = data
+        categories = data.filter{it.provideId == operator.id && it.type == type}
     }
 
 
