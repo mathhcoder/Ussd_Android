@@ -10,7 +10,7 @@ import uz.appme.ussd.data.Category
 import uz.appme.ussd.data.Operator
 
 
-class SectionAdapter(
+class CategoryAdapter(
     val onItemSelected: (section: Category) -> Unit
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 

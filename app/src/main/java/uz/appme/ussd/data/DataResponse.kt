@@ -6,7 +6,7 @@ data class DataResponse(
     val news: List<News> = emptyList(),
     val tariffs: List<Tariff> = emptyList(),
     val categories: List<Category> = emptyList(),
-    val packages: List<Packages> = emptyList(),
+    val aPackages: List<Pack> = emptyList(),
     val services: List<Service> = emptyList(),
     val contacts: Contact? = null
 )

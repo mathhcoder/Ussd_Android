@@ -28,7 +28,7 @@
 
     <fragment
         android:id="@+id/fragment_about"
-        android:name="uz.appme.ussd.ui.more.AboutFragment"/>
+        android:name="uz.appme.ussd.ui.more.AboutFragment" />
 
     <fragment
         android:id="@+id/fragment_news"
@@ -55,6 +55,11 @@
         android:id="@+id/fragment_packages"
         android:name="uz.appme.ussd.ui.packages.PackagesFragment">
 
+        <argument
+            android:name="type"
+            android:defaultValue="3"
+            app:argType="integer" />
+
     </fragment>
 
     <fragment
@@ -66,11 +71,9 @@
 
     <fragment
         android:id="@+id/fragment_settings"
-        android:name="uz.appme.ussd.ui.more.SettingsFragment"
-        >
+        android:name="uz.appme.ussd.ui.more.SettingsFragment">
 
     </fragment>
-
 
 
 </navigation>

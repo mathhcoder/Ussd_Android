@@ -5,19 +5,19 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import io.reactivex.Single
-import uz.appme.ussd.data.Packages
+import uz.appme.ussd.data.Pack
 
 @Dao
 interface PackageDao {
 
     @Query("SELECT * FROM packages")
-    fun getData(): Single<List<Packages>>
+    fun getData(): Single<List<Pack>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(data: Packages)
+    fun insert(data: Pack)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertAll(data: List<Packages>)
+    fun insertAll(data: List<Pack>)
 
     @Query("DELETE FROM packages")
     fun deleteAll()

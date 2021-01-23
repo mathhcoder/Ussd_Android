@@ -14,20 +14,22 @@ class TariffsAdapter(
     private val onItemSelected: (tariff: Tariff) -> (Unit)
 ) :   RecyclerView.Adapter<RecyclerView.ViewHolder>(){
 
-    var data  = arrayListOf<Tariff>()
+    var data   : List<Tariff> = ArrayList()
         set(value){
             field = value
             notifyDataSetChanged()
         }
     var lang = "uz"
 
-    private val adatper by lazy{
-        LimitAdapter()
+    private val adapterLimt by lazy{
+        LimitAdapter({
+
+        })
     }
     var operator : Operator? = null
         set(value) {
             field = value
-            adatper.operator = value
+            adapterLimt.operator = value
             notifyDataSetChanged()
         }
 
@@ -59,12 +61,13 @@ class TariffsAdapter(
 //           itemView.cardViewPrice.setCardBackgroundColor(Color.parseColor(provider?.color))
 
            itemView.recyclerViewLimits.layoutManager = LinearLayoutManager(itemView.context , LinearLayoutManager.VERTICAL , false)
-           itemView.recyclerViewLimits.adapter = adatper
-           adatper.data = tariff.limits
+           itemView.recyclerViewLimits.adapter = adapterLimt
+//           adapterLimt.data =
 
            itemView.recyclerViewLimits.setOnClickListener({
                onItemSelected(tariff)
            })
+
 
        }
     }

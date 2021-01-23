@@ -19,6 +19,8 @@ import uz.appme.ussd.adapter.BannerPagerAdapter
 import uz.appme.ussd.data.Banner
 import uz.appme.ussd.data.Operator
 import uz.appme.ussd.dialog.SelectOperatorDialog
+import uz.appme.ussd.ui.TYPE
+import uz.appme.ussd.ui.packages.PackagesFragment
 
 
 class HomeFragment : BaseFragment() {
@@ -63,6 +65,7 @@ class HomeFragment : BaseFragment() {
             })
         }
 
+
         viewModel.banners.let {
 
             it.value?.let { data ->
@@ -80,6 +83,24 @@ class HomeFragment : BaseFragment() {
 
         cardSettings?.setOnClickListener {
             findNavController().navigate(R.id.action_fragment_home_to_fragment_settings)
+        }
+
+        cardViewInternet?.setOnClickListener{
+            val  bundle = Bundle()
+            bundle.putInt(TYPE , 1)
+            findNavController().navigate(R.id.action_fragment_home_to_fragment_packages , bundle)
+        }
+
+        cardViewMinutes?.setOnClickListener{
+            val bundle = Bundle()
+            bundle.putInt(TYPE , 2)
+            findNavController().navigate(R.id.action_fragment_home_to_fragment_packages , bundle)
+        }
+
+        cardViewSMS?.setOnClickListener {
+            val bundle = Bundle()
+            bundle.putInt(TYPE , 3)
+            findNavController().navigate(R.id.action_fragment_home_to_fragment_packages , bundle)
         }
 
 

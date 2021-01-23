@@ -8,8 +8,10 @@ import kotlinx.android.synthetic.main.cell_limits.view.*
 import uz.appme.ussd.R
 import uz.appme.ussd.data.Limit
 import uz.appme.ussd.data.Operator
+import uz.appme.ussd.data.Pack
+import uz.appme.ussd.data.Tariff
 
-class LimitAdapter :RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class LimitAdapter (private val onitemSelected: (limit: Limit) -> (Unit)):RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     var data : List<Limit> = emptyList()
         set(value){

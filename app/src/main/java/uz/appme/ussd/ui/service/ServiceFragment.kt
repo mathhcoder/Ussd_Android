@@ -12,7 +12,7 @@ import kotlinx.android.synthetic.main.fragment_services.*
 import uz.appme.ussd.BaseFragment
 import uz.appme.ussd.MainViewModel
 import uz.appme.ussd.R
-import uz.appme.ussd.adapter.SectionAdapter
+import uz.appme.ussd.adapter.CategoryAdapter
 import uz.appme.ussd.adapter.ServiceAdapter
 import uz.appme.ussd.data.Category
 import uz.appme.ussd.data.Operator
@@ -27,7 +27,7 @@ class ServiceFragment : BaseFragment(){
     }
 
     private val adapterSection by lazy{
-        SectionAdapter({
+        CategoryAdapter({
             onSectionSelected(it)
         })
     }

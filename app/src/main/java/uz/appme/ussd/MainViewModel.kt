@@ -20,8 +20,8 @@ class MainViewModel : BaseViewModel() {
     private val categoriesData = MutableLiveData<List<Category>>()
     val categories: LiveData<List<Category>> = categoriesData
 
-    private val packagesData = MutableLiveData<List<Packages>>()
-    val packages: LiveData<List<Packages>> = packagesData
+    private val packagesData = MutableLiveData<List<Pack>>()
+    val pack: LiveData<List<Pack>> = packagesData
 
     private val tariffsData = MutableLiveData<List<Tariff>>()
     val tariffs: LiveData<List<Tariff>> = tariffsData
@@ -120,8 +120,8 @@ class MainViewModel : BaseViewModel() {
                 categoriesData.postValue(it.categories.sortedBy { d -> d.priority })
 
                 BaseRepository.roomDatabase.packageDao().deleteAll()
-                BaseRepository.roomDatabase.packageDao().insertAll(it.packages)
-                packagesData.postValue(it.packages.sortedBy { d -> d.priority })
+                BaseRepository.roomDatabase.packageDao().insertAll(it.aPackages)
+                packagesData.postValue(it.aPackages.sortedBy { d -> d.priority })
 
                 BaseRepository.roomDatabase.contactDao().deleteAll()
                 it.contacts?.let { c ->

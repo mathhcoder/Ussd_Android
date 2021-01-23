@@ -15,7 +15,7 @@ import uz.appme.ussd.modal.LimitConverter
         Banner::class,
         Contact::class,
         News::class,
-        Packages::class,
+        Pack::class,
         Service::class,
         Tariff::class
     ], exportSchema = false, version = 1

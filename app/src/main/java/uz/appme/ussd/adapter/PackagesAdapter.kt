@@ -7,23 +7,23 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.cell_packages.view.*
 import uz.appme.ussd.R
-import uz.appme.ussd.data.Packages
+import uz.appme.ussd.data.Pack
 import uz.appme.ussd.data.Operator
 
 class PackagesAdapter(
-    private val onItemSelected: (packages: Packages) -> (Unit)
+    private val onItemSelected: (pack: Pack) -> (Unit)
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
 
-    var data = ArrayList<Packages>()
+    var data: List<Pack> = ArrayList()
         set(value) {
             field = value
             notifyDataSetChanged()
         }
     var lang = "uz"
 
-    var operator : Operator? = null
-        set(value){
+    var operator: Operator? = null
+        set(value) {
             field = value
             notifyDataSetChanged()
         }
@@ -48,8 +48,9 @@ class PackagesAdapter(
 
     inner class PackagesViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
-        fun bind(packages: Packages) {
-            itemView.textViewPackage.text = if (lang == "uz") packages.amountUz else packages.amountUz
+        fun bind(pack: Pack) {
+            itemView.textViewPackage.text =
+                if (lang == "uz") pack.amountUz else pack.amountUz
             itemView.cardViewPackage.setCardBackgroundColor(Color.parseColor(operator?.color))
         }
     }

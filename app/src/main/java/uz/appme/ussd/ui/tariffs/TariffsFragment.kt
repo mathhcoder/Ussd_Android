@@ -1,45 +1,58 @@
 package uz.appme.ussd.ui.tariffs
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import kotlinx.android.synthetic.main.fragment_tariffs.*
+import kotlinx.android.synthetic.main.layout_header.*
 import uz.appme.ussd.BaseFragment
 import uz.appme.ussd.MainViewModel
 import uz.appme.ussd.R
-import uz.appme.ussd.adapter.SectionAdapter
+import uz.appme.ussd.adapter.CategoryAdapter
 import uz.appme.ussd.adapter.TariffsAdapter
 import uz.appme.ussd.data.Category
-import uz.appme.ussd.data.Operator
 import uz.appme.ussd.data.Tariff
-import uz.appme.ussd.ui.PROVIDER
+import uz.appme.ussd.ui.TARIFF
 
 class TariffsFragment : BaseFragment() {
-
     private val viewModel by lazy {
         ViewModelProvider(this).get(MainViewModel::class.java)
     }
-    private val adapterTariff by lazy {
-        TariffsAdapter {
-            Log.e("TARIFF" , it.toString() + " clicled")
 
+    private var selectedCategory : Category? = null
+
+    private val adapterCategory by lazy{
+        CategoryAdapter{
+            onCategorySelected(it)
         }
     }
 
-    private val adapterSection by lazy {
-        SectionAdapter {
-            onSectionSelected(it)
+    private val adapterTariff by lazy{
+        TariffsAdapter{
+            onTariffSelected(it)
         }
     }
 
-    var operator : Operator? = null
-        set(value) {
+    private var tariffs : List<Tariff> = ArrayList()
+        set(value){
             field = value
-            adapterSection.operator = operator
-            adapterTariff.operator= operator
+            adapterTariff.data = value
         }
+
+    private var categories : List<Category> = ArrayList()
+        set(value){
+            field = value
+            adapterCategory.data = value
+        }
+
+    private val providerId by lazy{
+        1
+    }
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -53,59 +66,54 @@ class TariffsFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.tariffs.let {
-
-//            it.value?.let { tariffs ->
-//                onTariff(tariffs)
-//            }
-//
-//            it.observe(viewLifecycleOwner, Observer { tariffs ->
-//                onTariff(tariffs)
-//            })
+        viewModel.tariffs.let{
+            it.value?.let{data->
+                onTariffs(data)
+            }
+            it.observe(viewLifecycleOwner , { data ->
+                onTariffs(data)
+            })
         }
-        operator = arguments?.getSerializable(PROVIDER) as Operator?
 
-
-//        viewModel.sections.let {
-//            it.value?.let { section ->
-//                onSection(section)
-//            }
-//
-//            it.observe(viewLifecycleOwner, Observer { section ->
-//                onSection(section)
-//            })
-//        }
-
-//        recyclerViewBody.layoutManager =
-//            LinearLayoutManager(recyclerViewBody.context, LinearLayoutManager.VERTICAL, false)
-//        recyclerViewBody.adapter = adapterTariff
-//
-//        recyclerViewSections.layoutManager =
-//            LinearLayoutManager(recyclerViewSections.context, LinearLayoutManager.HORIZONTAL, false)
-//        recyclerViewSections.adapter = adapterSection
-//
-//        imageViewTariffsBack.setOnClickListener({
-//            findNavController().popBackStack()
-//        })
-
-    }
-
-    private fun onTariff(tariffs: ArrayList<Tariff>) {
-        adapterTariff.data = tariffs
-    }
-
-    private fun onTariffSelected(tariff: Tariff) {
-
-    }
-
-    private fun onSection(data: ArrayList<Category>) {
-        adapterSection.data = data
-        data.getOrNull(0)?.let {
-            onSectionSelected(it)
+        viewModel.categories.let{
+            it.value?.let{data ->
+                onCategory(data)
+            }
+            it.observe(viewLifecycleOwner , {data ->
+                onCategory(data)
+            })
         }
+        recyclerViewCategory.layoutManager = LinearLayoutManager(recyclerViewCategory.context)
+        recyclerViewCategory.adapter = adapterCategory
+
+        recyclerViewBody.layoutManager = LinearLayoutManager(recyclerViewBody.context)
+        recyclerViewBody.adapter = adapterTariff
+
+        cardBack.setOnClickListener {
+            findNavController().popBackStack()
+        }
+
+
     }
 
-    private fun onSectionSelected(section: Category) {
-        adapterSection.data = adapterSection.data.map { it.copy(selected = it.id == section.id) }
+    private fun onCategorySelected(category: Category){
+        selectedCategory = category
     }
+
+    private fun onTariffSelected(tariff: Tariff){
+        var bundle = Bundle()
+        bundle.putSerializable(TARIFF , tariff)
+        findNavController().navigate(R.id.action_fragment_tariffs_to_fragment_tariff , bundle)
+    }
+
+    private fun onTariffs(data: List<Tariff>){
+        tariffs = data
+    }
+
+    private fun onCategory(data : List<Category>){
+        categories = data
+    }
+
+
+
 }

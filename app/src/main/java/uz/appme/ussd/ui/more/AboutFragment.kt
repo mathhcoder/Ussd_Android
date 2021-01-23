@@ -20,16 +20,11 @@ import uz.appme.ussd.ui.PROVIDER
 
 class AboutFragment : BaseFragment() {
 
-    lateinit var mcontext : Context
 
     private val viewModel by lazy {
         ViewModelProvider(this).get(MainViewModel::class.java)
     }
 
-    override fun onAttach(context: Context) {
-        mcontext = context
-        super.onAttach(context)
-    }
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
