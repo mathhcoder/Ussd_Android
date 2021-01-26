@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -12,37 +11,43 @@ import kotlinx.android.synthetic.main.fragment_services.*
 import uz.appme.ussd.BaseFragment
 import uz.appme.ussd.MainViewModel
 import uz.appme.ussd.R
-import uz.appme.ussd.adapter.CategoryAdapter
+import uz.appme.ussd.adapter.CategoriesAdapter
 import uz.appme.ussd.adapter.ServiceAdapter
 import uz.appme.ussd.data.Category
 import uz.appme.ussd.data.Operator
 import uz.appme.ussd.data.Service
-import uz.appme.ussd.ui.PROVIDER
 
 
-class ServiceFragment : BaseFragment(){
+class ServiceFragment : BaseFragment() {
 
     private val viewModel by lazy {
-        ViewModelProvider(this).get(MainViewModel::class.java)
-    }
-
-    private val adapterSection by lazy{
-        CategoryAdapter({
-            onSectionSelected(it)
-        })
-    }
-
-    private var operator : Operator?= null
-        set(value) {
-            field = value
-            adapterSection.operator = value
-            adapterService.operator = value
+        activity?.let {
+            ViewModelProvider(it).get(MainViewModel::class.java)
         }
-
-    private val adapterService by lazy{
-        ServiceAdapter({})
     }
-    var lang = "uz"
+
+    private val adapterCategories by lazy {
+        CategoriesAdapter {
+            category = it
+            viewModel?.services?.value?.let { data ->
+                onServices(data)
+            }
+        }
+    }
+
+    private val adapterServices by lazy {
+        ServiceAdapter {
+
+        }
+    }
+
+    private val operator by lazy {
+        arguments?.getSerializable("operator") as? Operator
+    }
+
+    private var category: Category? = null
+
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -54,54 +59,50 @@ class ServiceFragment : BaseFragment(){
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        operator = arguments?.getSerializable(PROVIDER) as Operator?
+        imageViewBackServices.setOnClickListener {
+            findNavController().popBackStack()
+        }
 
+        recyclerViewSectionsServices.layoutManager = LinearLayoutManager(
+            recyclerViewSectionsServices.context,
+            LinearLayoutManager.HORIZONTAL,
+            false
+        )
+        recyclerViewSectionsServices.adapter = adapterCategories
 
+        recyclerViewBodyServices.layoutManager =
+            LinearLayoutManager(recyclerViewBodyServices.context)
+        recyclerViewBodyServices.adapter = adapterServices
 
-//        viewModel.sections.let {
-//
-//            it.value?.let { sections ->
-//                onSections(sections)
-//            }
-//
-//            it.observe(viewLifecycleOwner, Observer { sections ->
-//                onSections(sections)
-//            })
-//        }
+        viewModel?.categories?.let {
+            it.value?.let { categories ->
+                onCategories(categories)
+            }
+            it.observe(viewLifecycleOwner, { categories ->
+                onCategories(categories)
+            })
+        }
 
-        viewModel.services.let{
-            it.value?.let{services ->
+        viewModel?.services?.let {
+            it.value?.let { services ->
                 onServices(services)
             }
-            it.observe(viewLifecycleOwner  , Observer { services ->
+            it.observe(viewLifecycleOwner, { services ->
                 onServices(services)
             })
         }
 
-        recyclerViewSectionsServices.layoutManager = LinearLayoutManager(recyclerViewSectionsServices.context , LinearLayoutManager.HORIZONTAL , false)
-        recyclerViewSectionsServices.adapter = adapterSection
-
-        recyclerViewBodyServices.layoutManager = LinearLayoutManager(recyclerViewBodyServices.context , LinearLayoutManager.VERTICAL , false)
-        recyclerViewBodyServices.adapter = adapterService
-
-        imageViewBackServices.setOnClickListener({
-            findNavController().popBackStack()
-        })
-
-
-
     }
 
 
-    fun onSections(sections : List<Category>){
-        adapterSection.data = sections
+    private fun onCategories(sections: List<Category>) {
+        adapterCategories.data = sections.filter { it.operatorId == operator?.id && it.type == 2 }
+        if (category == null) category = sections.firstOrNull()
     }
 
-    fun onServices(services : List<Service>){
-        adapterService.data = services
+    private fun onServices(services: List<Service>) {
+        adapterServices.data = services.filter { it.categoryId == category?.id }
     }
 
-    private fun onSectionSelected(section: Category) {
-        adapterSection.data = adapterSection.data.map { it.copy(selected = it.id == section.id) }
-    }
+
 }

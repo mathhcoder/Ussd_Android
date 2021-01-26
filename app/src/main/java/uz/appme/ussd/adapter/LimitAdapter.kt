@@ -11,17 +11,17 @@ import uz.appme.ussd.data.Operator
 import uz.appme.ussd.data.Pack
 import uz.appme.ussd.data.Tariff
 
-class LimitAdapter ():RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class LimitAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    var data : List<Limit> = emptyList()
-        set(value){
+    var data: List<Limit> = emptyList()
+        set(value) {
             field = value
             notifyDataSetChanged()
         }
 
     var lang = "uz"
 
-    var operator : Operator? = null
+    var operator: Operator? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return LimitViewHolder(
@@ -34,16 +34,16 @@ class LimitAdapter ():RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        if(holder is LimitViewHolder)
-            data.getOrNull(position)?.let{
+        if (holder is LimitViewHolder)
+            data.getOrNull(position)?.let {
                 holder.bind(it)
             }
     }
 
     inner class LimitViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         fun bind(limit: Limit) {
-            itemView.textViewLimit.text = if(lang == "uz") limit.nameUz else limit.nameRu
-            itemView.textViewLimitDate.text = if(lang == "uz") limit.valueUz else limit.valueRu
+            itemView.textViewLimit.text = if (lang == "uz") limit.nameUz else limit.nameRu
+            itemView.textViewLimitDate.text = if (lang == "uz") limit.valueUz else limit.valueRu
         }
     }
 }

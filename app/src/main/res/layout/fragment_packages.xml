@@ -27,7 +27,7 @@
                 android:id="@+id/textViewHead"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/tariffs"
+                android:text="@string/tariff"
                 android:fontFamily="@font/bold"
                 android:layout_gravity="center_vertical"
                 />

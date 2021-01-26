@@ -8,13 +8,11 @@ import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.cell_news_image.view.*
 import kotlinx.android.synthetic.main.cell_news_simple.view.*
 import uz.appme.ussd.R
+import uz.appme.ussd.data.Lang
 import uz.appme.ussd.data.News
-import uz.appme.ussd.ui.RU
 import uz.appme.ussd.ui.TIME_FORMAT
-import uz.appme.ussd.ui.UZ
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.collections.ArrayList
 
 class NewsAdapter(
     private val onItemSelected: (news: News) -> (Unit)
@@ -26,7 +24,7 @@ class NewsAdapter(
             notifyDataSetChanged()
         }
 
-    var lang: String = UZ
+    var lang: Lang = Lang.UZ
         set(value) {
             field = value
             notifyDataSetChanged()
@@ -72,8 +70,8 @@ class NewsAdapter(
     inner class SimpleViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
         fun bind(news: News) {
-            itemView.textViewNameService.text = if (lang == RU) news.titleRu else news.titleUz
-            itemView.textViewDescritionService.text = if (lang == RU) news.bodyRu else news.bodyUz
+            itemView.textViewNameService.text = if (lang == Lang.UZ) news.titleUz else news.titleRu
+            itemView.textViewDescritionService.text = if (lang == Lang.UZ) news.bodyUz else news.bodyRu
             itemView.textViewDate.text =
                 SimpleDateFormat(TIME_FORMAT, Locale.getDefault()).format(news.date)
             itemView.setOnClickListener { onItemSelected(news) }
@@ -92,8 +90,8 @@ class NewsAdapter(
                     .into(itemView.imageViewNews)
             }
 
-            itemView.textViewTitleImage.text = if (lang == RU) news.titleRu else news.titleUz
-            itemView.textViewBodyImage.text = if (lang == RU) news.bodyRu else news.bodyUz
+            itemView.textViewTitleImage.text = if (lang == Lang.UZ) news.titleUz else news.titleRu
+            itemView.textViewBodyImage.text = if (lang == Lang.UZ) news.bodyUz else news.bodyRu
             itemView.textViewDateImage.text =
                 SimpleDateFormat(TIME_FORMAT, Locale.getDefault()).format(news.date)
 

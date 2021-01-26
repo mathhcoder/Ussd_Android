@@ -12,33 +12,32 @@ import uz.appme.ussd.data.Tariff
 
 class TariffsAdapter(
     private val onItemSelected: (tariff: Tariff) -> (Unit)
-) :   RecyclerView.Adapter<RecyclerView.ViewHolder>(){
+) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    var data   : List<Tariff> = ArrayList()
-        set(value){
+    var data: List<Tariff> = ArrayList()
+        set(value) {
             field = value
             notifyDataSetChanged()
         }
+
     var lang = "uz"
 
-    private val adapterLimt by lazy{
-        LimitAdapter({
-
-        })
+    private val adapterLimit by lazy {
+        LimitAdapter()
     }
-    var operator : Operator? = null
+    var operator: Operator? = null
         set(value) {
             field = value
-            adapterLimt.operator = value
+            adapterLimit.operator = value
             notifyDataSetChanged()
         }
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return TariffViewHolder(
-                LayoutInflater.from(parent.context)
-                    .inflate(R.layout.cell_tariffs, parent, false)
-            )
+            LayoutInflater.from(parent.context)
+                .inflate(R.layout.cell_tariffs, parent, false)
+        )
 
     }
 
@@ -46,30 +45,32 @@ class TariffsAdapter(
 
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        if(holder is TariffViewHolder)
-            data.getOrNull(position)?.let{
+        if (holder is TariffViewHolder)
+            data.getOrNull(position)?.let {
                 holder.bind(it)
             }
     }
 
 
-    inner class TariffViewHolder(view : View) : RecyclerView.ViewHolder(view){
-       fun bind(tariff : Tariff  ){
+    inner class TariffViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        fun bind(tariff: Tariff) {
 
-           itemView.textViewTariffName.text = if(lang == "uz") tariff.nameUz else tariff.nameRu
-           itemView.textViewPrice.text = if(lang == "uz") tariff.subscriptionPriceUz else tariff.subscriptionPriceRu
+            itemView.textViewTariffName.text = if (lang == "uz") tariff.nameUz else tariff.nameRu
+            itemView.textViewPrice.text =
+                if (lang == "uz") tariff.subscriptionPriceUz else tariff.subscriptionPriceRu
 //           itemView.cardViewPrice.setCardBackgroundColor(Color.parseColor(provider?.color))
 
-           itemView.recyclerViewLimits.layoutManager = LinearLayoutManager(itemView.context , LinearLayoutManager.VERTICAL , false)
-           itemView.recyclerViewLimits.adapter = adapterLimt
+            itemView.recyclerViewLimits.layoutManager =
+                LinearLayoutManager(itemView.context, LinearLayoutManager.VERTICAL, false)
+            itemView.recyclerViewLimits.adapter = adapterLimit
 //           adapterLimt.data =
 
-           itemView.recyclerViewLimits.setOnClickListener({
-               onItemSelected(tariff)
-           })
+            itemView.recyclerViewLimits.setOnClickListener({
+                onItemSelected(tariff)
+            })
 
 
-       }
+        }
     }
 
 

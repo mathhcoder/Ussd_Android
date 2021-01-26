@@ -12,53 +12,51 @@ import kotlinx.android.synthetic.main.layout_header.*
 import uz.appme.ussd.BaseFragment
 import uz.appme.ussd.MainViewModel
 import uz.appme.ussd.R
-import uz.appme.ussd.adapter.CategoryAdapter
+import uz.appme.ussd.adapter.CategoriesAdapter
 import uz.appme.ussd.adapter.TariffsAdapter
 import uz.appme.ussd.data.Category
 import uz.appme.ussd.data.Operator
 import uz.appme.ussd.data.Tariff
 import uz.appme.ussd.ui.OPERATOR
 import uz.appme.ussd.ui.TARIFF
-import uz.appme.ussd.ui.TYPE
 
 class TariffsFragment : BaseFragment() {
+
     private val viewModel by lazy {
         ViewModelProvider(this).get(MainViewModel::class.java)
     }
 
-    private var selectedCategory : Category? = null
+    private var selectedCategory: Category? = null
 
-    private val adapterCategory by lazy{
-        CategoryAdapter{
+    private val adapterCategory by lazy {
+        CategoriesAdapter {
             onCategorySelected(it)
         }
     }
 
-    private val adapterTariff by lazy{
-        TariffsAdapter{
+    private val adapterTariff by lazy {
+        TariffsAdapter {
             onTariffSelected(it)
         }
     }
 
-    private var tariffs : List<Tariff> = ArrayList()
-        set(value){
+    private var tariffs: List<Tariff> = ArrayList()
+        set(value) {
             field = value
             adapterTariff.data = value
         }
 
-    private var categories : List<Category> = ArrayList()
-        set(value){
+    private var categories: List<Category> = ArrayList()
+        set(value) {
             field = value
             adapterCategory.data = value
         }
 
-    private val operator by lazy{
+    private val operator by lazy {
         arguments?.getSerializable(OPERATOR) as Operator
     }
 
     private val type = 1
-
-
 
 
     override fun onCreateView(
@@ -73,20 +71,22 @@ class TariffsFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.tariffs.let{
-            it.value?.let{data->
+        textViewHeader?.text = getString(R.string.tariff)
+
+        viewModel.tariffs.let {
+            it.value?.let { data ->
                 onTariffs(data)
             }
-            it.observe(viewLifecycleOwner , { data ->
+            it.observe(viewLifecycleOwner, { data ->
                 onTariffs(data)
             })
         }
 
-        viewModel.categories.let{
-            it.value?.let{data ->
+        viewModel.categories.let {
+            it.value?.let { data ->
                 onCategory(data)
             }
-            it.observe(viewLifecycleOwner , {data ->
+            it.observe(viewLifecycleOwner, { data ->
                 onCategory(data)
             })
         }
@@ -103,25 +103,25 @@ class TariffsFragment : BaseFragment() {
 
     }
 
-    private fun onCategorySelected(category: Category){
+    private fun onCategorySelected(category: Category) {
         selectedCategory = category
 
     }
 
-    private fun onTariffSelected(tariff: Tariff){
+    private fun onTariffSelected(tariff: Tariff) {
         var bundle = Bundle()
-        bundle.putSerializable(TARIFF , tariff)
-        findNavController().navigate(R.id.action_fragment_tariffs_to_fragment_tariff , bundle)
+        bundle.putSerializable(TARIFF, tariff)
+        findNavController().navigate(R.id.action_fragment_tariffs_to_fragment_tariff, bundle)
     }
 
-    private fun onTariffs(data: List<Tariff>){
-        tariffs = data.filter{it.providerId == operator.id && it.categoryId == selectedCategory?.id}
+    private fun onTariffs(data: List<Tariff>) {
+        tariffs =
+            data.filter { it.providerId == operator.id && it.categoryId == selectedCategory?.id }
     }
 
-    private fun onCategory(data : List<Category>){
-        categories = data.filter{it.provideId == operator.id && it.type == type}
+    private fun onCategory(data: List<Category>) {
+        categories = data.filter { it.operatorId == operator.id && it.type == type }
     }
-
 
 
 }

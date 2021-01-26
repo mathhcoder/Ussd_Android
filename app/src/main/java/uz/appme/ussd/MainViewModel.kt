@@ -14,6 +14,9 @@ class MainViewModel : BaseViewModel() {
     private val isDarkData = MutableLiveData<Boolean>()
     val isDark: LiveData<Boolean> = isDarkData
 
+    private val operatorData = MutableLiveData<Operator>()
+    val operator: LiveData<Operator> = operatorData
+
     private val operatorsData = MutableLiveData<List<Operator>>()
     val operators: LiveData<List<Operator>> = operatorsData
 
@@ -38,11 +41,14 @@ class MainViewModel : BaseViewModel() {
     private val contactData = MutableLiveData<Contact>()
     val contact: LiveData<Contact> = contactData
 
+    private val langData = MutableLiveData<Lang>()
+    val lang: LiveData<Lang> = langData
+
+
     private var databaseDisposable: Disposable? = null
     private var networkDisposable: Disposable? = null
     private var authDisposable: Disposable? = null
 
-    var lang = "uz"
 
     init {
         start()

@@ -11,7 +11,7 @@ import uz.appme.ussd.BaseFragment
 import uz.appme.ussd.MainViewModel
 import uz.appme.ussd.R
 import uz.appme.ussd.adapter.PackagesAdapter
-import uz.appme.ussd.adapter.CategoryAdapter
+import uz.appme.ussd.adapter.CategoriesAdapter
 import uz.appme.ussd.data.Category
 import uz.appme.ussd.data.Operator
 import uz.appme.ussd.data.Pack
@@ -26,7 +26,7 @@ class PackagesFragment : BaseFragment() {
     var selectedCategory: Category? = null
 
     private val categoryAdapter by lazy {
-        CategoryAdapter {
+        CategoriesAdapter {
             onCategory(it)
         }
     }
@@ -41,10 +41,9 @@ class PackagesFragment : BaseFragment() {
         arguments?.getInt(TYPE)
     }
 
-    private val operator by lazy{
+    private val operator by lazy {
         arguments?.getSerializable("key") as Operator
     }
-
 
 
     override fun onCreateView(
@@ -88,11 +87,12 @@ class PackagesFragment : BaseFragment() {
     }
 
     private fun onCategories(data: List<Category>) {
-        categoryAdapter.data = data.filter { it.type == type && it.provideId == operator.id }
+        categoryAdapter.data = data.filter { it.type == type && it.operatorId == operator.id }
     }
 
     private fun onPackages(data: List<Pack>) {
-        packsAdapter.data = data.filter { it.categoryId == selectedCategory?.id && it.operatorId == operator.id }
+        packsAdapter.data =
+            data.filter { it.categoryId == selectedCategory?.id && it.operatorId == operator.id }
     }
 
     private fun onCategory(data: Category) {

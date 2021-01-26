@@ -1,38 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/layoutHeader"
     android:layout_width="match_parent"
-    android:layout_height="64dp"
-    android:background="@color/themeColorLight"
-    >
+    android:layout_height="56dp">
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/cardBack"
-        android:layout_width="64dp"
-        android:layout_height="64dp"
-        app:cardCornerRadius="32dp"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        app:cardCornerRadius="28dp"
         app:cardElevation="0dp"
-        android:backgroundTint="@color/themeColorLight"
-        app:contentPadding="24dp">
+        app:contentPadding="18dp">
 
         <androidx.appcompat.widget.AppCompatImageView
-            android:background="@color/themeColorLight"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:srcCompat="@drawable/ic_back"
-            tools:ignore="VectorDrawableCompat" />
+            app:tint="@color/colorTextPrimary" />
 
     </com.google.android.material.card.MaterialCardView>
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/textViewHeader"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:gravity="center"
+        android:layout_marginStart="16dp"
+        android:layout_weight="1"
+        android:gravity="center_vertical"
         android:text="@string/news"
         android:textColor="@color/themeColorDark"
         android:textSize="18sp" />
 
-</FrameLayout>
+</LinearLayout>

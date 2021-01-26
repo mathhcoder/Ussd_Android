@@ -54,7 +54,7 @@ class TariffFragment : BaseFragment(){
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        textViewHeader.text =  getString(R.string.tariffs)
+        textViewHeader.text =  getString(R.string.tariff)
         textViewTariffName.text = if(lang == "uz") tariff.nameUz else tariff.nameRu
 
         Glide.with(imageViewTariff)

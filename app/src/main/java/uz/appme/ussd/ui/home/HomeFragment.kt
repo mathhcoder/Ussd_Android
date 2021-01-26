@@ -42,6 +42,8 @@ class HomeFragment : BaseFragment() {
         }
     }
 
+    private var operator: Operator? = null
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -86,18 +88,18 @@ class HomeFragment : BaseFragment() {
             findNavController().navigate(R.id.action_fragment_home_to_fragment_settings)
         }
 
-        cardViewInternet?.setOnClickListener{
-            val  bundle = Bundle()
-            bundle.putSerializable(OPERATOR , Operator())
-            bundle.putInt(TYPE , 1)
-            findNavController().navigate(R.id.action_fragment_home_to_fragment_packages , bundle)
+        cardViewInternet?.setOnClickListener {
+            val bundle = Bundle()
+            bundle.putSerializable(OPERATOR, Operator())
+            bundle.putInt(TYPE, 1)
+            findNavController().navigate(R.id.action_fragment_home_to_fragment_packages, bundle)
         }
 
-        cardViewMinutes?.setOnClickListener{
+        cardViewMinutes?.setOnClickListener {
             val bundle = Bundle()
-            bundle.putInt(TYPE , 2)
-            bundle.putSerializable(OPERATOR , Operator())
-            findNavController().navigate(R.id.action_fragment_home_to_fragment_packages , bundle)
+            bundle.putInt(TYPE, 2)
+            bundle.putSerializable(OPERATOR, Operator())
+            findNavController().navigate(R.id.action_fragment_home_to_fragment_packages, bundle)
         }
 
         cardViewSMS?.setOnClickListener {
@@ -105,10 +107,11 @@ class HomeFragment : BaseFragment() {
             bundle.putInt(TYPE, 3)
             findNavController().navigate(R.id.action_fragment_home_to_fragment_packages, bundle)
         }
+
         cardViewTariff?.setOnClickListener {
             val bundle = Bundle()
-            bundle.putSerializable(OPERATOR , Operator())
-            findNavController().navigate(R.id.action_fragment_home_to_fragment_tariffs)
+            bundle.putSerializable(OPERATOR, operator)
+            findNavController().navigate(R.id.action_fragment_home_to_fragment_tariffs, bundle)
         }
 
         cardViewService?.setOnClickListener {
@@ -162,23 +165,18 @@ class HomeFragment : BaseFragment() {
 
         try {
             Color.parseColor(data.color).let { col ->
-
-//                arrayListOf(
-//                    icon_tariff,
-//                    service_bacground,
-//                    Iconbackround,
-//                    cardMinutes,
-//                    SMSBackround
-//                ).forEach {
-//                    it.setCardBackgroundColor(Color.parseColor(data.color))
-//                }
-
-//                arrayListOf(
-//
-//                ).forEach {
-//                    it.setColorFilter(col)
-//                }
-
+                arrayListOf(
+                    imageViewTariff,
+                    imageViewService,
+                    imageViewInternet,
+                    imageViewMinutes,
+                    imageViewSMS,
+                    imageViewCode,
+                    imageViewNews,
+                    imageViewSales
+                ).forEach {
+                    it.setColorFilter(col)
+                }
             }
         } catch (e: Exception) {
 
