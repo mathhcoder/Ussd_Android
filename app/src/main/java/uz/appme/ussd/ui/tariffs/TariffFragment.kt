@@ -93,4 +93,5 @@ class TariffFragment : BaseFragment(){
     }
 
 
+
 }
