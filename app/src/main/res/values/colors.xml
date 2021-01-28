@@ -21,10 +21,10 @@
     <color name="colorCardBackground">#F4F4F4</color>
     <color name="colorDivider">#93949B</color>
 
-    <color name="colorTextPrimary">#19181F</color>
     <color name="colorCardBg">#F4F4F4</color>
 
     <color name="colorPrimary">#1F1E25</color>
     <color name="colorSecondary">#19181F</color>
+    <color name="colorTextPrimary">#FFFFFF</color>
 
 </resources>

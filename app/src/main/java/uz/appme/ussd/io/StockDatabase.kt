@@ -10,7 +10,7 @@ import uz.appme.ussd.modal.LimitConverter
 
 @Database(
     entities = [
-        //Provider::class ,
+        Operator::class ,
         Category::class,
         Banner::class,
         Contact::class,
@@ -23,7 +23,7 @@ import uz.appme.ussd.modal.LimitConverter
 @TypeConverters(LimitConverter::class)
 abstract class StockDatabase : RoomDatabase() {
 
-    //abstract fun providerDao() : ProviderDao
+    abstract fun operatorDao() : OperatorDao
 
     abstract fun categoryDao(): CategoryDao
 

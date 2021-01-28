@@ -1,74 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/themeColorLight"
-    xmlns:android="http://schemas.android.com/apk/res/android" >
-    <LinearLayout
+    android:background="@color/colorPrimary"
+    android:orientation="vertical">
+
+    <include layout="@layout/layout_header" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewCategory"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:orientation="vertical" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewBody"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="0dp"
+        android:clipToPadding="false"
+        android:paddingBottom="16dp" />
 
-        <LinearLayout android:id="@+id/layoutHead"
-            android:layout_marginHorizontal="16dp"
-            android:layout_width="wrap_content"
-            android:layout_height="52dp"
-            android:orientation="horizontal"
-
-            >
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/imageViewBackServices"
-                android:layout_width="wrap_content"
-                android:layout_height="13dp"
-                android:background="@drawable/ic_back"
-                android:layout_marginEnd="18dp"
-                android:layout_gravity="center_vertical"
-                />
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/textViewHead"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/services"
-                android:fontFamily="@font/bold"
-                android:layout_gravity="center_vertical"
-                />
-
-
-        </LinearLayout>
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerViewSectionsServices"
-            android:layout_width="wrap_content"
-            android:layout_height="60dp"
-            android:orientation="vertical" />
-    </LinearLayout>
-
-
-    <androidx.core.widget.NestedScrollView
-        android:layout_marginTop="112dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        >
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            >
-
-
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerViewBodyServices"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                />
-
-
-        </LinearLayout>
-
-
-    </androidx.core.widget.NestedScrollView>
-
-
-</FrameLayout>
+</LinearLayout>

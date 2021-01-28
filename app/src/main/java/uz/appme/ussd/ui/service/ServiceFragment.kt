@@ -4,10 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.fragment_services.*
+import kotlinx.android.synthetic.main.layout_header.*
 import uz.appme.ussd.BaseFragment
 import uz.appme.ussd.MainViewModel
 import uz.appme.ussd.R
@@ -17,7 +19,6 @@ import uz.appme.ussd.data.Category
 import uz.appme.ussd.data.Operator
 import uz.appme.ussd.data.Service
 
-
 class ServiceFragment : BaseFragment() {
 
     private val viewModel by lazy {
@@ -26,27 +27,24 @@ class ServiceFragment : BaseFragment() {
         }
     }
 
-    private val adapterCategories by lazy {
+    private val adapterCategory by lazy {
         CategoriesAdapter {
-            category = it
-            viewModel?.services?.value?.let { data ->
-                onServices(data)
-            }
+            onCategorySelected(it)
         }
     }
 
-    private val adapterServices by lazy {
+    private val adapterService by lazy {
         ServiceAdapter {
-
+            onServiceSelected(it)
         }
     }
 
     private val operator by lazy {
-        arguments?.getSerializable("operator") as? Operator
+        arguments?.getSerializable("data") as? Operator
     }
 
     private var category: Category? = null
-
+    private val type = 2
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -59,50 +57,56 @@ class ServiceFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        imageViewBackServices.setOnClickListener {
+        textViewHeader?.text = getString(R.string.services)
+        cardBack?.setOnClickListener {
             findNavController().popBackStack()
         }
 
-        recyclerViewSectionsServices.layoutManager = LinearLayoutManager(
-            recyclerViewSectionsServices.context,
-            LinearLayoutManager.HORIZONTAL,
-            false
-        )
-        recyclerViewSectionsServices.adapter = adapterCategories
-
-        recyclerViewBodyServices.layoutManager =
-            LinearLayoutManager(recyclerViewBodyServices.context)
-        recyclerViewBodyServices.adapter = adapterServices
+        viewModel?.services?.let {
+            it.value?.let { data ->
+                onServices(data)
+            }
+            it.observe(viewLifecycleOwner, { data ->
+                onServices(data)
+            })
+        }
 
         viewModel?.categories?.let {
-            it.value?.let { categories ->
-                onCategories(categories)
+            it.value?.let { data ->
+                onCategories(data)
             }
-            it.observe(viewLifecycleOwner, { categories ->
-                onCategories(categories)
+            it.observe(viewLifecycleOwner, { data ->
+                onCategories(data)
             })
         }
 
-        viewModel?.services?.let {
-            it.value?.let { services ->
-                onServices(services)
-            }
-            it.observe(viewLifecycleOwner, { services ->
-                onServices(services)
-            })
+        recyclerViewCategory.layoutManager = LinearLayoutManager(recyclerViewCategory.context)
+        recyclerViewCategory.adapter = adapterCategory
+
+        recyclerViewBody.layoutManager = LinearLayoutManager(recyclerViewBody.context)
+        recyclerViewBody.adapter = adapterService
+
+    }
+
+    private fun onCategories(data: List<Category>) {
+        adapterCategory.data = data.filter { it.operatorId == operator?.id && it.type == type }
+    }
+
+    private fun onCategorySelected(category: Category) {
+        this.category = category
+        viewModel?.services?.value?.let {
+            onServices(it)
         }
-
     }
 
-
-    private fun onCategories(sections: List<Category>) {
-        adapterCategories.data = sections.filter { it.operatorId == operator?.id && it.type == 2 }
-        if (category == null) category = sections.firstOrNull()
+    private fun onServices(data: List<Service>) {
+        adapterService.data =
+            data.filter { it.operatorId == operator?.id && it.categoryId == category?.id }
     }
 
-    private fun onServices(services: List<Service>) {
-        adapterServices.data = services.filter { it.categoryId == category?.id }
+    private fun onServiceSelected(service: Service) {
+        val bundle = bundleOf(Pair("data", service))
+        findNavController().navigate(R.id.action_fragment_tariffs_to_fragment_tariff, bundle)
     }
-
 
 }

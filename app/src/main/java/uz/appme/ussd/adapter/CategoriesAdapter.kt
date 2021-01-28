@@ -1,11 +1,10 @@
 package uz.appme.ussd.adapter
 
-import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.android.synthetic.main.cell_section_tariffs.view.*
+import kotlinx.android.synthetic.main.cell_category.view.*
 import uz.appme.ussd.R
 import uz.appme.ussd.data.Category
 import uz.appme.ussd.data.Lang
@@ -37,7 +36,7 @@ class CategoriesAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return SectionTariffsViewHolder(
             LayoutInflater.from(parent.context)
-                .inflate(R.layout.cell_section_tariffs, parent, false)
+                .inflate(R.layout.cell_category, parent, false)
         )
     }
 
@@ -55,18 +54,7 @@ class CategoriesAdapter(
     inner class SectionTariffsViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         fun bind(section: Category) {
 
-            itemView.textViewSection.text = if (lang == Lang.UZ) section.nameUz else section.nameRu
-
-            if (section.selected == true) {
-                val color = try {
-                    Color.parseColor(operator?.color)
-                } catch (e: Exception) {
-                    Color.parseColor("#000")
-                }
-                itemView.cardViewSection.setCardBackgroundColor(color)
-            } else {
-                itemView.cardViewSection.setCardBackgroundColor(Color.parseColor("#FFFFFF"))
-            }
+            itemView.textView.text = if (lang == Lang.UZ) section.nameUz else section.nameRu
 
             itemView.setOnClickListener {
                 onItemSelected(section)

@@ -6,6 +6,7 @@ import java.io.Serializable
 @Entity(tableName = "service", primaryKeys = ["id"])
 data class Service(
     val id: Long = 0,
+    val operatorId : Long? = null,
     val categoryId: Long? = null,
     val nameUz: String? = null,
     val nameRu: String? = null,

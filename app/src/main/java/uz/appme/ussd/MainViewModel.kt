@@ -1,10 +1,12 @@
 package uz.appme.ussd
 
 import android.os.Build
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
+import timber.log.Timber
 import uz.appme.ussd.data.*
 import uz.appme.ussd.io.BaseRepository
 
@@ -52,10 +54,6 @@ class MainViewModel : BaseViewModel() {
 
     init {
         start()
-        val beeline = Operator(0, "", "#fff", "Beeline")
-        val mobiuz = Operator(1, "", "#fff", "Mobiuz")
-        val uzmobile = Operator(2, "", "#fff", "Uzmobile")
-        operatorsData.postValue(arrayListOf(beeline, mobiuz, uzmobile))
     }
 
     fun selectOperator(operator: Operator) {
@@ -89,8 +87,8 @@ class MainViewModel : BaseViewModel() {
         if (BaseRepository.preference.token.isEmpty()) {
             auth()
         } else {
-            getDataFromDB()
-            updateVersion()
+            getDataFromNetwork()
+           // updateVersion()
         }
     }
 
@@ -128,9 +126,11 @@ class MainViewModel : BaseViewModel() {
     }
 
     private fun getDataFromNetwork() {
+        networkDisposable?.dispose()
         networkDisposable = BaseRepository.mainApi.getData().subscribeOn(Schedulers.io())
             .observeOn(Schedulers.io())
             .subscribe({
+
                 BaseRepository.roomDatabase.tariffDao().deleteAll()
                 BaseRepository.roomDatabase.tariffDao().insertAll(it.tariffs)
                 tariffsData.postValue(it.tariffs.sortedBy { d -> d.priority })
@@ -143,9 +143,11 @@ class MainViewModel : BaseViewModel() {
                 BaseRepository.roomDatabase.categoryDao().insertAll(it.categories)
                 categoriesData.postValue(it.categories.sortedBy { d -> d.priority })
 
+                Timber.e(it.tariffs.toString())
+
                 BaseRepository.roomDatabase.packageDao().deleteAll()
-                BaseRepository.roomDatabase.packageDao().insertAll(it.aPackages)
-                packagesData.postValue(it.aPackages.sortedBy { d -> d.priority })
+                BaseRepository.roomDatabase.packageDao().insertAll(it.packages)
+                packagesData.postValue(it.packages.sortedBy { d -> d.priority })
 
                 BaseRepository.roomDatabase.contactDao().deleteAll()
                 it.contacts?.let { c ->
@@ -202,6 +204,7 @@ class MainViewModel : BaseViewModel() {
             .subscribeOn(Schedulers.io())
             .observeOn(Schedulers.io())
             .subscribe({
+                Log.e("Response:", it.code().toString())
                 when (it.code()) {
                     200 -> {
                         getDataFromNetwork()

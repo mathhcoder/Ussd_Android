@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.cell_bottom_sheet.view.*
+import uz.appme.ussd.BuildConfig
 import uz.appme.ussd.R
 import uz.appme.ussd.data.Operator
 
@@ -15,7 +16,6 @@ class ProvidersAdapter(
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     var selectedColor: String = "#FFFFFF"
-
 
     var data: List<Operator> = ArrayList()
         set(value) {
@@ -37,7 +37,7 @@ class ProvidersAdapter(
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
 
-        if(holder is BottomSheetViewHolder)
+        if (holder is BottomSheetViewHolder)
             data.getOrNull(position)?.let {
                 holder.bind(it)
             }
@@ -46,23 +46,30 @@ class ProvidersAdapter(
 
     inner class BottomSheetViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         fun bind(operator: Operator) {
-            //itemView.textViewBottomProviderName.text = provider.name
-            itemView.BottomProviderChecked.setCardBackgroundColor(Color.parseColor(selectedColor))
+
+            itemView.textViewBottomProviderName.text = operator.name
+            itemView.cardChecked.setCardBackgroundColor(Color.parseColor(selectedColor))
 
             if (operator.selected)
-                itemView.BottomProviderChecked.visibility = View.VISIBLE
+                itemView.cardChecked.visibility = View.VISIBLE
             else
-                itemView.BottomProviderChecked.visibility = View.INVISIBLE
+                itemView.cardChecked.visibility = View.INVISIBLE
+
+            val image = operator.icon?.let {
+                if (!it.startsWith("http")) {
+                    BuildConfig.BASE_IMAGE_URL + it
+                } else it
+            }
 
             Glide.with(itemView.context)
-                .load(operator.image) // image url
+                .load(image)
                 .centerCrop()
-                .fitCenter()// resizing
+                .fitCenter()
                 .into(itemView.imageViewBottomProvider)
 
-            itemView.setOnClickListener({
+            itemView.setOnClickListener {
                 onItemSelected(operator)
-            })
+            }
         }
     }
 

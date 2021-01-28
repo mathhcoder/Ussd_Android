@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -18,15 +19,14 @@ import uz.appme.ussd.data.Category
 import uz.appme.ussd.data.Operator
 import uz.appme.ussd.data.Tariff
 import uz.appme.ussd.ui.OPERATOR
-import uz.appme.ussd.ui.TARIFF
 
 class TariffsFragment : BaseFragment() {
 
     private val viewModel by lazy {
-        ViewModelProvider(this).get(MainViewModel::class.java)
+        activity?.let {
+            ViewModelProvider(it).get(MainViewModel::class.java)
+        }
     }
-
-    private var selectedCategory: Category? = null
 
     private val adapterCategory by lazy {
         CategoriesAdapter {
@@ -40,24 +40,12 @@ class TariffsFragment : BaseFragment() {
         }
     }
 
-    private var tariffs: List<Tariff> = ArrayList()
-        set(value) {
-            field = value
-            adapterTariff.data = value
-        }
-
-    private var categories: List<Category> = ArrayList()
-        set(value) {
-            field = value
-            adapterCategory.data = value
-        }
-
     private val operator by lazy {
-        arguments?.getSerializable(OPERATOR) as Operator
+        arguments?.getSerializable("data") as? Operator
     }
 
+    private var category: Category? = null
     private val type = 1
-
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -67,13 +55,15 @@ class TariffsFragment : BaseFragment() {
         return inflater.inflate(R.layout.fragment_tariffs, container, false)
     }
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         textViewHeader?.text = getString(R.string.tariff)
+        cardBack?.setOnClickListener {
+            findNavController().popBackStack()
+        }
 
-        viewModel.tariffs.let {
+        viewModel?.tariffs?.let {
             it.value?.let { data ->
                 onTariffs(data)
             }
@@ -82,45 +72,43 @@ class TariffsFragment : BaseFragment() {
             })
         }
 
-        viewModel.categories.let {
+        viewModel?.categories?.let {
             it.value?.let { data ->
-                onCategory(data)
+                onCategories(data)
             }
             it.observe(viewLifecycleOwner, { data ->
-                onCategory(data)
+                onCategories(data)
             })
         }
 
-        recyclerViewCategory.layoutManager = LinearLayoutManager(recyclerViewCategory.context)
+        recyclerViewCategory.layoutManager =
+            LinearLayoutManager(recyclerViewCategory.context, LinearLayoutManager.HORIZONTAL, false)
         recyclerViewCategory.adapter = adapterCategory
 
         recyclerViewBody.layoutManager = LinearLayoutManager(recyclerViewBody.context)
         recyclerViewBody.adapter = adapterTariff
 
-        cardBack.setOnClickListener {
-            findNavController().popBackStack()
-        }
+    }
 
+    private fun onCategories(data: List<Category>) {
+        adapterCategory.data = data.filter { it.operatorId == operator?.id && it.type == type }
     }
 
     private fun onCategorySelected(category: Category) {
-        selectedCategory = category
-
-    }
-
-    private fun onTariffSelected(tariff: Tariff) {
-        var bundle = Bundle()
-        bundle.putSerializable(TARIFF, tariff)
-        findNavController().navigate(R.id.action_fragment_tariffs_to_fragment_tariff, bundle)
+        this.category = category
+        viewModel?.tariffs?.value?.let {
+            onTariffs(it)
+        }
     }
 
     private fun onTariffs(data: List<Tariff>) {
-        tariffs =
-            data.filter { it.providerId == operator.id && it.categoryId == selectedCategory?.id }
+        adapterTariff.data = data
+        // data.filter { it.providerId == operator?.id && it.categoryId == category?.id }
     }
 
-    private fun onCategory(data: List<Category>) {
-        categories = data.filter { it.operatorId == operator.id && it.type == type }
+    private fun onTariffSelected(tariff: Tariff) {
+        val bundle = bundleOf(Pair("data", tariff))
+        findNavController().navigate(R.id.action_fragment_tariffs_to_fragment_tariff, bundle)
     }
 
 

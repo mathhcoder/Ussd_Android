@@ -17,12 +17,11 @@ import uz.appme.ussd.UssdApp
 import uz.appme.ussd.adapter.LimitAdapter
 import uz.appme.ussd.data.Tariff
 import uz.appme.ussd.ui.StockPreference
-import uz.appme.ussd.ui.TARIFF
 
 class TariffFragment : BaseFragment(){
 
     private val tariff by lazy{
-        arguments?.getSerializable(TARIFF) as Tariff
+        arguments?.getSerializable("data") as Tariff
     }
 
     var mcontext : Context? = null

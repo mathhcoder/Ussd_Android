@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
@@ -27,7 +28,9 @@ import uz.appme.ussd.ui.packages.PackagesFragment
 class HomeFragment : BaseFragment() {
 
     private val viewModel by lazy {
-        ViewModelProvider(this).get(MainViewModel::class.java)
+        activity?.let {
+            ViewModelProvider(it).get(MainViewModel::class.java)
+        }
     }
 
     private val pagerAdapter by lazy {
@@ -36,8 +39,8 @@ class HomeFragment : BaseFragment() {
 
     private val dialog by lazy {
         context?.let {
-            SelectOperatorDialog(it) { cat ->
-                viewModel.selectOperator(cat)
+            SelectOperatorDialog(it) { o ->
+                onOperator(o)
             }
         }
     }
@@ -57,7 +60,7 @@ class HomeFragment : BaseFragment() {
 
         viewPager.adapter = pagerAdapter
 
-        viewModel.operators.let {
+        viewModel?.operators?.let {
 
             it.value?.let { providers ->
                 onOperators(providers)
@@ -69,7 +72,7 @@ class HomeFragment : BaseFragment() {
         }
 
 
-        viewModel.banners.let {
+        viewModel?.banners?.let {
 
             it.value?.let { data ->
                 onBanners(data)
@@ -86,6 +89,16 @@ class HomeFragment : BaseFragment() {
 
         cardViewSettings?.setOnClickListener {
             findNavController().navigate(R.id.action_fragment_home_to_fragment_settings)
+        }
+
+        cardViewTariff?.setOnClickListener {
+            val bundle = bundleOf(Pair("data", operator))
+            findNavController().navigate(R.id.action_fragment_home_to_fragment_tariffs, bundle)
+        }
+
+        cardViewService?.setOnClickListener {
+            val bundle = bundleOf(Pair("data", operator))
+            findNavController().navigate(R.id.action_fragment_home_to_fragment_services, bundle)
         }
 
         cardViewInternet?.setOnClickListener {
@@ -108,61 +121,47 @@ class HomeFragment : BaseFragment() {
             findNavController().navigate(R.id.action_fragment_home_to_fragment_packages, bundle)
         }
 
-        cardViewTariff?.setOnClickListener {
-            val bundle = Bundle()
-            bundle.putSerializable(OPERATOR, operator)
-            findNavController().navigate(R.id.action_fragment_home_to_fragment_tariffs, bundle)
-        }
-
-        cardViewService?.setOnClickListener {
-            findNavController().navigate(R.id.action_fragment_home_to_fragment_services)
-        }
-
-        cardViewInternet?.setOnClickListener {
-            findNavController().navigate(R.id.action_fragment_home_to_fragment_packages)
-        }
-
-        cardViewMinutes?.setOnClickListener {
-            findNavController().navigate(R.id.action_fragment_home_to_fragment_packages)
-        }
-
-        cardViewSMS?.setOnClickListener {
-            findNavController().navigate(R.id.action_fragment_home_to_fragment_packages)
-        }
-
         cardViewCodes?.setOnClickListener {
-            findNavController().navigate(R.id.action_fragment_home_to_fragment_packages)
+            val bundle = bundleOf(Pair("data", operator))
+            findNavController().navigate(R.id.action_fragment_home_to_fragment_packages, bundle)
         }
 
         cardViewNews?.setOnClickListener {
-            findNavController().navigate(R.id.action_fragment_home_to_fragment_packages)
+            val bundle = bundleOf(Pair("data", operator))
+            findNavController().navigate(R.id.action_fragment_home_to_fragment_packages, bundle)
         }
 
         cardViewSales?.setOnClickListener {
-            findNavController().navigate(R.id.action_fragment_home_to_fragment_packages)
+            val bundle = bundleOf(Pair("data", operator))
+            findNavController().navigate(R.id.action_fragment_home_to_fragment_packages, bundle)
         }
 
 
     }
 
     private fun onBanners(data: List<Banner>) {
-        pagerAdapter.data = data
+        pagerAdapter.data = data.filter { it.operatorId == operator?.id }
     }
 
     private fun onOperators(data: List<Operator>) {
         dialog?.data = data
         data.firstOrNull { it.selected }?.let {
-            onOperator(it)
+            operator = it
         }
     }
 
     private fun onOperator(data: Operator) {
+        operator = data
+
         dialog?.dismiss()
         textViewProviderName.text = data.name
         Glide.with(imageViewProvider)
-            .load(data.image)
+            .load(data.icon)
             .into(imageViewProvider)
 
+        viewModel?.banners?.value?.let { b ->
+            onBanners(b)
+        }
         try {
             Color.parseColor(data.color).let { col ->
                 arrayListOf(
@@ -175,7 +174,7 @@ class HomeFragment : BaseFragment() {
                     imageViewNews,
                     imageViewSales
                 ).forEach {
-                    it.setColorFilter(col)
+                    it.setBackgroundColor(col)
                 }
             }
         } catch (e: Exception) {

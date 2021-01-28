@@ -13,20 +13,13 @@ import uz.appme.ussd.data.Operator
 import uz.appme.ussd.ui.COLOR
 
 class SelectOperatorDialog(
-    context : Context ,
-    private val onItemSelected: (operator : Operator) -> (Unit)
+    context: Context,
+    private val onItemSelected: (operator: Operator) -> (Unit)
 ) : BottomSheetDialog(context) {
 
-    var data : List<Operator> = emptyList()
+    var data: List<Operator> = emptyList()
         set(value) {
             listAdapter.data = value
-            field = value
-        }
-
-    var   color : String = "#FFFFFF"
-        set(value) {
-            listAdapter.selectedColor = value
-            Log.e(COLOR ,value)
             field = value
         }
 
@@ -36,7 +29,7 @@ class SelectOperatorDialog(
         }
     }
 
-    init{
+    init {
         setContentView(R.layout.dialog_select_operator)
         window?.findViewById<FrameLayout>(R.id.design_bottom_sheet)?.setBackgroundResource(
             R.drawable.background_bottom_sheet_dialog
@@ -46,7 +39,7 @@ class SelectOperatorDialog(
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         window?.findViewById<RecyclerView>(R.id.recyclerView)?.let {
-            it.layoutManager = GridLayoutManager(context , 2)
+            it.layoutManager = GridLayoutManager(context, 2)
             it.adapter = listAdapter
 
         }
