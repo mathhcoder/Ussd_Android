@@ -6,12 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import kotlinx.android.synthetic.main.cell_bottom_sheet.view.*
+import kotlinx.android.synthetic.main.cell_operator.view.*
 import uz.appme.ussd.BuildConfig
 import uz.appme.ussd.R
 import uz.appme.ussd.model.data.Operator
 
-class ProvidersAdapter(
+class OperatorsAdapter(
     private val onItemSelected: (operator: Operator) -> (Unit)
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -28,7 +28,7 @@ class ProvidersAdapter(
 
         return BottomSheetViewHolder(
             LayoutInflater.from(parent.context)
-                .inflate(R.layout.cell_bottom_sheet, parent, false)
+                .inflate(R.layout.cell_operator, parent, false)
         )
     }
 
@@ -47,7 +47,7 @@ class ProvidersAdapter(
     inner class BottomSheetViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         fun bind(operator: Operator) {
 
-            itemView.textViewBottomProviderName.text = operator.name
+            itemView.textView.text = operator.name
             itemView.cardChecked.setCardBackgroundColor(Color.parseColor(selectedColor))
 
             if (operator.selected)
@@ -65,7 +65,7 @@ class ProvidersAdapter(
                 .load(image)
                 .centerCrop()
                 .fitCenter()
-                .into(itemView.imageViewBottomProvider)
+                .into(itemView.imageView)
 
             itemView.setOnClickListener {
                 onItemSelected(operator)
