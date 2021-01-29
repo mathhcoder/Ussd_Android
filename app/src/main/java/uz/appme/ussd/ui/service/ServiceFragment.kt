@@ -10,14 +10,14 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.fragment_services.*
 import kotlinx.android.synthetic.main.layout_header.*
-import uz.appme.ussd.BaseFragment
+import uz.appme.ussd.ui.BaseFragment
 import uz.appme.ussd.MainViewModel
 import uz.appme.ussd.R
-import uz.appme.ussd.adapter.CategoriesAdapter
-import uz.appme.ussd.adapter.ServiceAdapter
-import uz.appme.ussd.data.Category
-import uz.appme.ussd.data.Operator
-import uz.appme.ussd.data.Service
+import uz.appme.ussd.ui.adapter.CategoriesAdapter
+import uz.appme.ussd.ui.adapter.ServiceAdapter
+import uz.appme.ussd.model.data.Category
+import uz.appme.ussd.model.data.Operator
+import uz.appme.ussd.model.data.Service
 
 class ServiceFragment : BaseFragment() {
 
@@ -100,8 +100,8 @@ class ServiceFragment : BaseFragment() {
     }
 
     private fun onServices(data: List<Service>) {
-        adapterService.data =
-            data.filter { it.operatorId == operator?.id && it.categoryId == category?.id }
+        adapterService.data = data
+        data.filter { it.operatorId == operator?.id && it.categoryId == category?.id }
     }
 
     private fun onServiceSelected(service: Service) {

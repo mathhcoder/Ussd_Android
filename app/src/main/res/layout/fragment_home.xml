@@ -59,8 +59,8 @@
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/imageViewSettings"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
                 android:layout_gravity="center"
                 app:srcCompat="@drawable/ic_settings"
                 app:tint="@color/themeColorDark"
@@ -476,7 +476,7 @@
                                 android:layout_marginStart="20dp"
                                 android:layout_marginEnd="20dp"
                                 android:layout_weight="1"
-                                android:text="@string/promotions"
+                                android:text="@string/sales"
                                 android:textColor="@color/colorTextPrimary"
                                 android:textSize="12sp"
                                 app:fontFamily="@font/bold" />

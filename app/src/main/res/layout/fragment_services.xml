@@ -17,6 +17,7 @@
         android:id="@+id/recyclerViewBody"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_weight="1"
         android:clipToPadding="false"
         android:paddingBottom="16dp" />
 

@@ -2,7 +2,7 @@ package uz.appme.ussd
 
 import android.content.Context
 import android.os.Build
-import uz.appme.ussd.io.BaseRepository
+import uz.appme.ussd.model.BaseRepository
 
 import java.util.*
 

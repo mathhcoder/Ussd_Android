@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <color name="colorCardBg">#F4F4F4</color>
-
     <color name="themeColorDark">#FFFFFF</color>
     <color name="themeColorLight">#1F1E25</color>
     <color name="themeColorNormal">#19181F</color>

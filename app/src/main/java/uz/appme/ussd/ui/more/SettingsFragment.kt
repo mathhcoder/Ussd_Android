@@ -2,12 +2,10 @@ package uz.appme.ussd.ui.more
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import kotlinx.android.synthetic.main.fragment_settings.*
@@ -15,10 +13,10 @@ import kotlinx.android.synthetic.main.layout_header.*
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import uz.appme.ussd.BaseFragment
+import uz.appme.ussd.ui.BaseFragment
 import uz.appme.ussd.MainViewModel
 import uz.appme.ussd.R
-import uz.appme.ussd.dialog.LanguageDialog
+import uz.appme.ussd.ui.dialog.LanguageDialog
 
 class SettingsFragment : BaseFragment() {
 

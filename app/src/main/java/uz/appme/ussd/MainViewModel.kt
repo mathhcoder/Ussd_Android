@@ -4,14 +4,15 @@ import android.os.Build
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import timber.log.Timber
-import uz.appme.ussd.data.*
-import uz.appme.ussd.io.BaseRepository
+import uz.appme.ussd.model.data.*
+import uz.appme.ussd.model.BaseRepository
 
 
-class MainViewModel : BaseViewModel() {
+class MainViewModel : ViewModel() {
 
     private val isDarkData = MutableLiveData<Boolean>()
     val isDark: LiveData<Boolean> = isDarkData
@@ -29,7 +30,7 @@ class MainViewModel : BaseViewModel() {
     val categories: LiveData<List<Category>> = categoriesData
 
     private val packagesData = MutableLiveData<List<Pack>>()
-    val pack: LiveData<List<Pack>> = packagesData
+    val packs: LiveData<List<Pack>> = packagesData
 
     private val tariffsData = MutableLiveData<List<Tariff>>()
     val tariffs: LiveData<List<Tariff>> = tariffsData
@@ -39,6 +40,12 @@ class MainViewModel : BaseViewModel() {
 
     private val newsData = MutableLiveData<List<News>>()
     val news: LiveData<List<News>> = newsData
+
+    private val codesData = MutableLiveData<List<Code>>()
+    val codes: LiveData<List<Code>> = codesData
+
+    private val salesData = MutableLiveData<List<Sale>>()
+    val sales: LiveData<List<Sale>> = salesData
 
     private val contactData = MutableLiveData<Contact>()
     val contact: LiveData<Contact> = contactData
@@ -88,7 +95,7 @@ class MainViewModel : BaseViewModel() {
             auth()
         } else {
             getDataFromNetwork()
-           // updateVersion()
+            // updateVersion()
         }
     }
 
@@ -126,14 +133,30 @@ class MainViewModel : BaseViewModel() {
     }
 
     private fun getDataFromNetwork() {
+        Timber.e("Get Data from Network")
         networkDisposable?.dispose()
         networkDisposable = BaseRepository.mainApi.getData().subscribeOn(Schedulers.io())
             .observeOn(Schedulers.io())
+            .doOnError {
+
+            }
+            .doOnDispose {
+                Timber.e("On Dispose")
+            }
             .subscribe({
 
+                val operators = it.operators
+                BaseRepository.roomDatabase.operatorDao().deleteAll()
+                BaseRepository.roomDatabase.operatorDao().insertAll(operators)
+                operatorsData.postValue(operators.sortedBy { d -> d.priority })
+                Timber.e("Operators :${operators}")
+
+
+                val tariffs = it.tariffs
                 BaseRepository.roomDatabase.tariffDao().deleteAll()
-                BaseRepository.roomDatabase.tariffDao().insertAll(it.tariffs)
-                tariffsData.postValue(it.tariffs.sortedBy { d -> d.priority })
+                BaseRepository.roomDatabase.tariffDao().insertAll(tariffs)
+                tariffsData.postValue(tariffs.sortedBy { d -> d.priority })
+                Timber.e("Tariffs :${tariffs}")
 
                 BaseRepository.roomDatabase.serviceDao().deleteAll()
                 BaseRepository.roomDatabase.serviceDao().insertAll(it.services)
@@ -163,7 +186,7 @@ class MainViewModel : BaseViewModel() {
                 BaseRepository.roomDatabase.newsDao().insertAll(it.news)
                 newsData.postValue(it.news.sortedByDescending { d -> d.date })
             }, {
-
+                Timber.e(it)
             })
     }
 

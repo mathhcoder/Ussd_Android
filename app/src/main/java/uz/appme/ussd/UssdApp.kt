@@ -9,6 +9,7 @@ import android.os.Build
 import android.util.Log
 import androidx.annotation.RequiresApi
 import com.google.firebase.messaging.FirebaseMessaging
+import timber.log.Timber
 
 /**
  * key store pass : ussdmobile
@@ -33,6 +34,10 @@ class UssdApp : Application() {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             createChannel(this)
+        }
+
+        if(BuildConfig.DEBUG){
+            Timber.plant(Timber.DebugTree())
         }
     }
 

@@ -1,6 +1,5 @@
 package uz.appme.ussd.ui.more
 
-import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -11,11 +10,10 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import kotlinx.android.synthetic.main.fragment_about.*
 import kotlinx.android.synthetic.main.layout_header.*
-import uz.appme.ussd.BaseFragment
+import uz.appme.ussd.ui.BaseFragment
 import uz.appme.ussd.MainViewModel
 import uz.appme.ussd.R
-import uz.appme.ussd.data.Operator
-import uz.appme.ussd.ui.PROVIDER
+import uz.appme.ussd.model.data.Operator
 
 
 class AboutFragment : BaseFragment() {
@@ -37,9 +35,6 @@ class AboutFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        operator = arguments?.getSerializable(PROVIDER) as Operator?
-
 
 
         cardBack.setOnClickListener({

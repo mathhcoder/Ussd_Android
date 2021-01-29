@@ -13,7 +13,7 @@ import kotlinx.android.synthetic.main.fragment_banner.*
 import timber.log.Timber
 import uz.appme.ussd.BuildConfig
 import uz.appme.ussd.R
-import uz.appme.ussd.data.Banner
+import uz.appme.ussd.model.data.Banner
 
 
 class BannerFragment : Fragment() {

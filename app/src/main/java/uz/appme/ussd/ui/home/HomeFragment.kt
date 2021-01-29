@@ -10,19 +10,13 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.fragment_home.*
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
-import uz.appme.ussd.BaseFragment
+import uz.appme.ussd.ui.BaseFragment
 import uz.appme.ussd.MainViewModel
 import uz.appme.ussd.R
-import uz.appme.ussd.adapter.BannerPagerAdapter
-import uz.appme.ussd.data.Banner
-import uz.appme.ussd.data.Operator
-import uz.appme.ussd.dialog.SelectOperatorDialog
-import uz.appme.ussd.ui.OPERATOR
-import uz.appme.ussd.ui.TYPE
-import uz.appme.ussd.ui.packages.PackagesFragment
+import uz.appme.ussd.ui.adapter.BannerPagerAdapter
+import uz.appme.ussd.model.data.Banner
+import uz.appme.ussd.model.data.Operator
+import uz.appme.ussd.ui.dialog.SelectOperatorDialog
 
 
 class HomeFragment : BaseFragment() {
@@ -102,38 +96,33 @@ class HomeFragment : BaseFragment() {
         }
 
         cardViewInternet?.setOnClickListener {
-            val bundle = Bundle()
-            bundle.putSerializable(OPERATOR, Operator())
-            bundle.putInt(TYPE, 1)
+            val bundle = bundleOf(Pair("data", operator), Pair("type",3))
             findNavController().navigate(R.id.action_fragment_home_to_fragment_packages, bundle)
         }
 
         cardViewMinutes?.setOnClickListener {
-            val bundle = Bundle()
-            bundle.putInt(TYPE, 2)
-            bundle.putSerializable(OPERATOR, Operator())
+            val bundle = bundleOf(Pair("data", operator), Pair("type",4))
             findNavController().navigate(R.id.action_fragment_home_to_fragment_packages, bundle)
         }
 
         cardViewSMS?.setOnClickListener {
-            val bundle = Bundle()
-            bundle.putInt(TYPE, 3)
+            val bundle = bundleOf(Pair("data", operator), Pair("type",5))
             findNavController().navigate(R.id.action_fragment_home_to_fragment_packages, bundle)
         }
 
         cardViewCodes?.setOnClickListener {
             val bundle = bundleOf(Pair("data", operator))
-            findNavController().navigate(R.id.action_fragment_home_to_fragment_packages, bundle)
+            findNavController().navigate(R.id.action_fragment_home_to_fragment_codes, bundle)
         }
 
         cardViewNews?.setOnClickListener {
             val bundle = bundleOf(Pair("data", operator))
-            findNavController().navigate(R.id.action_fragment_home_to_fragment_packages, bundle)
+            findNavController().navigate(R.id.action_fragment_home_to_fragment_news, bundle)
         }
 
         cardViewSales?.setOnClickListener {
             val bundle = bundleOf(Pair("data", operator))
-            findNavController().navigate(R.id.action_fragment_home_to_fragment_packages, bundle)
+            findNavController().navigate(R.id.action_fragment_home_to_fragment_sales, bundle)
         }
 
 

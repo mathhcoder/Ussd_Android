@@ -1,59 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView
-
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:cardBackgroundColor="@color/themeColorNormal"
-    app:cardCornerRadius="16dp"
     android:layout_marginHorizontal="16dp"
     android:layout_marginVertical="8dp"
+    app:cardBackgroundColor="@color/colorSecondary"
+    app:cardCornerRadius="16dp"
 
     >
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
+
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/textViewNameService"
-            android:layout_marginTop="16dp"
-            android:layout_marginHorizontal="16dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/bold"
-            />
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/bold" />
+
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/textViewDescritionService"
-            android:layout_marginTop="16dp"
-            android:layout_marginHorizontal="16dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/regular"
-            />
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/regular" />
+
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/cardViewSerivcePrice"
-            app:cardCornerRadius="16dp"
-            app:cardBackgroundColor="#FCE387"
             android:layout_width="wrap_content"
             android:layout_height="46dp"
             android:layout_gravity="end"
             android:layout_margin="16dp"
+            app:cardBackgroundColor="#FCE387"
+            app:cardCornerRadius="16dp"
 
 
             >
+
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/textViewServicePrice"
                 android:layout_width="wrap_content"
                 android:layout_height="14dp"
                 android:layout_gravity="center"
-                android:text="8400 so'm/oyiga"
                 android:layout_margin="16dp"
                 android:fontFamily="@font/regular"
-                />
+                android:text="8400 so'm/oyiga" />
 
         </com.google.android.material.card.MaterialCardView>
-
 
 
     </LinearLayout>
