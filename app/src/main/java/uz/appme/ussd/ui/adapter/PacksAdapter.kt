@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.cell_pack.view.*
 import uz.appme.ussd.R
-import uz.appme.ussd.model.data.Operator
+import uz.appme.ussd.model.data.Provider
 import uz.appme.ussd.model.data.Pack
 
 class PacksAdapter(
@@ -21,7 +21,7 @@ class PacksAdapter(
         }
     var lang = "uz"
 
-    var operator: Operator? = null
+    var provider: Provider? = null
         set(value) {
             field = value
             notifyDataSetChanged()

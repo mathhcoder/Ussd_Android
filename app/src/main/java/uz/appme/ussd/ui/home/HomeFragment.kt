@@ -15,7 +15,8 @@ import uz.appme.ussd.MainViewModel
 import uz.appme.ussd.R
 import uz.appme.ussd.ui.adapter.BannerPagerAdapter
 import uz.appme.ussd.model.data.Banner
-import uz.appme.ussd.model.data.Operator
+import uz.appme.ussd.model.data.Lang
+import uz.appme.ussd.model.data.Provider
 import uz.appme.ussd.ui.dialog.SelectOperatorDialog
 
 
@@ -34,12 +35,13 @@ class HomeFragment : BaseFragment() {
     private val dialog by lazy {
         context?.let {
             SelectOperatorDialog(it) { o ->
-                onOperator(o)
+                viewModel?.selectOperator(o)
             }
         }
     }
 
-    private var operator: Operator? = null
+    private var provider: Provider? = null
+    private var lang: Lang = Lang.UZ
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -86,42 +88,42 @@ class HomeFragment : BaseFragment() {
         }
 
         cardViewTariff?.setOnClickListener {
-            val bundle = bundleOf(Pair("data", operator))
+            val bundle = bundleOf(Pair("data", provider), Pair("lang", lang))
             findNavController().navigate(R.id.action_fragment_home_to_fragment_tariffs, bundle)
         }
 
         cardViewService?.setOnClickListener {
-            val bundle = bundleOf(Pair("data", operator))
+            val bundle = bundleOf(Pair("data", provider), Pair("lang", lang))
             findNavController().navigate(R.id.action_fragment_home_to_fragment_services, bundle)
         }
 
         cardViewInternet?.setOnClickListener {
-            val bundle = bundleOf(Pair("data", operator), Pair("type",3))
+            val bundle = bundleOf(Pair("data", provider), Pair("type", 3), Pair("lang", lang))
             findNavController().navigate(R.id.action_fragment_home_to_fragment_packages, bundle)
         }
 
         cardViewMinutes?.setOnClickListener {
-            val bundle = bundleOf(Pair("data", operator), Pair("type",4))
+            val bundle = bundleOf(Pair("data", provider), Pair("type", 4), Pair("lang", lang))
             findNavController().navigate(R.id.action_fragment_home_to_fragment_packages, bundle)
         }
 
         cardViewSMS?.setOnClickListener {
-            val bundle = bundleOf(Pair("data", operator), Pair("type",5))
+            val bundle = bundleOf(Pair("data", provider), Pair("type", 5), Pair("lang", lang))
             findNavController().navigate(R.id.action_fragment_home_to_fragment_packages, bundle)
         }
 
         cardViewCodes?.setOnClickListener {
-            val bundle = bundleOf(Pair("data", operator))
+            val bundle = bundleOf(Pair("data", provider), Pair("lang", lang))
             findNavController().navigate(R.id.action_fragment_home_to_fragment_codes, bundle)
         }
 
         cardViewNews?.setOnClickListener {
-            val bundle = bundleOf(Pair("data", operator))
+            val bundle = bundleOf(Pair("data", provider), Pair("lang", lang))
             findNavController().navigate(R.id.action_fragment_home_to_fragment_news, bundle)
         }
 
         cardViewSales?.setOnClickListener {
-            val bundle = bundleOf(Pair("data", operator))
+            val bundle = bundleOf(Pair("data", provider), Pair("lang", lang))
             findNavController().navigate(R.id.action_fragment_home_to_fragment_sales, bundle)
         }
 
@@ -129,19 +131,18 @@ class HomeFragment : BaseFragment() {
     }
 
     private fun onBanners(data: List<Banner>) {
-        pagerAdapter.data = data.filter { it.operatorId == operator?.id }
+        pagerAdapter.data = data.filter { it.providerId == provider?.id }
     }
 
-    private fun onOperators(data: List<Operator>) {
+    private fun onOperators(data: List<Provider>) {
         dialog?.data = data
         data.firstOrNull { it.selected }?.let {
-            operator = it
+            onOperator(it)
         }
     }
 
-    private fun onOperator(data: Operator) {
-        operator = data
-
+    private fun onOperator(data: Provider) {
+        provider = data
         dialog?.dismiss()
         textViewProviderName.text = data.name
         Glide.with(imageViewProvider)
@@ -163,7 +164,7 @@ class HomeFragment : BaseFragment() {
                     imageViewNews,
                     imageViewSales
                 ).forEach {
-                    it.setBackgroundColor(col)
+                    it.setColorFilter(col)
                 }
             }
         } catch (e: Exception) {

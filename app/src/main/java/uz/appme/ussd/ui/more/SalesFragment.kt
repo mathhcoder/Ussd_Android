@@ -13,7 +13,7 @@ import uz.appme.ussd.ui.BaseFragment
 import uz.appme.ussd.MainViewModel
 import uz.appme.ussd.R
 import uz.appme.ussd.ui.adapter.SalesAdapter
-import uz.appme.ussd.model.data.Operator
+import uz.appme.ussd.model.data.Provider
 import uz.appme.ussd.model.data.Sale
 
 
@@ -32,7 +32,7 @@ class SalesFragment : BaseFragment() {
     }
 
     private val operator by lazy {
-        arguments?.getSerializable("data") as? Operator
+        arguments?.getSerializable("data") as? Provider
     }
 
     override fun onCreateView(

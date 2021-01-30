@@ -16,7 +16,8 @@ import uz.appme.ussd.R
 import uz.appme.ussd.ui.adapter.PacksAdapter
 import uz.appme.ussd.ui.adapter.CategoriesAdapter
 import uz.appme.ussd.model.data.Category
-import uz.appme.ussd.model.data.Operator
+import uz.appme.ussd.model.data.Lang
+import uz.appme.ussd.model.data.Provider
 import uz.appme.ussd.model.data.Pack
 
 class PacksFragment : BaseFragment() {
@@ -28,8 +29,13 @@ class PacksFragment : BaseFragment() {
     }
 
     private val adapterCategory by lazy {
-        CategoriesAdapter {
-            onCategorySelected(it)
+        provider?.let { p ->
+            lang?.let { l ->
+                CategoriesAdapter(p, l) {
+                    onCategorySelected(it)
+                }
+            }
+
         }
     }
 
@@ -39,8 +45,12 @@ class PacksFragment : BaseFragment() {
         }
     }
 
-    private val operator by lazy {
-        arguments?.getSerializable("data") as? Operator
+    private val provider by lazy {
+        arguments?.getSerializable("data") as? Provider
+    }
+
+    private val lang by lazy {
+        arguments?.getSerializable("lang") as? Lang
     }
 
     private val type by lazy {
@@ -88,16 +98,17 @@ class PacksFragment : BaseFragment() {
             })
         }
 
-        recyclerViewCategory.layoutManager = LinearLayoutManager(recyclerViewCategory.context)
+        recyclerViewCategory.layoutManager =
+            LinearLayoutManager(view.context, LinearLayoutManager.HORIZONTAL, false)
         recyclerViewCategory.adapter = adapterCategory
 
-        recyclerViewBody.layoutManager = LinearLayoutManager(recyclerViewBody.context)
+        recyclerViewBody.layoutManager = LinearLayoutManager(view.context)
         recyclerViewBody.adapter = adapterPack
 
     }
 
     private fun onCategories(data: List<Category>) {
-        adapterCategory.data = data.filter { it.operatorId == operator?.id && it.type == type }
+        adapterCategory?.data = data.filter { it.providerId == provider?.id && it.type == type }
     }
 
     private fun onCategorySelected(category: Category) {
@@ -108,8 +119,7 @@ class PacksFragment : BaseFragment() {
     }
 
     private fun onPacks(data: List<Pack>) {
-        adapterPack.data = data
-        data.filter { it.operatorId == operator?.id && it.categoryId == category?.id }
+        adapterPack.data = data.filter { it.categoryId == category?.id }
     }
 
     private fun onPackSelected(pack: Pack) {

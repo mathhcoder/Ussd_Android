@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.cell_service.view.*
 import uz.appme.ussd.R
-import uz.appme.ussd.model.data.Operator
+import uz.appme.ussd.model.data.Provider
 import uz.appme.ussd.model.data.Service
 
 class ServiceAdapter (
@@ -20,7 +20,7 @@ class ServiceAdapter (
         }
 
     var lang = "uz"
-    var operator : Operator? = null
+    var provider : Provider? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return ServiceViewHolder(

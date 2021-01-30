@@ -8,10 +8,12 @@ import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.cell_tariffs.view.*
 import uz.appme.ussd.R
 import uz.appme.ussd.model.data.Lang
-import uz.appme.ussd.model.data.Operator
+import uz.appme.ussd.model.data.Provider
 import uz.appme.ussd.model.data.Tariff
 
 class TariffsAdapter(
+    private val provider: Provider,
+    private val lang: Lang,
     private val onItemSelected: (tariff: Tariff) -> (Unit)
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -21,22 +23,9 @@ class TariffsAdapter(
             notifyDataSetChanged()
         }
 
-    var lang = Lang.UZ
-        set(value) {
-            field = value
-            notifyDataSetChanged()
-        }
-
     private val adapterLimit by lazy {
-        LimitAdapter()
+        LimitAdapter(provider, lang)
     }
-
-    var operator: Operator? = null
-        set(value) {
-            field = value
-            adapterLimit.operator = value
-            notifyDataSetChanged()
-        }
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -62,7 +51,8 @@ class TariffsAdapter(
         fun bind(tariff: Tariff) {
 
             itemView.textViewTariffName.text = if (lang == Lang.RU) tariff.nameRu else tariff.nameUz
-            itemView.textViewPrice.text = if (lang == Lang.RU) tariff.subscriptionPriceRu else tariff.subscriptionPriceUz
+            itemView.textViewPrice.text =
+                if (lang == Lang.RU) tariff.subscriptionPriceRu else tariff.subscriptionPriceUz
 //           itemView.cardViewPrice.setCardBackgroundColor(Color.parseColor(provider?.color))
 
             itemView.recyclerViewLimits.layoutManager =

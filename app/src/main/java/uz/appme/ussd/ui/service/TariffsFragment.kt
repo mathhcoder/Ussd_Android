@@ -17,7 +17,8 @@ import uz.appme.ussd.R
 import uz.appme.ussd.ui.adapter.CategoriesAdapter
 import uz.appme.ussd.ui.adapter.TariffsAdapter
 import uz.appme.ussd.model.data.Category
-import uz.appme.ussd.model.data.Operator
+import uz.appme.ussd.model.data.Lang
+import uz.appme.ussd.model.data.Provider
 import uz.appme.ussd.model.data.Tariff
 
 class TariffsFragment : BaseFragment() {
@@ -29,19 +30,27 @@ class TariffsFragment : BaseFragment() {
     }
 
     private val adapterCategory by lazy {
-        CategoriesAdapter {
-            onCategorySelected(it)
+        provider?.let { p ->
+            lang?.let { l ->
+                CategoriesAdapter(p, l) {
+                    onCategorySelected(it)
+                }
+            }
         }
     }
 
     private val adapterTariff by lazy {
-        TariffsAdapter {
+        TariffsAdapter(provider,lang) {
             onTariffSelected(it)
         }
     }
 
-    private val operator by lazy {
-        arguments?.getSerializable("data") as? Operator
+    private val provider by lazy {
+        arguments?.getSerializable("data") as? Provider
+    }
+
+    private val lang by lazy {
+        arguments?.getSerializable("lang") as? Lang
     }
 
     private var category: Category? = null
@@ -82,20 +91,32 @@ class TariffsFragment : BaseFragment() {
         }
 
         recyclerViewCategory.layoutManager =
-            LinearLayoutManager(recyclerViewCategory.context, LinearLayoutManager.HORIZONTAL, false)
+            LinearLayoutManager(view.context, LinearLayoutManager.HORIZONTAL, false)
         recyclerViewCategory.adapter = adapterCategory
 
         recyclerViewBody.adapter = adapterTariff
-        recyclerViewBody.layoutManager = LinearLayoutManager(recyclerViewBody.context)
+        recyclerViewBody.layoutManager = LinearLayoutManager(view.context)
 
     }
 
     private fun onCategories(data: List<Category>) {
-        adapterCategory.data = data.filter { it.operatorId == operator?.id && it.type == type }
+
+        if (category == null) {
+            data.firstOrNull()?.let {
+                onCategorySelected(it)
+            }
+        }
+
+        val categories = data.filter { it.providerId == provider?.id && it.type == type }
+            .map { c -> c.copy(selected = c.id == category?.id) }
+
+        adapterCategory?.data = categories
+
     }
 
     private fun onCategorySelected(category: Category) {
         this.category = category
+        adapterCategory?.data = adapterCategory?.data?.map { d -> d.copy(selected = d.id == category.id) }?: emptyList()
         viewModel?.tariffs?.value?.let {
             onTariffs(it)
         }
@@ -103,8 +124,7 @@ class TariffsFragment : BaseFragment() {
 
     private fun onTariffs(data: List<Tariff>) {
         Timber.d("OnTariffs:$data")
-        adapterTariff.data = data
-        // data.filter { it.providerId == operator?.id && it.categoryId == category?.id }
+        adapterTariff.data = data.filter { it.categoryId == category?.id }
     }
 
     private fun onTariffSelected(tariff: Tariff) {

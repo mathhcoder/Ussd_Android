@@ -1,7 +1,6 @@
 package uz.appme.ussd
 
 import android.os.Build
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -17,11 +16,12 @@ class MainViewModel : ViewModel() {
     private val isDarkData = MutableLiveData<Boolean>()
     val isDark: LiveData<Boolean> = isDarkData
 
-    private val operatorData = MutableLiveData<Operator>()
-    val operator: LiveData<Operator> = operatorData
+    private val langData = MutableLiveData<Lang>()
+    val lang: LiveData<Lang> = langData
 
-    private val operatorsData = MutableLiveData<List<Operator>>()
-    val operators: LiveData<List<Operator>> = operatorsData
+
+    private val operatorsData = MutableLiveData<List<Provider>>()
+    val operators: LiveData<List<Provider>> = operatorsData
 
     private val bannersData = MutableLiveData<List<Banner>>()
     val banners: LiveData<List<Banner>> = bannersData
@@ -50,9 +50,6 @@ class MainViewModel : ViewModel() {
     private val contactData = MutableLiveData<Contact>()
     val contact: LiveData<Contact> = contactData
 
-    private val langData = MutableLiveData<Lang>()
-    val lang: LiveData<Lang> = langData
-
 
     private var databaseDisposable: Disposable? = null
     private var networkDisposable: Disposable? = null
@@ -61,18 +58,6 @@ class MainViewModel : ViewModel() {
 
     init {
         start()
-    }
-
-    fun selectOperator(operator: Operator) {
-        operators.value?.let {
-            it.map { o ->
-                o.copy(
-                    selected = o.id == operator.id
-                )
-            }
-        }?.let {
-            operatorsData.postValue(it)
-        }
     }
 
     fun setTheme(isDark: Boolean) {
@@ -88,6 +73,14 @@ class MainViewModel : ViewModel() {
 
     fun isDark(): Int {
         return BaseRepository.preference.isDark
+    }
+
+    fun selectOperator(provider: Provider) {
+        BaseRepository.preference.operatorId = provider.id ?: 1
+        operatorsData.value?.let {
+            val newData = it.map { a -> a.copy(selected = a.id == provider.id) }
+            operatorsData.postValue(newData)
+        }
     }
 
     private fun start() {
@@ -133,58 +126,68 @@ class MainViewModel : ViewModel() {
     }
 
     private fun getDataFromNetwork() {
-        Timber.e("Get Data from Network")
         networkDisposable?.dispose()
         networkDisposable = BaseRepository.mainApi.getData().subscribeOn(Schedulers.io())
             .observeOn(Schedulers.io())
             .doOnError {
 
             }
-            .doOnDispose {
-                Timber.e("On Dispose")
-            }
             .subscribe({
 
-                val operators = it.operators
+                val selected = BaseRepository.preference.operatorId
+                val operators = it.providers.map { o -> o.copy(selected = o.id == selected) }
                 BaseRepository.roomDatabase.operatorDao().deleteAll()
                 BaseRepository.roomDatabase.operatorDao().insertAll(operators)
                 operatorsData.postValue(operators.sortedBy { d -> d.priority })
-                Timber.e("Operators :${operators}")
 
+                val banners = it.banners
+                BaseRepository.roomDatabase.bannerDao().deleteAll()
+                BaseRepository.roomDatabase.bannerDao().insertAll(banners)
+                bannersData.postValue(banners.sortedBy { d -> d.priority })
 
                 val tariffs = it.tariffs
                 BaseRepository.roomDatabase.tariffDao().deleteAll()
                 BaseRepository.roomDatabase.tariffDao().insertAll(tariffs)
                 tariffsData.postValue(tariffs.sortedBy { d -> d.priority })
-                Timber.e("Tariffs :${tariffs}")
 
-                BaseRepository.roomDatabase.serviceDao().deleteAll()
-                BaseRepository.roomDatabase.serviceDao().insertAll(it.services)
-                servicesData.postValue(it.services.sortedBy { d -> d.priority })
-
+                val categories = it.categories
                 BaseRepository.roomDatabase.categoryDao().deleteAll()
-                BaseRepository.roomDatabase.categoryDao().insertAll(it.categories)
-                categoriesData.postValue(it.categories.sortedBy { d -> d.priority })
+                BaseRepository.roomDatabase.categoryDao().insertAll(categories)
+                categoriesData.postValue(categories.sortedBy { d -> d.priority })
 
-                Timber.e(it.tariffs.toString())
+                val services = it.services
+                BaseRepository.roomDatabase.serviceDao().deleteAll()
+                BaseRepository.roomDatabase.serviceDao().insertAll(services)
+                servicesData.postValue(services.sortedBy { d -> d.priority })
 
+                val packs = it.packages
                 BaseRepository.roomDatabase.packageDao().deleteAll()
-                BaseRepository.roomDatabase.packageDao().insertAll(it.packages)
-                packagesData.postValue(it.packages.sortedBy { d -> d.priority })
+                BaseRepository.roomDatabase.packageDao().insertAll(packs)
+                packagesData.postValue(packs.sortedBy { d -> d.priority })
 
+                val codes = it.codes
+                BaseRepository.roomDatabase.codesDao().deleteAll()
+                BaseRepository.roomDatabase.codesDao().insertAll(codes)
+                codesData.postValue(codes.sortedByDescending { d -> d.id })
+
+                val news = it.news
+                BaseRepository.roomDatabase.codesDao().deleteAll()
+                BaseRepository.roomDatabase.codesDao().insertAll(codes)
+                newsData.postValue(news.sortedByDescending { d -> d.date })
+
+                val sales = it.sales
+                BaseRepository.roomDatabase.salesDao().deleteAll()
+                BaseRepository.roomDatabase.salesDao().insertAll(sales)
+                salesData.postValue(sales.sortedByDescending { d -> d.end })
+
+                val contact = it.contacts
                 BaseRepository.roomDatabase.contactDao().deleteAll()
-                it.contacts?.let { c ->
+                contact?.let { c ->
                     BaseRepository.roomDatabase.contactDao().insert(c)
                     contactData.postValue(c)
                 }
 
-                BaseRepository.roomDatabase.bannerDao().deleteAll()
-                BaseRepository.roomDatabase.bannerDao().insertAll(it.banners)
-                bannersData.postValue(it.banners.sortedBy { d -> d.priority })
 
-                BaseRepository.roomDatabase.newsDao().deleteAll()
-                BaseRepository.roomDatabase.newsDao().insertAll(it.news)
-                newsData.postValue(it.news.sortedByDescending { d -> d.date })
             }, {
                 Timber.e(it)
             })
@@ -227,7 +230,7 @@ class MainViewModel : ViewModel() {
             .subscribeOn(Schedulers.io())
             .observeOn(Schedulers.io())
             .subscribe({
-                Log.e("Response:", it.code().toString())
+                Timber.e(it.code().toString())
                 when (it.code()) {
                     200 -> {
                         getDataFromNetwork()

@@ -1,31 +1,24 @@
 package uz.appme.ussd.ui.adapter
 
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.cell_category.view.*
 import uz.appme.ussd.R
 import uz.appme.ussd.model.data.Category
 import uz.appme.ussd.model.data.Lang
-import uz.appme.ussd.model.data.Operator
+import uz.appme.ussd.model.data.Provider
 
 
 class CategoriesAdapter(
+    val provider: Provider,
+    val lang: Lang,
     val onItemSelected: (section: Category) -> Unit
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    var operator: Operator? = null
-        set(value) {
-            field = value
-            notifyDataSetChanged()
-        }
-
-    var lang: Lang = Lang.UZ
-        set(value) {
-            field = value
-            notifyDataSetChanged()
-        }
 
     var data: List<Category> = ArrayList()
         set(value) {
@@ -52,14 +45,28 @@ class CategoriesAdapter(
 
 
     inner class SectionTariffsViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        fun bind(section: Category) {
 
-            itemView.textView.text = if (lang == Lang.UZ) section.nameUz else section.nameRu
+        fun bind(category: Category) {
+
+            itemView.textView.text = if (lang == Lang.UZ) category.nameUz else category.nameRu
 
             itemView.setOnClickListener {
-                onItemSelected(section)
+                onItemSelected(category)
             }
 
+            val defColor = ContextCompat.getColor(itemView.context, R.color.colorSecondary)
+
+            val color = try {
+                Color.parseColor(provider?.color)
+            } catch (e: Exception) {
+                defColor
+            }
+
+            if (category.selected == true) {
+                itemView.cardView.setCardBackgroundColor(color)
+            } else {
+                itemView.cardView.setCardBackgroundColor(defColor)
+            }
 
         }
     }

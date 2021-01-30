@@ -16,7 +16,8 @@ import uz.appme.ussd.R
 import uz.appme.ussd.ui.adapter.CategoriesAdapter
 import uz.appme.ussd.ui.adapter.ServiceAdapter
 import uz.appme.ussd.model.data.Category
-import uz.appme.ussd.model.data.Operator
+import uz.appme.ussd.model.data.Lang
+import uz.appme.ussd.model.data.Provider
 import uz.appme.ussd.model.data.Service
 
 class ServiceFragment : BaseFragment() {
@@ -28,8 +29,13 @@ class ServiceFragment : BaseFragment() {
     }
 
     private val adapterCategory by lazy {
-        CategoriesAdapter {
-            onCategorySelected(it)
+        provider?.let { p ->
+            lang?.let { l ->
+                CategoriesAdapter(p, l) {
+                    onCategorySelected(it)
+                }
+            }
+
         }
     }
 
@@ -39,8 +45,12 @@ class ServiceFragment : BaseFragment() {
         }
     }
 
-    private val operator by lazy {
-        arguments?.getSerializable("data") as? Operator
+    private val provider by lazy {
+        arguments?.getSerializable("data") as? Provider
+    }
+
+    private val lang by lazy {
+        arguments?.getSerializable("lang") as? Lang
     }
 
     private var category: Category? = null
@@ -80,16 +90,16 @@ class ServiceFragment : BaseFragment() {
             })
         }
 
-        recyclerViewCategory.layoutManager = LinearLayoutManager(recyclerViewCategory.context)
+        recyclerViewCategory.layoutManager = LinearLayoutManager(view.context,LinearLayoutManager.HORIZONTAL,false)
         recyclerViewCategory.adapter = adapterCategory
 
-        recyclerViewBody.layoutManager = LinearLayoutManager(recyclerViewBody.context)
+        recyclerViewBody.layoutManager = LinearLayoutManager(view.context)
         recyclerViewBody.adapter = adapterService
 
     }
 
     private fun onCategories(data: List<Category>) {
-        adapterCategory.data = data.filter { it.operatorId == operator?.id && it.type == type }
+        adapterCategory?.data = data.filter { it.providerId == provider?.id && it.type == type }
     }
 
     private fun onCategorySelected(category: Category) {
@@ -100,8 +110,7 @@ class ServiceFragment : BaseFragment() {
     }
 
     private fun onServices(data: List<Service>) {
-        adapterService.data = data
-        data.filter { it.operatorId == operator?.id && it.categoryId == category?.id }
+        adapterService.data = data.filter { it.categoryId == category?.id }
     }
 
     private fun onServiceSelected(service: Service) {

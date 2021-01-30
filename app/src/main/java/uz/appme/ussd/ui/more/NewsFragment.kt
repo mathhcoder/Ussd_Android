@@ -15,7 +15,7 @@ import uz.appme.ussd.MainViewModel
 import uz.appme.ussd.R
 import uz.appme.ussd.ui.adapter.CodesAdapter
 import uz.appme.ussd.model.data.Code
-import uz.appme.ussd.model.data.Operator
+import uz.appme.ussd.model.data.Provider
 
 
 class NewsFragment : BaseFragment() {
@@ -33,7 +33,7 @@ class NewsFragment : BaseFragment() {
     }
 
     private val operator by lazy {
-        arguments?.getSerializable("data") as? Operator
+        arguments?.getSerializable("data") as? Provider
     }
 
     override fun onCreateView(
@@ -69,7 +69,7 @@ class NewsFragment : BaseFragment() {
 
     private fun onCodes(data: List<Code>) {
         adapterCode.data = data
-        data.filter { it.operatorId == operator?.id }
+        data.filter { it.providerId == operator?.id }
     }
 
     private fun onCodeSelected(code: Code) {

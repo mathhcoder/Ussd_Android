@@ -6,10 +6,12 @@ import android.app.NotificationManager
 import android.content.Context
 import android.content.res.Configuration
 import android.os.Build
-import android.util.Log
+import android.widget.Toast
 import androidx.annotation.RequiresApi
+import com.google.firebase.FirebaseApp
 import com.google.firebase.messaging.FirebaseMessaging
 import timber.log.Timber
+
 
 /**
  * key store pass : ussdmobile
@@ -30,15 +32,19 @@ class UssdApp : Application() {
     override fun onCreate() {
         super.onCreate()
         instance = this
-
+        FirebaseApp.initializeApp(this)
+        FirebaseMessaging.getInstance().subscribeToTopic(BuildConfig.DEALER).addOnSuccessListener {
+            Timber.i("Successfully subscribed to topic ${BuildConfig.DEALER}")
+        }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             createChannel(this)
         }
 
-        if(BuildConfig.DEBUG){
+        if (BuildConfig.DEBUG) {
             Timber.plant(Timber.DebugTree())
         }
+
     }
 
     @RequiresApi(26)

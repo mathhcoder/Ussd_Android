@@ -6,7 +6,6 @@ import androidx.room.Entity
 @Entity(tableName = "packages", primaryKeys = ["id"])
 data class Pack(
     val id: Long? = 1,
-    val operatorId: Long? = 0,
     val categoryId: Long? = null,
     val amountUz: String? = null,
     val amountRu: String? = null,

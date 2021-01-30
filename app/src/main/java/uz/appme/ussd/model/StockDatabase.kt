@@ -7,23 +7,24 @@ import uz.appme.ussd.model.data.*
 import uz.appme.ussd.model.db.*
 import uz.appme.ussd.model.data.LimitConverter
 
-
 @Database(
     entities = [
-        Operator::class ,
-        Category::class,
+        Provider::class,
         Banner::class,
-        Contact::class,
-        News::class,
-        Pack::class,
+        Category::class,
+        Tariff::class,
         Service::class,
-        Tariff::class
+        Pack::class,
+        Code::class,
+        News::class,
+        Sale::class,
+        Contact::class
     ], exportSchema = false, version = 2
 )
 @TypeConverters(LimitConverter::class)
 abstract class StockDatabase : RoomDatabase() {
 
-    abstract fun operatorDao() : OperatorDao
+    abstract fun operatorDao(): ProviderDao
 
     abstract fun categoryDao(): CategoryDao
 
@@ -39,8 +40,9 @@ abstract class StockDatabase : RoomDatabase() {
 
     abstract fun tariffDao(): TariffDao
 
+    abstract fun codesDao(): CodesDao
 
-
+    abstract fun salesDao(): SalesDao
 
 }
 

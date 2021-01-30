@@ -5,6 +5,7 @@ import androidx.room.Entity
 @Entity(tableName = "news", primaryKeys = ["id"])
 data class News(
     val id: Long? = null,
+    val providerId: Long? = null,
     val date: Long? = null,
     val titleUz: String? = null,
     val titleRu: String? = null,

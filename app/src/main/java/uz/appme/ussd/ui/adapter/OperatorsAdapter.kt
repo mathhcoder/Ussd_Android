@@ -9,15 +9,15 @@ import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.cell_operator.view.*
 import uz.appme.ussd.BuildConfig
 import uz.appme.ussd.R
-import uz.appme.ussd.model.data.Operator
+import uz.appme.ussd.model.data.Provider
 
 class OperatorsAdapter(
-    private val onItemSelected: (operator: Operator) -> (Unit)
+    private val onItemSelected: (provider: Provider) -> (Unit)
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     var selectedColor: String = "#FFFFFF"
 
-    var data: List<Operator> = ArrayList()
+    var data: List<Provider> = ArrayList()
         set(value) {
             field = value
             notifyDataSetChanged()
@@ -45,17 +45,17 @@ class OperatorsAdapter(
 
 
     inner class BottomSheetViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        fun bind(operator: Operator) {
+        fun bind(provider: Provider) {
 
-            itemView.textView.text = operator.name
+            itemView.textView.text = provider.name
             itemView.cardChecked.setCardBackgroundColor(Color.parseColor(selectedColor))
 
-            if (operator.selected)
+            if (provider.selected)
                 itemView.cardChecked.visibility = View.VISIBLE
             else
                 itemView.cardChecked.visibility = View.INVISIBLE
 
-            val image = operator.icon?.let {
+            val image = provider.icon?.let {
                 if (!it.startsWith("http")) {
                     BuildConfig.BASE_IMAGE_URL + it
                 } else it
@@ -68,7 +68,7 @@ class OperatorsAdapter(
                 .into(itemView.imageView)
 
             itemView.setOnClickListener {
-                onItemSelected(operator)
+                onItemSelected(provider)
             }
         }
     }

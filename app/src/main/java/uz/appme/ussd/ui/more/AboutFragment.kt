@@ -13,7 +13,7 @@ import kotlinx.android.synthetic.main.layout_header.*
 import uz.appme.ussd.ui.BaseFragment
 import uz.appme.ussd.MainViewModel
 import uz.appme.ussd.R
-import uz.appme.ussd.model.data.Operator
+import uz.appme.ussd.model.data.Provider
 
 
 class AboutFragment : BaseFragment() {
@@ -31,7 +31,7 @@ class AboutFragment : BaseFragment() {
         return inflater.inflate(R.layout.fragment_about, container, false)
     }
 
-    var operator : Operator? = null
+    var provider : Provider? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

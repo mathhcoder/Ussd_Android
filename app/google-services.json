@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "227746754101",
+    "project_id": "appmeussd",
+    "storage_bucket": "appmeussd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:227746754101:android:45a55d9342137cc5774b7c",
+        "android_client_info": {
+          "package_name": "uz.appme.ussd.test"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "227746754101-ahgpnrl5dujv871g4jd5evp7ebhqba3e.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDcvd4t7XKwH9XqhKoYTtGuvC71F4GrDZs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "227746754101-ahgpnrl5dujv871g4jd5evp7ebhqba3e.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

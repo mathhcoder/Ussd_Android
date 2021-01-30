@@ -5,7 +5,7 @@ import androidx.room.Entity
 @Entity(tableName = "category", primaryKeys = ["id"])
 data class Category(
     val id: Long = 0,
-    val operatorId: Long? = null,
+    val providerId: Long? = null,
     val nameUz: String? = null,
     val nameRu: String? = null,
     val type: Int? = null,
