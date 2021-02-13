@@ -43,7 +43,6 @@ class CategoriesAdapter(
         }
     }
 
-
     inner class SectionTariffsViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
         fun bind(category: Category) {

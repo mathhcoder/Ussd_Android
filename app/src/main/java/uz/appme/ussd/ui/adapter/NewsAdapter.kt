@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.cell_news_image.view.*
 import kotlinx.android.synthetic.main.cell_news_simple.view.*
+import uz.appme.ussd.BuildConfig
 import uz.appme.ussd.R
 import uz.appme.ussd.model.data.Lang
 import uz.appme.ussd.model.data.News
@@ -72,7 +73,7 @@ class NewsAdapter(
 
         fun bind(news: News) {
             itemView.textViewNameService.text = if (lang == Lang.UZ) news.titleUz else news.titleRu
-            itemView.textViewDescritionService.text =
+            itemView.textViewDescriptionService.text =
                 if (lang == Lang.UZ) news.bodyUz else news.bodyRu
             itemView.textViewDate.text =
                 SimpleDateFormat(TIME_FORMAT, Locale.getDefault()).format(news.date)
@@ -86,10 +87,16 @@ class NewsAdapter(
         fun bind(news: News) {
 
             news.image?.let {
-                Glide.with(itemView.context)
-                    .load(news.image)
+
+                val image = if (!it.startsWith("http")) {
+                    BuildConfig.BASE_IMAGE_URL + it
+                } else it
+
+                Glide.with(itemView)
+                    .load(image)
                     .centerCrop()
-                    .into(itemView.imageViewNews)
+                    .into(itemView.imageView)
+
             }
 
             itemView.textViewTitleImage.text = if (lang == Lang.UZ) news.titleUz else news.titleRu

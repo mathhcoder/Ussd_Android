@@ -40,8 +40,12 @@ class TariffsFragment : BaseFragment() {
     }
 
     private val adapterTariff by lazy {
-        TariffsAdapter(provider,lang) {
-            onTariffSelected(it)
+        provider?.let { p ->
+            lang?.let { l ->
+                TariffsAdapter(p, l) {
+                    onTariffSelected(it)
+                }
+            }
         }
     }
 
@@ -100,15 +104,15 @@ class TariffsFragment : BaseFragment() {
     }
 
     private fun onCategories(data: List<Category>) {
+        val filteredData = data.filter { it.providerId == provider?.id && it.type == type }
 
         if (category == null) {
-            data.firstOrNull()?.let {
+            filteredData.firstOrNull()?.let {
                 onCategorySelected(it)
             }
         }
 
-        val categories = data.filter { it.providerId == provider?.id && it.type == type }
-            .map { c -> c.copy(selected = c.id == category?.id) }
+        val categories = filteredData.map { c -> c.copy(selected = c.id == category?.id) }
 
         adapterCategory?.data = categories
 
@@ -116,19 +120,20 @@ class TariffsFragment : BaseFragment() {
 
     private fun onCategorySelected(category: Category) {
         this.category = category
-        adapterCategory?.data = adapterCategory?.data?.map { d -> d.copy(selected = d.id == category.id) }?: emptyList()
+        adapterCategory?.data =
+            adapterCategory?.data?.map { d -> d.copy(selected = d.id == category.id) }
+                ?: emptyList()
         viewModel?.tariffs?.value?.let {
             onTariffs(it)
         }
     }
 
     private fun onTariffs(data: List<Tariff>) {
-        Timber.d("OnTariffs:$data")
-        adapterTariff.data = data.filter { it.categoryId == category?.id }
+        adapterTariff?.data = data.filter { it.categoryId == category?.id }
     }
 
     private fun onTariffSelected(tariff: Tariff) {
-        val bundle = bundleOf(Pair("data", tariff))
+        val bundle = bundleOf(Pair("data", tariff), Pair("lang", lang), Pair("provider", provider))
         findNavController().navigate(R.id.action_fragment_tariffs_to_fragment_tariff, bundle)
     }
 

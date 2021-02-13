@@ -412,7 +412,7 @@
                             android:padding="20dp">
 
                             <androidx.appcompat.widget.AppCompatImageView
-                                android:id="@+id/imageViewNews"
+                                android:id="@+id/imageView"
                                 android:layout_width="24dp"
                                 android:layout_height="24dp"
                                 app:srcCompat="@drawable/ic_notification"

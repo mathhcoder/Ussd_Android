@@ -161,7 +161,7 @@ class HomeFragment : BaseFragment() {
                     imageViewMinutes,
                     imageViewSMS,
                     imageViewCode,
-                    imageViewNews,
+                    imageView,
                     imageViewSales
                 ).forEach {
                     it.setColorFilter(col)

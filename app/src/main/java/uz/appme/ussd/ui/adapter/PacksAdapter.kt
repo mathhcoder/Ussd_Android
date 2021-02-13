@@ -6,10 +6,12 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.cell_pack.view.*
 import uz.appme.ussd.R
+import uz.appme.ussd.model.data.Lang
 import uz.appme.ussd.model.data.Provider
 import uz.appme.ussd.model.data.Pack
 
 class PacksAdapter(
+    private val lang: Lang,
     private val onItemSelected: (pack: Pack) -> (Unit)
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -19,7 +21,6 @@ class PacksAdapter(
             field = value
             notifyDataSetChanged()
         }
-    var lang = "uz"
 
     var provider: Provider? = null
         set(value) {
@@ -48,9 +49,8 @@ class PacksAdapter(
     inner class PackagesViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
         fun bind(pack: Pack) {
-            itemView.textViewPackage.text =
-                if (lang == "uz") pack.amountUz else pack.amountUz
-//            itemView.cardViewPackage.setCardBackgroundColor(Color.parseColor(operator?.color))
+            itemView.textView.text = if (lang == Lang.UZ) pack.amountUz else pack.amountRu
+            itemView.textViewPrice.text = if (lang == Lang.UZ) pack.priceUz else pack.priceRu
         }
     }
 

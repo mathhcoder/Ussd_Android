@@ -2,44 +2,55 @@ package uz.appme.ussd.ui.service
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
+import kotlinx.android.synthetic.main.cell_limits.view.*
 import kotlinx.android.synthetic.main.fragment_tariff.*
 import kotlinx.android.synthetic.main.layout_header.*
+import uz.appme.ussd.BuildConfig
 import uz.appme.ussd.R
-import uz.appme.ussd.UssdApp
-import uz.appme.ussd.model.StockPreference
+import uz.appme.ussd.model.data.Lang
+import uz.appme.ussd.model.data.Provider
 import uz.appme.ussd.model.data.Tariff
 import uz.appme.ussd.ui.BaseFragment
 import uz.appme.ussd.ui.adapter.LimitAdapter
 
-class TariffFragment : BaseFragment(){
+class TariffFragment : BaseFragment() {
 
-    private val tariff by lazy{
-        arguments?.getSerializable("data") as Tariff
+
+    private val tariff by lazy {
+        arguments?.getSerializable("data") as? Tariff
     }
 
-    var mcontext : Context? = null
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        mcontext = context
+    private val lang by lazy {
+        arguments?.getSerializable("lang") as? Lang
     }
 
-
-    var lang = StockPreference(UssdApp()).lang
-
-    val limitAdapter by lazy{
-        LimitAdapter()
+    private val provider by lazy {
+        arguments?.getSerializable("provider") as? Provider
     }
 
-    val overLimitAdapter by lazy{
-        LimitAdapter()
+    private val limitAdapter by lazy {
+        provider?.let { p ->
+            lang?.let { l ->
+                LimitAdapter(p, l)
+            }
+        }
+    }
+
+    private val overLimitAdapter by lazy {
+        provider?.let { p ->
+            lang?.let { l ->
+                LimitAdapter(p, l)
+            }
+        }
     }
 
     override fun onCreateView(
@@ -53,27 +64,47 @@ class TariffFragment : BaseFragment(){
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        textViewHeader.text =  getString(R.string.tariff)
-        textViewTariffName.text = if(lang == "uz") tariff.nameUz else tariff.nameRu
-
-        Glide.with(imageViewTariff)
-            .load(tariff.image)
-            .centerCrop()
-            .into(imageViewTariff)
-
-        textViewOnPrice.text = if(lang == "uz") tariff.onPriceUz else tariff.onPriceRu
-        textViewPrice.text = if(lang == "uz") tariff.subscriptionPriceUz else tariff.subscriptionPriceRu
-
         recyclerViewLimits.adapter = limitAdapter
-        limitAdapter.data = tariff.limits
-        recyclerViewLimits.layoutManager = LinearLayoutManager(mcontext)
+        recyclerViewLimits.layoutManager = LinearLayoutManager(view.context)
 
-        recyclerViewOvertLimits.adapter =  overLimitAdapter
-        recyclerViewOvertLimits.layoutManager = LinearLayoutManager(mcontext)
+        recyclerViewOvertLimits.adapter = overLimitAdapter
+        recyclerViewOvertLimits.layoutManager = LinearLayoutManager(view.context)
 
-        overLimitAdapter.data = tariff.overLimits
+        tariff?.let { t ->
+            provider?.let { p ->
+                lang?.let { l ->
+                    onTariff(view.context, p, t, l)
+                }
+            }
+        }
 
-        cardViewChangeTariff.setOnClickListener {
+    }
+
+    private fun onTariff(context: Context, provider: Provider, tariff: Tariff, lang: Lang) {
+
+        textViewHeader?.text = getString(R.string.tariff_info)
+        textViewTitle?.text = if (lang == Lang.UZ) tariff.nameUz else tariff.nameRu
+
+        tariff.image?.let {
+
+            val image = if (!it.startsWith("http")) {
+                BuildConfig.BASE_IMAGE_URL + it
+            } else it
+
+            Glide.with(imageViewTariff)
+                .load(image)
+                .centerCrop()
+                .into(imageViewTariff)
+        }
+
+        textViewOnPrice?.text = if (lang == Lang.UZ) tariff.onPriceUz else tariff.onPriceRu
+        textViewSubscriptionPrice?.text =
+            if (lang == Lang.UZ) tariff.subscriptionPriceUz else tariff.subscriptionPriceRu
+
+        limitAdapter?.data = tariff.limits
+        overLimitAdapter?.data = tariff.overLimits
+
+        cardViewChangeTariff?.setOnClickListener {
             Intent(Intent.ACTION_CALL).apply {
                 val ussd = tariff.ussd?.replace("#", Uri.encode("#"))
                 data = Uri.parse("tel:$ussd")
@@ -84,13 +115,18 @@ class TariffFragment : BaseFragment(){
             }
         }
 
-        textViewTariffDescription.text = if(lang == "uz") tariff.descriptionUz else tariff.subscriptionPriceRu
+        textViewTariffDescription.text =
+            if (lang == Lang.UZ) tariff.descriptionUz else tariff.subscriptionPriceRu
 
+        val color = try {
+            Color.parseColor(provider.color)
+        } catch (e: Exception) {
+            ContextCompat.getColor(context, R.color.colorSecondary)
+        }
 
-
+        cardViewChangeTariff?.setCardBackgroundColor(color)
 
     }
-
 
 
 }

@@ -4,11 +4,10 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginHorizontal="16dp"
+    android:id="@+id/cardView"
     android:layout_marginVertical="8dp"
     app:cardBackgroundColor="@color/colorSecondary"
-    app:cardCornerRadius="16dp"
-
-    >
+    app:cardCornerRadius="16dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -16,41 +15,42 @@
         android:orientation="vertical">
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/textViewNameService"
+            android:id="@+id/textViewName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
             android:layout_marginTop="16dp"
-            android:fontFamily="@font/bold" />
+            android:fontFamily="@font/bold"
+            android:textColor="@color/colorTextPrimary"
+            android:textSize="16sp" />
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/textViewDescritionService"
+            android:id="@+id/textViewDescription"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
             android:layout_marginTop="16dp"
-            android:fontFamily="@font/regular" />
+            android:fontFamily="@font/regular"
+            android:textColor="@color/colorTextSecondary"
+            android:textSize="12sp" />
 
         <com.google.android.material.card.MaterialCardView
-            android:id="@+id/cardViewSerivcePrice"
+            android:id="@+id/cardViewPrice"
             android:layout_width="wrap_content"
-            android:layout_height="46dp"
+            android:layout_height="wrap_content"
             android:layout_gravity="end"
             android:layout_margin="16dp"
-            app:cardBackgroundColor="#FCE387"
-            app:cardCornerRadius="16dp"
-
-
-            >
+            app:cardBackgroundColor="@color/colorPrimary"
+            app:cardCornerRadius="16dp">
 
             <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/textViewServicePrice"
+                android:id="@+id/textViewPrice"
                 android:layout_width="wrap_content"
-                android:layout_height="14dp"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_margin="16dp"
                 android:fontFamily="@font/regular"
-                android:text="8400 so'm/oyiga" />
+                android:textColor="@color/colorTextPrimary" />
 
         </com.google.android.material.card.MaterialCardView>
 

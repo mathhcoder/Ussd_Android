@@ -12,7 +12,7 @@ import uz.appme.ussd.model.data.Lang
 import uz.appme.ussd.model.data.Limit
 import uz.appme.ussd.model.data.Provider
 
-class LimitAdapter(val provider: Provider, val lang: Lang) :
+class TariffLimitAdapter(val provider: Provider, val lang: Lang, val onSelected: () -> Unit) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     var data: List<Limit> = emptyList()
@@ -24,7 +24,7 @@ class LimitAdapter(val provider: Provider, val lang: Lang) :
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return LimitViewHolder(
             LayoutInflater.from(parent.context)
-                .inflate(R.layout.cell_limits, parent, false)
+                .inflate(R.layout.cell_tariff_limit, parent, false)
         )
     }
 
@@ -42,6 +42,9 @@ class LimitAdapter(val provider: Provider, val lang: Lang) :
         fun bind(limit: Limit) {
             itemView.textViewName.text = if (lang == Lang.RU) limit.nameRu else limit.nameUz
             itemView.textViewInfo.text = if (lang == Lang.RU) limit.valueRu else limit.valueUz
+            itemView.setOnClickListener {
+                onSelected()
+            }
 
             limit.image?.let {
 

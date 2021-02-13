@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import kotlinx.android.synthetic.main.cell_code.view.*
 import uz.appme.ussd.R
 import uz.appme.ussd.model.data.Code
 import uz.appme.ussd.model.data.Lang
@@ -28,7 +29,7 @@ class CodesAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return SimpleViewHolder(
             LayoutInflater.from(parent.context)
-                .inflate(R.layout.cell_news_simple, parent, false)
+                .inflate(R.layout.cell_code, parent, false)
         )
     }
 
@@ -44,13 +45,10 @@ class CodesAdapter(
 
     inner class SimpleViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
-        fun bind(code : Code) {
-//            itemView.textViewNameService.text = if (lang == Lang.UZ) news.titleUz else news.titleRu
-//            itemView.textViewDescritionService.text =
-//                if (lang == Lang.UZ) news.bodyUz else news.bodyRu
-//            itemView.textViewDate.text =
-//                SimpleDateFormat(TIME_FORMAT, Locale.getDefault()).format(news.date)
-//            itemView.setOnClickListener { onItemSelected(news) }
+        fun bind(code: Code) {
+            itemView.textViewTitle.text = if (lang == Lang.UZ) code.nameUz else code.nameRu
+            itemView.textViewCode.text = code.ussd
+            itemView.setOnClickListener { onItemSelected(code) }
 
         }
     }

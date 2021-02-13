@@ -1,6 +1,7 @@
 package uz.appme.ussd.ui.more
 
 import android.content.Context
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,6 +9,7 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_settings.*
 import kotlinx.android.synthetic.main.layout_header.*
 import kotlinx.coroutines.GlobalScope
@@ -16,6 +18,7 @@ import kotlinx.coroutines.launch
 import uz.appme.ussd.ui.BaseFragment
 import uz.appme.ussd.MainViewModel
 import uz.appme.ussd.R
+import uz.appme.ussd.model.data.Provider
 import uz.appme.ussd.ui.dialog.LanguageDialog
 
 class SettingsFragment : BaseFragment() {
@@ -34,6 +37,9 @@ class SettingsFragment : BaseFragment() {
         }
     }
 
+    private val provider by lazy {
+        arguments?.getSerializable("data") as? Provider
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -67,6 +73,22 @@ class SettingsFragment : BaseFragment() {
             viewModel?.changeTheme()
         }
 
+        provider?.let {
+            onProvider(it)
+        }
+
+    }
+
+    private fun onProvider(provider: Provider) {
+        Color.parseColor(provider.color).let { col ->
+            arrayListOf(
+                imageViewTheme,
+                imageViewLanguage,
+                imageViewInfo
+            ).forEach {
+                it.setColorFilter(col)
+            }
+        }
     }
 
     private fun onTheme(isDark: Boolean) {

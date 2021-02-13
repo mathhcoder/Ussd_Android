@@ -1,121 +1,94 @@
 package uz.appme.ussd.ui.service
 
+import android.content.Context
+import android.content.Intent
+import android.graphics.Color
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.os.bundleOf
-import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
-import kotlinx.android.synthetic.main.fragment_services.*
+import androidx.core.content.ContextCompat
+import com.bumptech.glide.Glide
+import kotlinx.android.synthetic.main.fragment_tariff.*
 import kotlinx.android.synthetic.main.layout_header.*
-import uz.appme.ussd.ui.BaseFragment
-import uz.appme.ussd.MainViewModel
+import uz.appme.ussd.BuildConfig
 import uz.appme.ussd.R
-import uz.appme.ussd.ui.adapter.CategoriesAdapter
-import uz.appme.ussd.ui.adapter.ServiceAdapter
-import uz.appme.ussd.model.data.Category
 import uz.appme.ussd.model.data.Lang
 import uz.appme.ussd.model.data.Provider
 import uz.appme.ussd.model.data.Service
+import uz.appme.ussd.ui.BaseFragment
 
 class ServiceFragment : BaseFragment() {
 
-    private val viewModel by lazy {
-        activity?.let {
-            ViewModelProvider(it).get(MainViewModel::class.java)
-        }
-    }
-
-    private val adapterCategory by lazy {
-        provider?.let { p ->
-            lang?.let { l ->
-                CategoriesAdapter(p, l) {
-                    onCategorySelected(it)
-                }
-            }
-
-        }
-    }
-
-    private val adapterService by lazy {
-        ServiceAdapter {
-            onServiceSelected(it)
-        }
-    }
-
-    private val provider by lazy {
-        arguments?.getSerializable("data") as? Provider
+    private val service by lazy {
+        arguments?.getSerializable("data") as? Service
     }
 
     private val lang by lazy {
         arguments?.getSerializable("lang") as? Lang
     }
 
-    private var category: Category? = null
-    private val type = 2
+    private val provider by lazy {
+        arguments?.getSerializable("provider") as? Provider
+    }
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_services, container, false)
+        return inflater.inflate(R.layout.fragment_service, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        textViewHeader?.text = getString(R.string.services)
-        cardBack?.setOnClickListener {
-            findNavController().popBackStack()
-        }
-
-        viewModel?.services?.let {
-            it.value?.let { data ->
-                onServices(data)
+        service?.let { s ->
+            lang?.let { l ->
+                provider?.let { p ->
+                    onService(view.context, p, s, l)
+                }
             }
-            it.observe(viewLifecycleOwner, { data ->
-                onServices(data)
-            })
         }
 
-        viewModel?.categories?.let {
-            it.value?.let { data ->
-                onCategories(data)
+    }
+
+    private fun onService(context: Context, provider: Provider, service: Service, lang: Lang) {
+
+        textViewTitle?.text = if (lang == Lang.UZ) service.nameUz else service.nameRu
+
+
+        textViewOnPrice?.text =
+            if (lang == Lang.UZ) service.firstTimePriceUz else service.firstTimePriceRu
+        textViewSubscriptionPrice?.text =
+            if (lang == Lang.UZ) service.subscriptionPriceUz else service.subscriptionPriceRu
+
+        cardViewChangeTariff?.setOnClickListener {
+            Intent(Intent.ACTION_CALL).apply {
+                val ussd = service.ussd?.replace("#", Uri.encode("#"))
+                data = Uri.parse("tel:$ussd")
+                try {
+                    startActivity(this)
+                } catch (e: Exception) {
+                }
             }
-            it.observe(viewLifecycleOwner, { data ->
-                onCategories(data)
-            })
         }
 
-        recyclerViewCategory.layoutManager = LinearLayoutManager(view.context,LinearLayoutManager.HORIZONTAL,false)
-        recyclerViewCategory.adapter = adapterCategory
+        textViewTariffDescription.text =
+            if (lang == Lang.UZ) service.descriptionUz else service.subscriptionPriceRu
 
-        recyclerViewBody.layoutManager = LinearLayoutManager(view.context)
-        recyclerViewBody.adapter = adapterService
-
-    }
-
-    private fun onCategories(data: List<Category>) {
-        adapterCategory?.data = data.filter { it.providerId == provider?.id && it.type == type }
-    }
-
-    private fun onCategorySelected(category: Category) {
-        this.category = category
-        viewModel?.services?.value?.let {
-            onServices(it)
+        val color = try {
+            Color.parseColor(provider.color)
+        } catch (e: Exception) {
+            ContextCompat.getColor(context, R.color.colorSecondary)
         }
+
+        cardViewChangeTariff?.setCardBackgroundColor(color)
+
+
     }
 
-    private fun onServices(data: List<Service>) {
-        adapterService.data = data.filter { it.categoryId == category?.id }
-    }
-
-    private fun onServiceSelected(service: Service) {
-        val bundle = bundleOf(Pair("data", service))
-        findNavController().navigate(R.id.action_fragment_tariffs_to_fragment_tariff, bundle)
-    }
 
 }

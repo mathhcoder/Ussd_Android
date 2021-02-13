@@ -13,14 +13,15 @@ import kotlinx.android.synthetic.main.layout_header.*
 import uz.appme.ussd.ui.BaseFragment
 import uz.appme.ussd.MainViewModel
 import uz.appme.ussd.R
-import uz.appme.ussd.ui.adapter.PacksAdapter
 import uz.appme.ussd.ui.adapter.CategoriesAdapter
+import uz.appme.ussd.ui.adapter.ServiceAdapter
 import uz.appme.ussd.model.data.Category
 import uz.appme.ussd.model.data.Lang
 import uz.appme.ussd.model.data.Provider
-import uz.appme.ussd.model.data.Pack
+import uz.appme.ussd.model.data.Service
+import uz.appme.ussd.ui.adapter.LimitAdapter
 
-class PacksFragment : BaseFragment() {
+class ServicesFragment : BaseFragment() {
 
     private val viewModel by lazy {
         activity?.let {
@@ -35,13 +36,14 @@ class PacksFragment : BaseFragment() {
                     onCategorySelected(it)
                 }
             }
+
         }
     }
 
-    private val adapterPack by lazy {
-        lang?.let {
-            PacksAdapter(it) { p ->
-                onPackSelected(p)
+    private val adapterService by lazy {
+        lang?.let { l ->
+            ServiceAdapter(l) {
+                onServiceSelected(it)
             }
         }
     }
@@ -54,11 +56,8 @@ class PacksFragment : BaseFragment() {
         arguments?.getSerializable("lang") as? Lang
     }
 
-    private val type by lazy {
-        arguments?.getInt("type")
-    }
-
     private var category: Category? = null
+    private val type = 2
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -71,22 +70,17 @@ class PacksFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        textViewHeader?.text = when (type) {
-            3 -> getString(R.string.internet)
-            4 -> getString(R.string.minutes)
-            else -> getString(R.string.sms)
-
-        }
+        textViewHeader?.text = getString(R.string.services)
         cardBack?.setOnClickListener {
             findNavController().popBackStack()
         }
 
-        viewModel?.packs?.let {
+        viewModel?.services?.let {
             it.value?.let { data ->
-                onPacks(data)
+                onServices(data)
             }
             it.observe(viewLifecycleOwner, { data ->
-                onPacks(data)
+                onServices(data)
             })
         }
 
@@ -104,11 +98,12 @@ class PacksFragment : BaseFragment() {
         recyclerViewCategory.adapter = adapterCategory
 
         recyclerViewBody.layoutManager = LinearLayoutManager(view.context)
-        recyclerViewBody.adapter = adapterPack
+        recyclerViewBody.adapter = adapterService
 
     }
 
     private fun onCategories(data: List<Category>) {
+
         val filteredData = data.filter { it.providerId == provider?.id && it.type == type }
 
         if (category == null) {
@@ -120,24 +115,25 @@ class PacksFragment : BaseFragment() {
         val categories = filteredData.map { c -> c.copy(selected = c.id == category?.id) }
 
         adapterCategory?.data = categories
-
     }
 
     private fun onCategorySelected(category: Category) {
         this.category = category
-        adapterCategory?.data = adapterCategory?.data?.map { d -> d.copy(selected = d.id == category.id) }
+        adapterCategory?.data =
+            adapterCategory?.data?.map { d -> d.copy(selected = d.id == category.id) }
                 ?: emptyList()
-        viewModel?.packs?.value?.let {
-            onPacks(it)
+        viewModel?.services?.value?.let {
+            onServices(it)
         }
     }
 
-    private fun onPacks(data: List<Pack>) {
-        adapterPack?.data = data.filter { it.categoryId == category?.id }
+    private fun onServices(data: List<Service>) {
+        adapterService?.data = data.filter { it.categoryId == category?.id }
     }
 
-    private fun onPackSelected(pack: Pack) {
-        val bundle = bundleOf(Pair("data", pack))
-        findNavController().navigate(R.id.action_fragment_tariffs_to_fragment_tariff, bundle)
+    private fun onServiceSelected(service: Service) {
+        val bundle = bundleOf(Pair("data", service), Pair("lang", lang), Pair("provider", provider))
+        findNavController().navigate(R.id.action_fragment_service_to_fragment_service, bundle)
     }
+
 }

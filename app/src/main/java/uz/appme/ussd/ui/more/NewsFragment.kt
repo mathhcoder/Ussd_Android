@@ -10,12 +10,12 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.fragment_news.*
 import kotlinx.android.synthetic.main.layout_header.*
-import uz.appme.ussd.ui.BaseFragment
 import uz.appme.ussd.MainViewModel
 import uz.appme.ussd.R
-import uz.appme.ussd.ui.adapter.CodesAdapter
-import uz.appme.ussd.model.data.Code
+import uz.appme.ussd.model.data.News
 import uz.appme.ussd.model.data.Provider
+import uz.appme.ussd.ui.BaseFragment
+import uz.appme.ussd.ui.adapter.NewsAdapter
 
 
 class NewsFragment : BaseFragment() {
@@ -26,9 +26,9 @@ class NewsFragment : BaseFragment() {
         }
     }
 
-    private val adapterCode by lazy {
-        CodesAdapter {
-            onCodeSelected(it)
+    private val adapterNews by lazy {
+        NewsAdapter {
+            onNewsSelected(it)
         }
     }
 
@@ -53,26 +53,25 @@ class NewsFragment : BaseFragment() {
             findNavController().popBackStack()
         }
 
-        viewModel?.codes?.let {
+        viewModel?.news?.let {
             it.value?.let { data ->
-                onCodes(data)
+                onNews(data)
             }
             it.observe(viewLifecycleOwner, { data ->
-                onCodes(data)
+                onNews(data)
             })
         }
 
         recyclerViewBody.layoutManager = LinearLayoutManager(recyclerViewBody.context)
-        recyclerViewBody.adapter = adapterCode
+        recyclerViewBody.adapter = adapterNews
 
     }
 
-    private fun onCodes(data: List<Code>) {
-        adapterCode.data = data
-        data.filter { it.providerId == operator?.id }
+    private fun onNews(data: List<News>) {
+        adapterNews.data = data.filter { it.providerId == operator?.id }
     }
 
-    private fun onCodeSelected(code: Code) {
+    private fun onNewsSelected(news: News) {
 
     }
 }

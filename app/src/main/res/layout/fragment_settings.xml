@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    android:background="@color/themeColorLight"
-    >
+    android:background="@color/colorPrimary"
+    android:orientation="vertical">
 
     <include layout="@layout/layout_header" />
+
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
         android:layout_marginTop="16dp"
-        app:cardBackgroundColor="@color/themeColorNormal"
+        app:cardBackgroundColor="@color/colorSecondary"
         app:cardCornerRadius="16dp">
 
         <LinearLayout
@@ -22,18 +22,16 @@
             android:orientation="vertical">
 
             <LinearLayout
-                android:id="@+id/layoutCodes"
+                android:id="@+id/layoutTheme"
                 android:layout_width="match_parent"
                 android:layout_height="52dp"
                 android:orientation="horizontal">
-
-
 
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
-                    <Switch
+                    <androidx.appcompat.widget.SwitchCompat
                         android:id="@+id/switchTheme"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -44,15 +42,13 @@
                         android:track="@drawable/switch_track" />
 
                     <androidx.appcompat.widget.AppCompatImageView
-                        android:id="@+id/imageViewMode"
+                        android:id="@+id/imageViewTheme"
                         android:layout_width="16dp"
                         android:layout_height="18dp"
                         android:layout_centerVertical="true"
                         android:layout_marginHorizontal="20dp"
                         app:srcCompat="@drawable/ic_moon"
-                        app:tint="@color/colorPrimary"
-                         />
-
+                        app:tint="@color/colorPrimary" />
 
 
                     <androidx.appcompat.widget.AppCompatTextView
@@ -61,14 +57,14 @@
                         android:layout_centerVertical="true"
                         android:layout_marginStart="60dp"
                         android:layout_marginEnd="80dp"
-                        android:text="@string/theme" />
+                        android:text="@string/theme"
+                        android:textColor="@color/colorTextPrimary" />
 
                 </RelativeLayout>
 
             </LinearLayout>
 
             <View
-
                 android:layout_width="match_parent"
                 android:layout_height="1px"
                 android:background="@color/themeColorPale" />
@@ -77,11 +73,10 @@
                 android:id="@+id/layoutLang"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingVertical="16dp"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:paddingVertical="16dp">
 
                 <RelativeLayout
-
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
@@ -101,35 +96,35 @@
                         android:layout_centerVertical="true"
                         android:layout_marginHorizontal="20dp"
                         app:srcCompat="@drawable/ic_language"
-                        app:tint="@color/colorPrimary"
-                      />
+                        app:tint="@color/colorPrimary" />
 
 
                     <androidx.appcompat.widget.AppCompatTextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="60dp"
-                        android:textSize="12sp"
-                        app:fontFamily="@font/bold"
                         android:layout_marginEnd="52dp"
-                        android:text="@string/language" />
+                        android:text="@string/language"
+                        android:textColor="@color/colorTextPrimary"
+                        android:textSize="12sp"
+                        app:fontFamily="@font/bold" />
 
                     <androidx.appcompat.widget.AppCompatTextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="60dp"
                         android:layout_marginTop="14dp"
-                        android:textSize="12sp"
-                        app:fontFamily="@font/bold"
                         android:layout_marginEnd="52dp"
-                        android:text="O'zbek tili" />
+                        android:text="O'zbek tili"
+                        android:textColor="@color/colorTextSecondary"
+                        android:textSize="12sp"
+                        app:fontFamily="@font/bold" />
 
                 </RelativeLayout>
 
             </LinearLayout>
 
             <View
-
                 android:layout_width="match_parent"
                 android:layout_height="1px"
                 android:background="@color/themeColorPale" />
@@ -160,9 +155,7 @@
                         android:layout_centerVertical="true"
                         android:layout_marginHorizontal="20dp"
                         app:srcCompat="@drawable/ic_info"
-                        app:tint="@color/colorPrimary"
-                       />
-
+                        app:tint="@color/colorPrimary" />
 
 
                     <androidx.appcompat.widget.AppCompatTextView
@@ -171,19 +164,16 @@
                         android:layout_centerVertical="true"
                         android:layout_marginStart="60dp"
                         android:layout_marginEnd="52dp"
-                        android:text="@string/info" />
+                        android:text="@string/info"
+                        android:textColor="@color/colorTextPrimary" />
 
                 </RelativeLayout>
 
             </LinearLayout>
 
-
-
         </LinearLayout>
 
-
     </com.google.android.material.card.MaterialCardView>
-
 
 
 </LinearLayout>

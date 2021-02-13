@@ -5,7 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.android.synthetic.main.cell_tariffs.view.*
+import kotlinx.android.synthetic.main.cell_tariff.view.*
 import uz.appme.ussd.R
 import uz.appme.ussd.model.data.Lang
 import uz.appme.ussd.model.data.Provider
@@ -23,17 +23,11 @@ class TariffsAdapter(
             notifyDataSetChanged()
         }
 
-    private val adapterLimit by lazy {
-        LimitAdapter(provider, lang)
-    }
-
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return TariffViewHolder(
             LayoutInflater.from(parent.context)
-                .inflate(R.layout.cell_tariffs, parent, false)
+                .inflate(R.layout.cell_tariff, parent, false)
         )
-
     }
 
     override fun getItemCount() = data.size
@@ -48,22 +42,27 @@ class TariffsAdapter(
 
 
     inner class TariffViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+
         fun bind(tariff: Tariff) {
 
-            itemView.textViewTariffName.text = if (lang == Lang.RU) tariff.nameRu else tariff.nameUz
+            val adapterLimit by lazy {
+                TariffLimitAdapter(provider, lang) {
+                    onItemSelected(tariff)
+                }
+            }
+
+            itemView.textViewTitle.text = if (lang == Lang.RU) tariff.nameRu else tariff.nameUz
             itemView.textViewPrice.text =
                 if (lang == Lang.RU) tariff.subscriptionPriceRu else tariff.subscriptionPriceUz
-//           itemView.cardViewPrice.setCardBackgroundColor(Color.parseColor(provider?.color))
 
             itemView.recyclerViewLimits.layoutManager =
                 LinearLayoutManager(itemView.context, LinearLayoutManager.VERTICAL, false)
             itemView.recyclerViewLimits.adapter = adapterLimit
-//           adapterLimt.data =
+            adapterLimit.data = tariff.limits.filter { it.isMain == true }
 
-            itemView.recyclerViewLimits.setOnClickListener({
+            itemView.cardView.setOnClickListener {
                 onItemSelected(tariff)
-            })
-
+            }
 
         }
     }

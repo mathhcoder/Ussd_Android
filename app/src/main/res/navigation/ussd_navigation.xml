@@ -37,9 +37,7 @@
 
     <fragment
         android:id="@+id/fragment_news"
-        android:name="uz.appme.ussd.ui.more.NewsFragment">
-
-    </fragment>
+        android:name="uz.appme.ussd.ui.more.NewsFragment" />
 
     <fragment
         android:id="@+id/fragment_tariffs"
@@ -52,16 +50,27 @@
     </fragment>
 
     <fragment
+        android:id="@+id/fragment_tariff"
+        android:name="uz.appme.ussd.ui.service.TariffFragment" />
+
+    <fragment
         android:id="@+id/fragment_services"
-        android:name="uz.appme.ussd.ui.service.ServiceFragment"/>
+        android:name="uz.appme.ussd.ui.service.ServicesFragment">
+
+        <action
+            android:id="@+id/action_fragment_service_to_fragment_service"
+            app:destination="@id/fragment_service" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragment_service"
+        android:name="uz.appme.ussd.ui.service.ServiceFragment" />
 
     <fragment
         android:id="@+id/fragment_packages"
         android:name="uz.appme.ussd.ui.service.PacksFragment" />
 
-    <fragment
-        android:id="@+id/fragment_tariff"
-        android:name="uz.appme.ussd.ui.service.TariffFragment" />
 
     <fragment
         android:id="@+id/fragment_settings"
