@@ -1,6 +1,8 @@
 package uz.appme.ussd
 
+import android.content.Context
 import android.os.Build
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -9,6 +11,7 @@ import io.reactivex.schedulers.Schedulers
 import timber.log.Timber
 import uz.appme.ussd.model.data.*
 import uz.appme.ussd.model.BaseRepository
+import java.io.Serializable
 
 
 class MainViewModel : ViewModel() {
@@ -57,6 +60,8 @@ class MainViewModel : ViewModel() {
 
 
     init {
+        val l = if(BaseRepository.preference.lang == "uz") Lang.UZ else Lang.RU
+        langData.postValue(l)
         start()
     }
 
@@ -73,6 +78,12 @@ class MainViewModel : ViewModel() {
 
     fun isDark(): Int {
         return BaseRepository.preference.isDark
+    }
+
+    fun changeLang(lang : Lang , context: Context){
+        val l : String = if(lang == Lang.UZ) "uz" else "ru"
+        BaseRepository.setLang(l , context)
+        langData.postValue(lang)
     }
 
     fun selectOperator(provider: Provider) {
@@ -139,46 +150,55 @@ class MainViewModel : ViewModel() {
                 BaseRepository.roomDatabase.operatorDao().deleteAll()
                 BaseRepository.roomDatabase.operatorDao().insertAll(operators)
                 operatorsData.postValue(operators.sortedBy { d -> d.priority })
+                Log.e("operators_" , operators.toString())
 
                 val banners = it.banners
                 BaseRepository.roomDatabase.bannerDao().deleteAll()
                 BaseRepository.roomDatabase.bannerDao().insertAll(banners)
                 bannersData.postValue(banners.sortedBy { d -> d.priority })
+                Log.e("bannesrs_" , banners.toString())
 
                 val tariffs = it.tariffs
                 BaseRepository.roomDatabase.tariffDao().deleteAll()
                 BaseRepository.roomDatabase.tariffDao().insertAll(tariffs)
                 tariffsData.postValue(tariffs.sortedBy { d -> d.priority })
+                Log.e("tariffs" , tariffs.toString())
 
                 val categories = it.categories
                 BaseRepository.roomDatabase.categoryDao().deleteAll()
                 BaseRepository.roomDatabase.categoryDao().insertAll(categories)
                 categoriesData.postValue(categories.sortedBy { d -> d.priority })
+                Log.e("categoiries_" , categories.toString())
 
                 val services = it.services
                 BaseRepository.roomDatabase.serviceDao().deleteAll()
                 BaseRepository.roomDatabase.serviceDao().insertAll(services)
                 servicesData.postValue(services.sortedBy { d -> d.priority })
+                Log.e("services_" , services.toString())
 
                 val packs = it.packages
                 BaseRepository.roomDatabase.packageDao().deleteAll()
                 BaseRepository.roomDatabase.packageDao().insertAll(packs)
                 packagesData.postValue(packs.sortedBy { d -> d.priority })
+                Log.e("packs_" , packs.toString())
 
                 val codes = it.codes
                 BaseRepository.roomDatabase.codesDao().deleteAll()
                 BaseRepository.roomDatabase.codesDao().insertAll(codes)
                 codesData.postValue(codes.sortedByDescending { d -> d.id })
+                Log.e("codes_" , codes.toString())
 
                 val news = it.news
                 BaseRepository.roomDatabase.codesDao().deleteAll()
                 BaseRepository.roomDatabase.codesDao().insertAll(codes)
                 newsData.postValue(news.sortedByDescending { d -> d.date })
+                Log.e("news_" , news.toString())
 
                 val sales = it.sales
                 BaseRepository.roomDatabase.salesDao().deleteAll()
                 BaseRepository.roomDatabase.salesDao().insertAll(sales)
                 salesData.postValue(sales.sortedByDescending { d -> d.end })
+                Log.e("sales_" , sales.toString())
 
                 val contact = it.contacts
                 BaseRepository.roomDatabase.contactDao().deleteAll()

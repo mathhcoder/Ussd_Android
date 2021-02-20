@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginHorizontal="16dp"
     android:layout_marginTop="16dp"
-    app:cardBackgroundColor="@color/themeColorNormal"
+    app:cardElevation="0dp"
+    app:cardBackgroundColor="@color/themeColorLight"
     app:cardCornerRadius="16dp">
 
     <LinearLayout
@@ -14,40 +16,41 @@
         android:orientation="vertical">
 
         <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/imageView"
+            android:id="@+id/imageViewNews"
             android:layout_width="match_parent"
-            android:layout_height="144dp" />
+            android:layout_height="150dp" />
 
         <androidx.appcompat.widget.AppCompatTextView
+
             android:id="@+id/textViewTitleImage"
+            android:textColor="@color/themeColorDark"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
             android:layout_marginTop="16dp"
             android:fontFamily="@font/bold"
-            android:textColor="@color/colorTextPrimary"
             android:textSize="16sp" />
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/textViewBodyImage"
+            android:id="@+id/textViewDescription"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
             android:layout_marginTop="4dp"
             android:fontFamily="@font/regular"
-            android:textColor="@color/colorTextSecondary"
+            android:textColor="@color/themeColorMidum"
             android:textSize="12sp" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/textViewDateImage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/themeColorDark"
             android:layout_gravity="end"
             android:layout_marginHorizontal="16dp"
             android:layout_marginTop="4dp"
             android:layout_marginBottom="16dp"
             android:fontFamily="@font/regular"
-            android:textColor="@color/colorTextPrimary"
             android:textSize="14sp" />
 
     </LinearLayout>

@@ -30,7 +30,7 @@ class SelectOperatorDialog(
 
     init {
         setContentView(R.layout.dialog_select_operator)
-        window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        //window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

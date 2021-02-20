@@ -5,10 +5,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import kotlinx.android.synthetic.main.cell_limits.view.*
 import kotlinx.android.synthetic.main.cell_news_image.view.*
 import kotlinx.android.synthetic.main.cell_news_simple.view.*
+import kotlinx.android.synthetic.main.cell_operator.view.*
 import uz.appme.ussd.BuildConfig
 import uz.appme.ussd.R
+import android.util.Log
 import uz.appme.ussd.model.data.Lang
 import uz.appme.ussd.model.data.News
 import java.text.SimpleDateFormat
@@ -72,10 +75,10 @@ class NewsAdapter(
     inner class SimpleViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
         fun bind(news: News) {
-            itemView.textViewNameService.text = if (lang == Lang.UZ) news.titleUz else news.titleRu
-            itemView.textViewDescriptionService.text =
+            itemView.textViewTitleNewsSimple.text = if (lang == Lang.UZ) news.titleUz else news.titleRu
+            itemView.textViewBodyNewsSimple.text =
                 if (lang == Lang.UZ) news.bodyUz else news.bodyRu
-            itemView.textViewDate.text =
+            itemView.textViewDateSimple.text =
                 SimpleDateFormat(TIME_FORMAT, Locale.getDefault()).format(news.date)
             itemView.setOnClickListener { onItemSelected(news) }
 
@@ -92,15 +95,19 @@ class NewsAdapter(
                     BuildConfig.BASE_IMAGE_URL + it
                 } else it
 
-                Glide.with(itemView)
-                    .load(image)
-                    .centerCrop()
-                    .into(itemView.imageView)
+                try{
+                    Glide.with(itemView)
+                        .load(image)
+                        .centerCrop()
+                        .into(itemView.imageViewNews)
+                }catch (e:Exception){
+                    Log.e("catch" , e.message)
+                }
 
             }
 
             itemView.textViewTitleImage.text = if (lang == Lang.UZ) news.titleUz else news.titleRu
-            itemView.textViewBodyImage.text = if (lang == Lang.UZ) news.bodyUz else news.bodyRu
+            itemView.textViewDescription.text = if (lang == Lang.UZ) news.bodyUz else news.bodyRu
             itemView.textViewDateImage.text =
                 SimpleDateFormat(TIME_FORMAT, Locale.getDefault()).format(news.date)
 

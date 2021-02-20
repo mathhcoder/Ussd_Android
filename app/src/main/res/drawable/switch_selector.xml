@@ -25,7 +25,7 @@
             android:shape="rectangle"
             android:visible="true"
             android:dither="true"
-            android:useLevel="false">
+            android:useLevel="false">5
             <gradient
                 android:startColor="#CFE0F6"
                 android:endColor="#CFE0F6"

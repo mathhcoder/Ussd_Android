@@ -1,5 +1,8 @@
 package uz.appme.ussd.ui.more
 
+import android.content.Intent
+import android.util.Log
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,9 +15,11 @@ import kotlinx.android.synthetic.main.layout_header.*
 import uz.appme.ussd.ui.BaseFragment
 import uz.appme.ussd.MainViewModel
 import uz.appme.ussd.R
+import uz.appme.ussd.model.data.Lang
 import uz.appme.ussd.ui.adapter.SalesAdapter
 import uz.appme.ussd.model.data.Provider
 import uz.appme.ussd.model.data.Sale
+import java.lang.Exception
 
 
 class SalesFragment : BaseFragment() {
@@ -35,6 +40,9 @@ class SalesFragment : BaseFragment() {
         arguments?.getSerializable("data") as? Provider
     }
 
+    private val lang by lazy{
+        arguments?.getSerializable("lang") as? Lang
+    }
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -64,16 +72,33 @@ class SalesFragment : BaseFragment() {
         recyclerViewBody.layoutManager = LinearLayoutManager(recyclerViewBody.context)
         recyclerViewBody.adapter = adapterSales
 
+        lang?.let{
+            adapterSales.lang = it
+        }
+
     }
 
 
     private fun onSales(data: List<Sale>) {
-        adapterSales.data = data
-        data.filter { it.operatorId == operator?.id }
+        Log.e("__sales__" , data.toString())
+        Log.e("__provider__" , operator.toString())
+        adapterSales.data = data.filter { it.providerId == operator?.id }
+        //adapterSales.data = data
+
     }
 
     private fun onSaleSelected(sale: Sale) {
 
+        sale.link?.let{
+            val intent = Intent(Intent.ACTION_VIEW)
+            intent.data = Uri.parse(it)
+            try{
+                startActivity(intent)
+            }catch (e:Exception){
+
+            }
+
+        }
     }
 
 }

@@ -47,13 +47,16 @@ class CategoriesAdapter(
 
         fun bind(category: Category) {
 
-            itemView.textView.text = if (lang == Lang.UZ) category.nameUz else category.nameRu
+            itemView.textViewCategoryName.text = if (lang == Lang.UZ) category.nameUz else category.nameRu
 
             itemView.setOnClickListener {
                 onItemSelected(category)
             }
 
-            val defColor = ContextCompat.getColor(itemView.context, R.color.colorSecondary)
+            val defColor = ContextCompat.getColor(itemView.context, R.color.themeColorLight)
+
+            val defColorBack = ContextCompat.getColor(itemView.context, R.color.themeColorDark)
+
 
             val color = try {
                 Color.parseColor(provider?.color)
@@ -62,9 +65,12 @@ class CategoriesAdapter(
             }
 
             if (category.selected == true) {
-                itemView.cardView.setCardBackgroundColor(color)
+                itemView.cardViewSection.setCardBackgroundColor(color)
+                itemView.textViewCategoryName.setTextColor(Color.parseColor("#FFFFFF"))
             } else {
-                itemView.cardView.setCardBackgroundColor(defColor)
+                itemView.cardViewSection.setCardBackgroundColor(defColor)
+                itemView.textViewCategoryName.setTextColor(defColorBack)
+
             }
 
         }

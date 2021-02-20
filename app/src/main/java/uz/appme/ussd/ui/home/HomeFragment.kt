@@ -9,10 +9,13 @@ import androidx.core.os.bundleOf
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
+import kotlinx.android.synthetic.main.cell_operator.view.*
 import kotlinx.android.synthetic.main.fragment_home.*
+import uz.appme.ussd.BuildConfig
 import uz.appme.ussd.ui.BaseFragment
 import uz.appme.ussd.MainViewModel
 import uz.appme.ussd.R
+import uz.appme.ussd.model.BaseRepository
 import uz.appme.ussd.ui.adapter.BannerPagerAdapter
 import uz.appme.ussd.model.data.Banner
 import uz.appme.ussd.model.data.Lang
@@ -41,7 +44,7 @@ class HomeFragment : BaseFragment() {
     }
 
     private var provider: Provider? = null
-    private var lang: Lang = Lang.UZ
+    private var lang: Lang = if(BaseRepository.preference.lang == "uz") Lang.UZ else Lang.RU
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -68,6 +71,8 @@ class HomeFragment : BaseFragment() {
         }
 
 
+        scrollView.isSmoothScrollingEnabled = false
+
         viewModel?.banners?.let {
 
             it.value?.let { data ->
@@ -79,12 +84,22 @@ class HomeFragment : BaseFragment() {
             })
         }
 
+        viewModel?.lang?.let{
+            it.value?.let{l->
+                onLang(l)
+            }
+            it.observe(viewLifecycleOwner , {l->
+                onLang(l)
+            })
+        }
+
         layoutOperator?.setOnClickListener {
             dialog?.show()
         }
 
-        cardViewSettings?.setOnClickListener {
-            findNavController().navigate(R.id.action_fragment_home_to_fragment_settings)
+        imageViewSettings?.setOnClickListener {
+            val bundle = bundleOf(Pair("data", provider), Pair("lang", lang))
+            findNavController().navigate(R.id.action_fragment_home_to_fragment_settings,bundle)
         }
 
         cardViewTariff?.setOnClickListener {
@@ -145,13 +160,24 @@ class HomeFragment : BaseFragment() {
         provider = data
         dialog?.dismiss()
         textViewProviderName.text = data.name
-        Glide.with(imageViewProvider)
-            .load(data.icon)
+
+        val image = data.icon?.let {
+            if (!it.startsWith("http")) {
+                BuildConfig.BASE_IMAGE_URL + it
+            } else it
+        }
+        Glide.with(imageViewProvider.context)
+            .load(image)
+            .centerCrop()
+            .fitCenter()
             .into(imageViewProvider)
 
         viewModel?.banners?.value?.let { b ->
             onBanners(b)
         }
+
+
+
         try {
             Color.parseColor(data.color).let { col ->
                 arrayListOf(
@@ -160,8 +186,8 @@ class HomeFragment : BaseFragment() {
                     imageViewInternet,
                     imageViewMinutes,
                     imageViewSMS,
+                    imageViewNews,
                     imageViewCode,
-                    imageView,
                     imageViewSales
                 ).forEach {
                     it.setColorFilter(col)
@@ -171,6 +197,10 @@ class HomeFragment : BaseFragment() {
 
         }
 
+    }
+
+    private fun onLang(l : Lang){
+        lang = l
     }
 
 

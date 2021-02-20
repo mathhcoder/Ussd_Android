@@ -1,5 +1,6 @@
 package uz.appme.ussd.ui.adapter
 
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,6 +10,7 @@ import uz.appme.ussd.R
 import uz.appme.ussd.model.data.Lang
 import uz.appme.ussd.model.data.Provider
 import uz.appme.ussd.model.data.Pack
+import uz.appme.ussd.ui.dialog.PackageDialog
 
 class PacksAdapter(
     private val lang: Lang,
@@ -49,8 +51,21 @@ class PacksAdapter(
     inner class PackagesViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
         fun bind(pack: Pack) {
-            itemView.textView.text = if (lang == Lang.UZ) pack.amountUz else pack.amountRu
+            itemView.textViewPackage.text = if (lang == Lang.UZ) pack.amountUz else pack.amountRu
             itemView.textViewPrice.text = if (lang == Lang.UZ) pack.priceUz else pack.priceRu
+
+            itemView.cardViewPackage.setCardBackgroundColor(Color.parseColor(provider?.color))
+
+            itemView.setOnClickListener {
+                provider?.let{p ->
+                    PackageDialog(itemView.context , pack , p ,lang) {
+                        it.dismiss()
+                        onItemSelected(pack)
+                    }.show()
+                }
+
+            }
+
         }
     }
 

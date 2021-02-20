@@ -10,10 +10,15 @@
     <color name="themeColorPale">#93949B</color>
     <color name="themeColorMidum">#93949B</color>
 
-    <color name="colorTextSecondary">#93949B</color>
+    <color name="colorMediumDark">#93949B</color>
+    <color name="colorMedium">#C8C8C8</color>
 
     <color name="colorPrimary">#1F1E25</color>
     <color name="colorSecondary">#19181F</color>
     <color name="colorTextPrimary">#FFFFFF</color>
+    <color name="white">#F4F4F4</color>
+
+    <color name= "themeColorDialogBack">@color/themeColorNormal</color>
+    <color name="themeColorDialogItem">@color/themeColorLight</color>
 
 </resources>

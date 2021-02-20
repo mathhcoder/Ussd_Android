@@ -47,7 +47,7 @@ class OperatorsAdapter(
     inner class BottomSheetViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         fun bind(provider: Provider) {
 
-            itemView.textView.text = provider.name
+            itemView.textViewCategoryName.text = provider.name
             itemView.cardChecked.setCardBackgroundColor(Color.parseColor(selectedColor))
 
             if (provider.selected)
@@ -60,6 +60,7 @@ class OperatorsAdapter(
                     BuildConfig.BASE_IMAGE_URL + it
                 } else it
             }
+
 
             Glide.with(itemView.context)
                 .load(image)

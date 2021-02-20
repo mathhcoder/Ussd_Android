@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/layoutHeader"
+    android:background="@color/themeColorNormal"
     android:layout_width="match_parent"
     android:layout_height="56dp">
 
@@ -9,7 +10,7 @@
         android:id="@+id/cardBack"
         android:layout_width="56dp"
         android:layout_height="56dp"
-        app:cardBackgroundColor="@color/colorPrimary"
+        app:cardBackgroundColor="@color/themeColorNormal"
         app:cardCornerRadius="28dp"
         app:cardElevation="0dp"
         app:contentPadding="18dp">
@@ -18,7 +19,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:srcCompat="@drawable/ic_back"
-            app:tint="@color/colorTextPrimary" />
+            app:tint="@color/themeColorDark"
+            />
 
     </com.google.android.material.card.MaterialCardView>
 

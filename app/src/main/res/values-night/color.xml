@@ -12,7 +12,8 @@
     <color name="colorSecondary">#19181F</color>
     <color name="colorTextPrimary">#FFFFFF</color>
 
-
+    <color name= "themeColorDialogBack">@color/themeColorLight</color>
+    <color name= "themeColorDialogItem">@color/themeColorNormal</color>
 
 
 

@@ -6,7 +6,7 @@ apply plugin: 'com.google.gms.google-services'
 apply plugin: 'com.google.firebase.crashlytics'
 
 def dealer_code = "test"
-def base_url = "http://ussd.appme.uz/"
+def base_url = "https://ussd.appme.uz/"
 def app_version = 1
 
 def keystorePropertiesFile = rootProject.file("keystore.properties")

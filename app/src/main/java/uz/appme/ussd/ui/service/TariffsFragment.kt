@@ -10,7 +10,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.fragment_tariffs.*
 import kotlinx.android.synthetic.main.layout_header.*
-import timber.log.Timber
 import uz.appme.ussd.ui.BaseFragment
 import uz.appme.ussd.MainViewModel
 import uz.appme.ussd.R
@@ -28,6 +27,16 @@ class TariffsFragment : BaseFragment() {
             ViewModelProvider(it).get(MainViewModel::class.java)
         }
     }
+
+    private val provider by lazy {
+        arguments?.getSerializable("data") as? Provider
+    }
+
+    private val lang by lazy {
+        arguments?.getSerializable("lang") as? Lang
+    }
+
+
 
     private val adapterCategory by lazy {
         provider?.let { p ->
@@ -49,13 +58,6 @@ class TariffsFragment : BaseFragment() {
         }
     }
 
-    private val provider by lazy {
-        arguments?.getSerializable("data") as? Provider
-    }
-
-    private val lang by lazy {
-        arguments?.getSerializable("lang") as? Lang
-    }
 
     private var category: Category? = null
     private val type = 1

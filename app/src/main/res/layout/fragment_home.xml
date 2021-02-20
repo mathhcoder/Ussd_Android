@@ -3,8 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="@color/themeColorNormal"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary"
     android:orientation="vertical">
 
     <LinearLayout
@@ -12,6 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="64dp"
         android:gravity="end"
+        android:background="@color/themeColorNormal"
         android:orientation="horizontal">
 
         <LinearLayout
@@ -34,8 +35,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_marginStart="16dp"
-                android:text="Beeline"
-                android:textColor="@color/colorTextPrimary"
+                android:text="Uzmobile"
+                android:textColor="@color/themeColorDark"
                 android:textSize="16sp"
                 app:fontFamily="@font/bold" />
 
@@ -45,39 +46,37 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginStart="8dp"
                 app:srcCompat="@drawable/ic_arrow_down"
-                app:tint="@color/colorTextPrimary" />
+                app:tint="@color/themeColorDark" />
 
         </LinearLayout>
 
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/cardViewSettings"
-            android:layout_width="64dp"
-            android:layout_height="64dp"
-            app:cardBackgroundColor="#00000000"
-            app:cardCornerRadius="32dp"
-            app:cardElevation="0dp">
 
             <androidx.appcompat.widget.AppCompatImageView
+                android:layout_marginStart="2dp"
                 android:id="@+id/imageViewSettings"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
+                android:background="@color/themeColorNormal"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_margin="24dp"
                 android:layout_gravity="center"
                 app:srcCompat="@drawable/ic_settings"
-                app:tint="@color/themeColorDark"
-                tools:ignore="VectorDrawableCompat" />
+                app:tint="@color/themeColorDark" />
 
-        </com.google.android.material.card.MaterialCardView>
 
     </LinearLayout>
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:id="@+id/scrollView"
+        android:scrollbars="none"
+        android:animationCache="false"
         android:layout_weight="1">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/themeColorNormal"
             android:orientation="vertical">
 
             <LinearLayout
@@ -93,8 +92,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="8dp"
                     android:layout_weight="1"
-                    app:cardBackgroundColor="@color/colorSecondary"
                     app:cardCornerRadius="16dp"
+                    app:cardBackgroundColor="@color/themeColorLight"
+                    app:cardElevation="0dp"
                     app:contentPadding="16dp">
 
                     <LinearLayout
@@ -109,7 +109,6 @@
                             android:layout_gravity="center_horizontal"
                             android:layout_marginTop="16dp"
                             app:srcCompat="@drawable/ic_tariff"
-                            app:tint="@color/colorPrimary"
                             tools:ignore="VectorDrawableCompat" />
 
                         <androidx.appcompat.widget.AppCompatTextView
@@ -121,7 +120,7 @@
                             android:gravity="center"
                             android:text="@string/tariff"
                             android:textAlignment="center"
-                            android:textColor="@color/colorTextPrimary"
+                            android:textColor="@color/themeColorDark"
                             android:textSize="12sp"
                             app:fontFamily="@font/bold" />
 
@@ -129,14 +128,15 @@
 
                 </com.google.android.material.card.MaterialCardView>
 
-                <com.google.android.material.card.MaterialCardView
+                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/cardViewService"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="8dp"
                     android:layout_weight="1"
-                    app:cardBackgroundColor="@color/colorSecondary"
                     app:cardCornerRadius="16dp"
+                    app:cardBackgroundColor="@color/themeColorLight"
+                    app:cardElevation="0dp"
                     app:contentPadding="16dp">
 
                     <LinearLayout
@@ -145,13 +145,13 @@
                         android:orientation="vertical">
 
                         <androidx.appcompat.widget.AppCompatImageView
+
                             android:id="@+id/imageViewService"
                             android:layout_width="20dp"
                             android:layout_height="20dp"
                             android:layout_gravity="center_horizontal"
                             android:layout_marginTop="16dp"
                             app:srcCompat="@drawable/ic_service"
-                            app:tint="@color/colorPrimary"
                             tools:ignore="VectorDrawableCompat" />
 
                         <androidx.appcompat.widget.AppCompatTextView
@@ -163,7 +163,7 @@
                             android:gravity="center"
                             android:text="@string/services"
                             android:textAlignment="center"
-                            android:textColor="@color/colorTextPrimary"
+                            android:textColor="@color/themeColorDark"
                             android:textSize="12sp"
                             app:fontFamily="@font/bold" />
 
@@ -179,11 +179,12 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="32dp"
                 android:layout_marginEnd="16dp"
-                app:cardBackgroundColor="@color/colorSecondary"
+                app:cardElevation="0dp"
                 app:cardCornerRadius="16dp">
 
                 <androidx.viewpager.widget.ViewPager
                     android:id="@+id/viewPager"
+                    android:background="@color/themeColorNormal"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
@@ -201,7 +202,7 @@
                     app:piv_padding="4dp"
                     app:piv_radius="4dp"
                     app:piv_selectedColor="@color/colorPrimary"
-                    app:piv_unselectedColor="@color/colorPrimary"
+                    app:piv_unselectedColor="@color/themeColorNormal"
                     app:piv_viewPager="@id/viewPager" />
 
             </com.google.android.material.card.MaterialCardView>
@@ -219,7 +220,8 @@
                     android:layout_height="match_parent"
                     android:layout_marginHorizontal="8dp"
                     android:layout_weight="1"
-                    app:cardBackgroundColor="@color/colorSecondary"
+                    app:cardElevation="0dp"
+                    app:cardBackgroundColor="@color/themeColorLight"
                     app:cardCornerRadius="16dp">
 
                     <LinearLayout
@@ -234,7 +236,6 @@
                             android:layout_gravity="center_horizontal"
                             android:layout_marginTop="16dp"
                             app:srcCompat="@drawable/ic_internet"
-                            app:tint="@color/colorPrimary"
                             tools:ignore="VectorDrawableCompat" />
 
                         <androidx.appcompat.widget.AppCompatTextView
@@ -244,7 +245,7 @@
                             android:layout_marginBottom="16dp"
                             android:gravity="center_horizontal"
                             android:text="@string/internet"
-                            android:textColor="@color/colorTextPrimary"
+                            android:textColor="@color/themeColorDark"
                             android:textSize="12sp"
                             app:fontFamily="@font/bold" />
 
@@ -259,7 +260,8 @@
                     android:layout_height="match_parent"
                     android:layout_marginHorizontal="8dp"
                     android:layout_weight="1"
-                    app:cardBackgroundColor="@color/colorSecondary"
+                    app:cardElevation="0dp"
+                    app:cardBackgroundColor="@color/themeColorLight"
                     app:cardCornerRadius="16dp">
 
                     <LinearLayout
@@ -274,7 +276,6 @@
                             android:layout_gravity="center_horizontal"
                             android:layout_marginTop="16dp"
                             app:srcCompat="@drawable/ic_minutes"
-                            app:tint="@color/colorPrimary"
                             tools:ignore="VectorDrawableCompat" />
 
                         <androidx.appcompat.widget.AppCompatTextView
@@ -284,7 +285,7 @@
                             android:layout_marginBottom="16dp"
                             android:gravity="center_horizontal"
                             android:text="@string/minutes"
-                            android:textColor="@color/colorTextPrimary"
+                            android:textColor="@color/themeColorDark"
                             android:textSize="12sp"
                             app:fontFamily="@font/bold" />
 
@@ -299,7 +300,8 @@
                     android:layout_height="match_parent"
                     android:layout_marginHorizontal="8dp"
                     android:layout_weight="1"
-                    app:cardBackgroundColor="@color/colorSecondary"
+                    app:cardBackgroundColor="@color/themeColorLight"
+                    app:cardElevation="0dp"
                     app:cardCornerRadius="16dp">
 
                     <LinearLayout
@@ -314,7 +316,6 @@
                             android:layout_gravity="center_horizontal"
                             android:layout_marginTop="16dp"
                             app:srcCompat="@drawable/ic_sms"
-                            app:tint="@color/colorPrimary"
                             tools:ignore="VectorDrawableCompat" />
 
                         <androidx.appcompat.widget.AppCompatTextView
@@ -324,7 +325,7 @@
                             android:layout_marginBottom="16dp"
                             android:gravity="center_horizontal"
                             android:text="@string/sms"
-                            android:textColor="@color/colorTextPrimary"
+                            android:textColor="@color/themeColorDark"
                             android:textSize="12sp"
                             app:fontFamily="@font/bold" />
 
@@ -337,24 +338,32 @@
 
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
+                app:cardBackgroundColor="@color/themeColorNormal"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="16dp"
                 android:layout_marginTop="32dp"
-                app:cardBackgroundColor="@color/colorSecondary"
+                android:layout_marginBottom="40dp"
+                app:cardElevation="0dp"
                 app:cardCornerRadius="16dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+
+                    >
 
                     <com.google.android.material.card.MaterialCardView
                         android:id="@+id/cardViewCodes"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:cardBackgroundColor="@color/colorSecondary">
+                        app:cardCornerRadius="0dp"
+                        app:cardBackgroundColor="@color/themeColorLight"
+                        app:cardElevation="0dp"
+                        >
 
                         <LinearLayout
+
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="center"
@@ -366,7 +375,6 @@
                                 android:layout_width="24dp"
                                 android:layout_height="24dp"
                                 app:srcCompat="@drawable/ic_tariff"
-                                app:tint="@color/colorPrimary"
                                 tools:ignore="VectorDrawableCompat" />
 
                             <androidx.appcompat.widget.AppCompatTextView
@@ -377,7 +385,7 @@
                                 android:layout_marginEnd="20dp"
                                 android:layout_weight="1"
                                 android:text="@string/codes"
-                                android:textColor="@color/colorTextPrimary"
+                                android:textColor="@color/themeColorDark"
                                 android:textSize="12sp"
                                 app:fontFamily="@font/bold" />
 
@@ -386,23 +394,22 @@
                                 android:layout_height="20dp"
                                 android:layout_gravity="center_vertical"
                                 app:srcCompat="@drawable/ic_arrow_next"
-                                app:tint="@color/colorTextPrimary" />
+                                app:tint="@color/themeColorMidum" />
 
                         </LinearLayout>
 
                     </com.google.android.material.card.MaterialCardView>
 
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="3dp"
-                        android:background="@color/themeColorLight" />
 
                     <com.google.android.material.card.MaterialCardView
+                        android:layout_marginTop="2dp"
                         android:id="@+id/cardViewNews"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        app:cardBackgroundColor="@color/colorSecondary">
+                        app:cardCornerRadius="0dp"
+                        app:cardBackgroundColor="@color/themeColorLight"
+                        app:cardElevation="0dp"
+                        android:orientation="horizontal">
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -412,7 +419,7 @@
                             android:padding="20dp">
 
                             <androidx.appcompat.widget.AppCompatImageView
-                                android:id="@+id/imageView"
+                                android:id="@+id/imageViewNews"
                                 android:layout_width="24dp"
                                 android:layout_height="24dp"
                                 app:srcCompat="@drawable/ic_notification"
@@ -427,7 +434,7 @@
                                 android:layout_marginEnd="20dp"
                                 android:layout_weight="1"
                                 android:text="@string/news"
-                                android:textColor="@color/colorTextPrimary"
+                                android:textColor="@color/themeColorDark"
                                 android:textSize="12sp"
                                 app:fontFamily="@font/bold" />
 
@@ -436,23 +443,22 @@
                                 android:layout_height="20dp"
                                 android:layout_gravity="center_vertical"
                                 app:srcCompat="@drawable/ic_arrow_next"
-                                app:tint="@color/colorTextPrimary" />
+                                app:tint="@color/themeColorMidum" />
 
                         </LinearLayout>
 
                     </com.google.android.material.card.MaterialCardView>
 
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="3dp"
-                        android:background="@color/themeColorLight" />
 
                     <com.google.android.material.card.MaterialCardView
+                        android:layout_marginTop="2dp"
                         android:id="@+id/cardViewSales"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        app:cardBackgroundColor="@color/colorSecondary">
+                        app:cardElevation="0dp"
+                        app:cardCornerRadius="0dp"
+                        app:cardBackgroundColor="@color/themeColorLight"
+                        android:orientation="horizontal">
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -477,7 +483,7 @@
                                 android:layout_marginEnd="20dp"
                                 android:layout_weight="1"
                                 android:text="@string/sales"
-                                android:textColor="@color/colorTextPrimary"
+                                android:textColor="@color/themeColorDark"
                                 android:textSize="12sp"
                                 app:fontFamily="@font/bold" />
 
@@ -486,7 +492,7 @@
                                 android:layout_height="20dp"
                                 android:layout_gravity="center_vertical"
                                 app:srcCompat="@drawable/ic_arrow_next"
-                                app:tint="@color/colorTextPrimary" />
+                                app:tint="@color/themeColorMidum" />
 
                         </LinearLayout>
 
@@ -501,5 +507,3 @@
     </ScrollView>
 
 </LinearLayout>
-
-

@@ -19,7 +19,6 @@ class BannerPagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm, BEHAVIO
         return BannerFragment.newInstance(d)
     }
 
-    override fun getCount(): Int {
-        return data.size
-    }
+    override fun getCount() = data.size
+
 }

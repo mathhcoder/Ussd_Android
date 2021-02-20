@@ -1,4 +1,6 @@
 package uz.appme.ussd.model.data
 
-class singleContact {
-}
+data class SingleContact (
+    val type : Int? = null,
+    val number : String? = null
+)

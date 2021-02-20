@@ -9,10 +9,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
-import kotlinx.android.synthetic.main.fragment_tariff.*
+import kotlinx.android.synthetic.main.fragment_service.*
 import kotlinx.android.synthetic.main.layout_header.*
-import uz.appme.ussd.BuildConfig
 import uz.appme.ussd.R
 import uz.appme.ussd.model.data.Lang
 import uz.appme.ussd.model.data.Provider
@@ -59,14 +59,18 @@ class ServiceFragment : BaseFragment() {
 
         textViewTitle?.text = if (lang == Lang.UZ) service.nameUz else service.nameRu
 
+        textViewHeader.text = resources.getText(R.string.aboutService)
 
         textViewOnPrice?.text =
             if (lang == Lang.UZ) service.firstTimePriceUz else service.firstTimePriceRu
         textViewSubscriptionPrice?.text =
             if (lang == Lang.UZ) service.subscriptionPriceUz else service.subscriptionPriceRu
 
-        cardViewChangeTariff?.setOnClickListener {
-            Intent(Intent.ACTION_CALL).apply {
+        cardBack.setOnClickListener {
+            findNavController().popBackStack()
+        }
+        cardViewSelectService?.setOnClickListener {
+            Intent(Intent.ACTION_VIEW).apply {
                 val ussd = service.ussd?.replace("#", Uri.encode("#"))
                 data = Uri.parse("tel:$ussd")
                 try {
@@ -76,7 +80,7 @@ class ServiceFragment : BaseFragment() {
             }
         }
 
-        textViewTariffDescription.text =
+        textViewServiceDescription.text =
             if (lang == Lang.UZ) service.descriptionUz else service.subscriptionPriceRu
 
         val color = try {
@@ -85,10 +89,8 @@ class ServiceFragment : BaseFragment() {
             ContextCompat.getColor(context, R.color.colorSecondary)
         }
 
-        cardViewChangeTariff?.setCardBackgroundColor(color)
-
+        cardViewSelectService?.setCardBackgroundColor(color)
 
     }
-
 
 }

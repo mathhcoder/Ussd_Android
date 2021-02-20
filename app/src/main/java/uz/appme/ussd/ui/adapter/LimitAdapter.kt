@@ -12,7 +12,10 @@ import uz.appme.ussd.model.data.Lang
 import uz.appme.ussd.model.data.Limit
 import uz.appme.ussd.model.data.Provider
 
-class LimitAdapter(val provider: Provider, val lang: Lang) :
+class LimitAdapter(val provider: Provider,
+                   val lang: Lang ,
+                   val onItemSelected : () -> (Unit)
+                   ) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     var data: List<Limit> = emptyList()
@@ -40,8 +43,11 @@ class LimitAdapter(val provider: Provider, val lang: Lang) :
 
     inner class LimitViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         fun bind(limit: Limit) {
-            itemView.textViewName.text = if (lang == Lang.RU) limit.nameRu else limit.nameUz
-            itemView.textViewInfo.text = if (lang == Lang.RU) limit.valueRu else limit.valueUz
+            itemView.textViewLimit.text = if (lang == Lang.RU) limit.nameRu else limit.nameUz
+            itemView.textViewLimitData.text = if (lang == Lang.RU) limit.valueRu else limit.valueUz
+            itemView.setOnClickListener {
+                onItemSelected()
+            }
 
             limit.image?.let {
 
@@ -49,10 +55,15 @@ class LimitAdapter(val provider: Provider, val lang: Lang) :
                     BuildConfig.BASE_IMAGE_URL + it
                 } else it
 
-                Glide.with(itemView)
-                    .load(image)
-                    .centerCrop()
-                    .into(itemView.imageView)
+                try{
+                    Glide.with(itemView)
+                        .load(image)
+                        .centerCrop()
+                        .into(itemView.imageViewIcon)
+
+                }catch (e:Exception){
+
+                }
 
             }
         }

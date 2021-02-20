@@ -1,10 +1,12 @@
 package uz.appme.ussd.ui.service
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.os.bundleOf
+import android.util.Log
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -89,6 +91,7 @@ class PacksFragment : BaseFragment() {
                 onPacks(data)
             })
         }
+        adapterPack?.provider = provider
 
         viewModel?.categories?.let {
             it.value?.let { data ->
@@ -137,7 +140,16 @@ class PacksFragment : BaseFragment() {
     }
 
     private fun onPackSelected(pack: Pack) {
-        val bundle = bundleOf(Pair("data", pack))
-        findNavController().navigate(R.id.action_fragment_tariffs_to_fragment_tariff, bundle)
+        pack.ussd?.let {
+            Intent(Intent.ACTION_VIEW).apply {
+                val ussd = it.replace("#", Uri.encode("#"))
+                data = Uri.parse("tel:$ussd")
+                try {
+                    startActivity(this)
+                } catch (e: Exception) {
+                }
+            }
+
+        }
     }
 }

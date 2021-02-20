@@ -1,5 +1,7 @@
 package uz.appme.ussd.ui.more
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,8 +10,10 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import kotlinx.android.synthetic.main.cell_operator.*
 import kotlinx.android.synthetic.main.fragment_news.*
 import kotlinx.android.synthetic.main.layout_header.*
+import uz.appme.ussd.BuildConfig
 import uz.appme.ussd.MainViewModel
 import uz.appme.ussd.R
 import uz.appme.ussd.model.data.News
@@ -72,6 +76,21 @@ class NewsFragment : BaseFragment() {
     }
 
     private fun onNewsSelected(news: News) {
+
+        news.link?.let{
+            val link = if(!it.startsWith("http"))
+                BuildConfig.BASE_IMAGE_URL + it
+            else it
+            val intent = Intent(Intent.ACTION_VIEW)
+            intent.data = Uri.parse(link)
+
+            try{
+                startActivity(intent)
+            }catch (e:Exception){
+
+            }
+        }
+
 
     }
 }

@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView
     android:id="@+id/cardViewMain"
+    app:cardElevation="0dp"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginHorizontal="16dp"
     android:layout_marginVertical="8dp"
-    app:cardBackgroundColor="@color/themeColorNormal"
+    app:cardBackgroundColor="@color/themeColorLight"
     app:cardCornerRadius="16dp">
 
     <LinearLayout
@@ -29,32 +30,32 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerViewLimits"
             android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <com.google.android.material.card.MaterialCardView
+            app:cardElevation="0dp"
+            android:id="@+id/cardViewPrice"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="16dp"
 
+            app:cardCornerRadius="23dp"
+            app:contentPadding="16dp">
 
-            android:layout_marginBottom="54dp" />
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/regular"
+                android:textColor="#FFFF"
+                android:text="3900 som" />
+
+        </com.google.android.material.card.MaterialCardView>
 
     </LinearLayout>
 
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/cardViewPrice"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="16dp"
 
-        app:cardCornerRadius="23dp"
-        app:contentPadding="16dp">
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/textViewPrice"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/regular"
-            android:textColor="#FFFF"
-            android:text="3900 som" />
-
-    </com.google.android.material.card.MaterialCardView>
 
 
 </com.google.android.material.card.MaterialCardView>

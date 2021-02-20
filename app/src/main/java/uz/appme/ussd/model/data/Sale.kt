@@ -5,7 +5,7 @@ import androidx.room.Entity
 @Entity(tableName = "sales", primaryKeys = ["id"])
 data class Sale(
     val id: Long? = null,
-    val operatorId: Long? = null,
+    val providerId: Long? = null,
     val start : Long? = null,
     val end : Long? = null,
     val nameUz: String? = null,

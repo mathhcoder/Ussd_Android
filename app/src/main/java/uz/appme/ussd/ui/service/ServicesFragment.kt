@@ -19,7 +19,6 @@ import uz.appme.ussd.model.data.Category
 import uz.appme.ussd.model.data.Lang
 import uz.appme.ussd.model.data.Provider
 import uz.appme.ussd.model.data.Service
-import uz.appme.ussd.ui.adapter.LimitAdapter
 
 class ServicesFragment : BaseFragment() {
 
@@ -93,6 +92,7 @@ class ServicesFragment : BaseFragment() {
             })
         }
 
+        adapterService?.provider = provider
         recyclerViewCategory.layoutManager =
             LinearLayoutManager(view.context, LinearLayoutManager.HORIZONTAL, false)
         recyclerViewCategory.adapter = adapterCategory

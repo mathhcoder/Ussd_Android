@@ -50,6 +50,7 @@ class BannerFragment : Fragment() {
 
     private fun onData(context: Context, banner: Banner) {
 
+
         banner.image?.let {
 
             val image = if (!it.startsWith("http")) {
@@ -58,10 +59,15 @@ class BannerFragment : Fragment() {
 
             Timber.e("Image: $image")
 
-            Glide.with(context)
-                .load(image)
-                .centerCrop()
-                .into(imageView)
+            try{
+                Glide.with(context)
+                    .load(image)
+                    .centerCrop()
+                    .into(imageView)
+            }catch (e:Exception){
+
+            }
+
 
         }
 

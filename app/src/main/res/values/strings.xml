@@ -25,6 +25,21 @@
     <string name="theme">Tungi rejim</string>
     <string name="info">Info</string>
     <string name="language">Ilova tili</string>
+
+    <string name="service">Xizmati</string>
+    <string name="priceAbonet">"Abonet to'lovi"</string>
+    <string name="goService">Ushbu xizmatdan foydalanish</string>
+    <string name="buyPack">Xarid qilish</string>
+    <string name="serviceConditions">Xizmatdan foydalanshi shartlari</string>
+
+    <string name='settings'>Sozlamalar</string>
+    <string name="langUz">"O'zbek tili"</string>
+    <string name="langRu">Rus tili</string>
+    <string name= "phone">Telefon</string>
+    <string name= "instagram">Instagram</string>
+    <string name = "facebook">Facebook</string>
+    <string name ="telegram">Telegram</string>
+    <string name="aboutService">Xizmat haqida</string>
     <!-- Preference Titles -->
 
     <!-- Messages Preferences -->

@@ -1,6 +1,7 @@
 package uz.appme.ussd.model.data
 
 import androidx.room.Entity
+import java.io.Serializable
 
 
 @Entity(tableName = "contact", primaryKeys = ["id"])
@@ -17,4 +18,4 @@ data class Contact(
     val residueUssd: String? = null,
     val cabinet: String? = null,
     val googlePlay : String? = null
-)
+):Serializable

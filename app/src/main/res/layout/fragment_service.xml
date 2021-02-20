@@ -1,8 +1,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
+    android:background="@color/themeColorNormal"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary"
     android:orientation="vertical">
 
     <include layout="@layout/layout_header" />
@@ -23,7 +23,8 @@
                 android:layout_height="128dp"
                 android:layout_marginHorizontal="16dp"
                 android:layout_marginTop="16dp"
-                app:cardBackgroundColor="@color/colorSecondary"
+                app:cardElevation="0dp"
+                app:cardBackgroundColor="@color/themeColorLight"
                 app:cardCornerRadius="16dp">
 
                 <androidx.appcompat.widget.AppCompatImageView
@@ -47,7 +48,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
-                        android:textColor="@color/colorTextPrimary"
+                        android:textColor="#FFFFFF"
+                        android:text="Street"
                         android:textSize="17sp"
                         app:fontFamily="@font/bold" />
 
@@ -57,7 +59,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
                         android:layout_marginTop="4dp"
-                        android:text="@string/tariffPalan"
+                        android:text="@string/service"
                         android:textColor="#FFFFFF"
                         android:textSize="13sp"
                         app:fontFamily="@font/regular" />
@@ -71,8 +73,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="16dp"
                 android:layout_marginTop="16dp"
-                app:cardBackgroundColor="@color/colorSecondary"
+                app:cardBackgroundColor="@color/themeColorLight"
                 app:cardCornerRadius="16dp"
+                app:cardElevation="0dp"
                 app:contentPadding="16dp">
 
                 <LinearLayout
@@ -93,7 +96,7 @@
                             android:layout_marginEnd="16dp"
                             android:layout_weight="1"
                             android:text="@string/changePrice"
-                            android:textColor="@color/colorTextPrimary"
+                            android:textColor="@color/themeColorMidum"
                             android:textSize="12sp" />
 
                         <View
@@ -108,7 +111,7 @@
                             android:layout_gravity=""
                             android:layout_marginStart="16dp"
                             android:gravity="center_vertical"
-                            android:textColor="@color/colorTextPrimary"
+                            android:textColor="@color/themeColorDark"
                             android:textSize="12sp" />
 
                     </LinearLayout>
@@ -126,8 +129,8 @@
                             android:layout_height="wrap_content"
                             android:layout_marginEnd="16dp"
                             android:layout_weight="1"
-                            android:text="@string/changePrice"
-                            android:textColor="@color/colorTextPrimary"
+                            android:text="@string/priceAbonet"
+                            android:textColor="@color/themeColorMidum"
                             android:textSize="12sp" />
 
                         <View
@@ -142,7 +145,7 @@
                             android:layout_gravity=""
                             android:layout_marginStart="16dp"
                             android:gravity="center_vertical"
-                            android:textColor="@color/colorTextPrimary"
+                            android:textColor="@color/themeColorDark"
                             android:textSize="12sp" />
 
                     </LinearLayout>
@@ -154,12 +157,13 @@
 
 
             <com.google.android.material.card.MaterialCardView
-                android:id="@+id/cardViewChangeTariff"
+                android:id="@+id/cardViewSelectService"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="16dp"
-                app:cardBackgroundColor="@color/colorSecondary"
+                app:cardElevation="0dp"
+                app:cardBackgroundColor="@color/themeColorLight"
                 app:cardCornerRadius="16dp">
 
                 <androidx.appcompat.widget.AppCompatTextView
@@ -169,43 +173,50 @@
                     android:layout_marginHorizontal="32dp"
                     android:layout_marginVertical="16dp"
                     android:fontFamily="@font/medium"
-                    android:text="@string/goTariff"
-                    android:textColor="@color/colorTextPrimary"
+                    android:text="@string/goService"
+                    android:textColor="#FFFFFF"
                     android:textSize="16sp" />
 
             </com.google.android.material.card.MaterialCardView>
 
-
             <androidx.appcompat.widget.AppCompatTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="32dp"
-                android:fontFamily="@font/medium"
-                android:text="@string/tariffConditions"
-                android:textColor="@color/colorTextPrimary"
-                android:textSize="16sp" />
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/serviceConditions"
+                android:textColor="@color/themeColorDark"
+                android:textSize="16sp"
+                app:fontFamily="@font/bold"
+                />
 
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
-                app:cardBackgroundColor="@color/colorSecondary"
-                app:cardCornerRadius="16dp">
-
+                app:cardCornerRadius="16dp"
+                app:cardElevation="0dp"
+                android:padding="16dp"
+                app:cardBackgroundColor="@color/themeColorLight">
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/textViewTariffDescription"
+                    android:id="@+id/textViewServiceDescription"
                     android:layout_width="match_parent"
+                    android:padding="16dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:padding="16dp"
-                    android:textColor="@color/colorTextSecondary"
+                    android:textColor="@color/themeColorMidum"
                     android:textSize="14sp"
+                    app:fontFamily="@font/regular"
+                    android:text="t is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like)."
 
                     />
 
 
             </com.google.android.material.card.MaterialCardView>
+
+
+
+
 
 
         </LinearLayout>
