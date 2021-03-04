@@ -15,8 +15,8 @@ import uz.appme.ussd.model.data.Tariff
 
 class TariffsAdapter(
     private val provider: Provider,
-    val lang : Lang,
-    private val onItemSelected: (tariff: Tariff) -> (Unit)
+    val lang: Lang,
+    private val onItemSelected: (tariff: Tariff) -> (Unit),
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     var data: List<Tariff>? = ArrayList()
@@ -24,8 +24,6 @@ class TariffsAdapter(
             field = value
             notifyDataSetChanged()
         }
-
-
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -42,7 +40,7 @@ class TariffsAdapter(
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (holder is TariffViewHolder)
             data?.getOrNull(position)?.let {
-                holder.bind(it )
+                holder.bind(it)
             }
     }
 
@@ -54,7 +52,8 @@ class TariffsAdapter(
                 onItemSelected(tariff)
             }
             itemView.textViewTariffName.text = if (lang == Lang.RU) tariff.nameRu else tariff.nameUz
-            itemView.textViewPrice.text = if (lang == Lang.RU) tariff.subscriptionPriceRu else tariff.subscriptionPriceUz
+            itemView.textViewPrice.text =
+                if (lang == Lang.RU) tariff.subscriptionPriceRu else tariff.subscriptionPriceUz
 
             itemView.cardViewPrice.setCardBackgroundColor(Color.parseColor(provider?.color))
 
@@ -63,18 +62,15 @@ class TariffsAdapter(
                 LinearLayoutManager(itemView.context, LinearLayoutManager.VERTICAL, false)
 
             itemView.recyclerViewLimits.adapter = LimitAdapter(
-                provider , lang
+                provider, lang
             ) { onItemSelected(tariff) }.apply {
                 this.data = tariff.limits
             }
 
 
-            itemView.cardViewMain.setOnClickListener{
+            itemView.cardViewMain.setOnClickListener {
                 onItemSelected(tariff)
             }
-
-
-
 
 
         }

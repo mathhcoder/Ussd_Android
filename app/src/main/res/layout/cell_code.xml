@@ -6,35 +6,40 @@
     android:layout_width="match_parent"
 
     android:layout_height="wrap_content">
-    <RelativeLayout
+    <LinearLayout
         android:background="@color/themeColorLight"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+
+        >
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/textViewTitle"
-            android:text="Imie Codni tekshirish"
+            android:layout_gravity="center"
+            android:layout_marginHorizontal="16dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="16dp"
-            android:layout_marginTop="16dp"
+            android:layout_weight="1"
+
             android:fontFamily="@font/regular"
+            android:text="Imie Codni tekshirish"
             android:textColor="@color/themeColorMidum"
-            android:textSize="12sp" />
+            android:textSize="14sp" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/textViewCode"
+            android:layout_weight="0"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
             android:layout_marginHorizontal="16dp"
             android:layout_marginTop="16dp"
             android:layout_marginBottom="16dp"
             android:textColor="@color/themeColorDark"
             android:fontFamily="@font/regular"
-            android:textSize="12sp" />
+            android:textSize="14sp" />
 
-    </RelativeLayout>
+    </LinearLayout>
 
 
 

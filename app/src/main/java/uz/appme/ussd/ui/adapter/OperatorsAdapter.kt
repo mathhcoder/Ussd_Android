@@ -10,7 +10,7 @@ import kotlinx.android.synthetic.main.cell_operator.view.*
 import uz.appme.ussd.BuildConfig
 import uz.appme.ussd.R
 import uz.appme.ussd.model.data.Provider
-
+import android.util.Log
 class OperatorsAdapter(
     private val onItemSelected: (provider: Provider) -> (Unit)
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -19,6 +19,7 @@ class OperatorsAdapter(
 
     var data: List<Provider> = ArrayList()
         set(value) {
+            Log.e("all_providers" , value.toString())
             field = value
             notifyDataSetChanged()
         }
@@ -47,9 +48,11 @@ class OperatorsAdapter(
     inner class BottomSheetViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         fun bind(provider: Provider) {
 
-            itemView.textViewCategoryName.text = provider.name
-            itemView.cardChecked.setCardBackgroundColor(Color.parseColor(selectedColor))
 
+            itemView.textViewCategoryName.text = provider.name
+            itemView.cardChecked.setCardBackgroundColor(Color.parseColor(provider.color))
+
+            Log.e("provider_single" , provider.toString())
             if (provider.selected)
                 itemView.cardChecked.visibility = View.VISIBLE
             else
@@ -73,5 +76,6 @@ class OperatorsAdapter(
             }
         }
     }
+
 
 }

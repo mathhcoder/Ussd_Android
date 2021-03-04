@@ -35,7 +35,7 @@ class BannerFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View? {
         return inflater.inflate(R.layout.fragment_banner, container, false)
     }
@@ -59,12 +59,12 @@ class BannerFragment : Fragment() {
 
             Timber.e("Image: $image")
 
-            try{
+            try {
                 Glide.with(context)
                     .load(image)
                     .centerCrop()
                     .into(imageView)
-            }catch (e:Exception){
+            } catch (e: Exception) {
 
             }
 

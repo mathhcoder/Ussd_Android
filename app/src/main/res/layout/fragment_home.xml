@@ -70,6 +70,7 @@
         android:layout_height="0dp"
         android:id="@+id/scrollView"
         android:scrollbars="none"
+        android:overScrollMode="never"
         android:animationCache="false"
         android:layout_weight="1">
 
@@ -183,6 +184,7 @@
                 app:cardCornerRadius="16dp">
 
                 <androidx.viewpager.widget.ViewPager
+                    android:overScrollMode="never"
                     android:id="@+id/viewPager"
                     android:background="@color/themeColorNormal"
                     android:layout_width="match_parent"
@@ -374,7 +376,7 @@
                                 android:id="@+id/imageViewCode"
                                 android:layout_width="24dp"
                                 android:layout_height="24dp"
-                                app:srcCompat="@drawable/ic_tariff"
+                                app:srcCompat="@drawable/ic_code"
                                 tools:ignore="VectorDrawableCompat" />
 
                             <androidx.appcompat.widget.AppCompatTextView

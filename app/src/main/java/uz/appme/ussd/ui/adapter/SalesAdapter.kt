@@ -16,13 +16,13 @@ import uz.appme.ussd.model.data.Sale
 import java.text.SimpleDateFormat
 import java.util.*
 
-const val IMAGE = 1
-const val SIMPLE = 2
 
 class SalesAdapter(
     private val onItemSelected: (sale: Sale) -> (Unit)
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
+    val IMAGE = 1
+    val SIMPLE = 2
     private val TIME_FORMAT = "dd.MM.yyyy"
 
 
@@ -92,7 +92,6 @@ class SalesAdapter(
 
             }
 
-
             itemView.setOnClickListener {
                 onItemSelected(sale)
             }
@@ -110,10 +109,14 @@ class SalesAdapter(
                     BuildConfig.BASE_IMAGE_URL + it
                 } else it
 
-                Glide.with(itemView)
-                    .load(image)
-                    .centerCrop()
-                    .into(itemView.imageViewSales)
+                try{
+                    Glide.with(itemView)
+                        .load(image)
+                        .centerCrop()
+                        .into(itemView.imageViewSales)
+                }catch (e : Exception){}
+
+
             }
 
             itemView.textViewTitleSaleImage.text = if (lang == Lang.UZ) sale.nameUz else sale.nameRu

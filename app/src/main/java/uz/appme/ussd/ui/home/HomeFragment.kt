@@ -5,22 +5,27 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.RotateAnimation
 import androidx.core.os.bundleOf
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.cell_operator.view.*
 import kotlinx.android.synthetic.main.fragment_home.*
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import uz.appme.ussd.BuildConfig
-import uz.appme.ussd.ui.BaseFragment
 import uz.appme.ussd.MainViewModel
 import uz.appme.ussd.R
 import uz.appme.ussd.model.BaseRepository
-import uz.appme.ussd.ui.adapter.BannerPagerAdapter
 import uz.appme.ussd.model.data.Banner
 import uz.appme.ussd.model.data.Lang
 import uz.appme.ussd.model.data.Provider
+import uz.appme.ussd.ui.BaseFragment
+import uz.appme.ussd.ui.adapter.BannerPagerAdapter
 import uz.appme.ussd.ui.dialog.SelectOperatorDialog
+import android.util.Log
 
 
 class HomeFragment : BaseFragment() {
@@ -71,7 +76,6 @@ class HomeFragment : BaseFragment() {
         }
 
 
-        scrollView.isSmoothScrollingEnabled = false
 
         viewModel?.banners?.let {
 
@@ -85,10 +89,10 @@ class HomeFragment : BaseFragment() {
         }
 
         viewModel?.lang?.let{
-            it.value?.let{l->
+            it.value?.let{ l->
                 onLang(l)
             }
-            it.observe(viewLifecycleOwner , {l->
+            it.observe(viewLifecycleOwner, { l ->
                 onLang(l)
             })
         }
@@ -98,8 +102,17 @@ class HomeFragment : BaseFragment() {
         }
 
         imageViewSettings?.setOnClickListener {
+
+            rotateView(imageViewSettings,60F)
             val bundle = bundleOf(Pair("data", provider), Pair("lang", lang))
-            findNavController().navigate(R.id.action_fragment_home_to_fragment_settings,bundle)
+            GlobalScope.launch {
+                delay(180L)
+            }
+            findNavController().navigate(R.id.action_fragment_home_to_fragment_settings, bundle)
+
+
+
+
         }
 
         cardViewTariff?.setOnClickListener {
@@ -172,8 +185,10 @@ class HomeFragment : BaseFragment() {
             .fitCenter()
             .into(imageViewProvider)
 
+
         viewModel?.banners?.value?.let { b ->
-            onBanners(b)
+            Log.e("banners__" , b.toString())
+            pagerAdapter.data = b.filter { p -> p.providerId == data.id }
         }
 
 
@@ -193,16 +208,32 @@ class HomeFragment : BaseFragment() {
                     it.setColorFilter(col)
                 }
             }
+            pageIndicatorView.selectedColor = Color.parseColor(data.color)
         } catch (e: Exception) {
 
         }
 
     }
 
-    private fun onLang(l : Lang){
+    private fun onLang(l: Lang){
         lang = l
     }
 
+    private fun rotateView(view: View, deg: Float){
+        val  mCurrRotation = 0F
+        val fromRotation: Float = mCurrRotation
+        val toRotation: Float = deg
+
+        val rotateAnim = RotateAnimation(
+            fromRotation, toRotation, (view.width / 2).toFloat(), view.height.toFloat() / 2
+        )
+
+        rotateAnim.duration = 200 // Use 0 ms to rotate instantly
+
+        rotateAnim.fillAfter = true // Must be true or the animation will reset
+
+        view.startAnimation(rotateAnim)
+    }
 
 }
 

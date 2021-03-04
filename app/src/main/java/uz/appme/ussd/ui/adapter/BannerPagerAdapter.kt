@@ -2,11 +2,12 @@ package uz.appme.ussd.ui.adapter
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentPagerAdapter
-import uz.appme.ussd.ui.home.BannerFragment
+import androidx.fragment.app.FragmentStatePagerAdapter
 import uz.appme.ussd.model.data.Banner
+import uz.appme.ussd.ui.home.BannerFragment
 
-class BannerPagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
+class BannerPagerAdapter(fm: FragmentManager) :
+    FragmentStatePagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
 
     var data: List<Banner> = emptyList()
         set(value) {
@@ -20,5 +21,8 @@ class BannerPagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm, BEHAVIO
     }
 
     override fun getCount() = data.size
+
+    override fun getItemPosition(`object`: Any) = POSITION_NONE
+
 
 }

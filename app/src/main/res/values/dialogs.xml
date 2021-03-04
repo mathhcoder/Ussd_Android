@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Widget.Ussd.BottomSheet.Dialog" parent="ThemeOverlay.MaterialComponents.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/Widget.Ussd.BottomSheet.Style</item>
+        <item name="android:navigationBarColor">@color/themeColorLight</item>
+    </style>
+
+    <style name="Widget.Ussd.BottomSheet.Style" parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@drawable/bg_dialog</item>
+    </style>
+
+</resources>

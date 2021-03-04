@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+
+    <style name="Theme.Ussd.Main" parent="Theme.Ussd">
+
+        <item name="colorPrimaryVariant">@color/colorPrimary</item>
+        <item name="colorOnPrimary">@color/colorSecondary</item>
+        <item name="colorSecondary">@color/themeColorMidum</item>
+        <item name="colorSecondaryVariant">@color/themeColorPale</item>
+        <item name="colorOnSecondary">@color/black</item>
+        <item name="fontFamily">@font/bold</item>
+
+
+        <item name="colorPrimaryDark">@color/colorPrimary</item>
+        <item name="android:colorPrimaryDark">@color/colorPrimary</item>
+
+
+    </style>
+
+
+
+
+
+</resources>

@@ -9,16 +9,19 @@ buildscript {
         classpath "com.android.tools.build:gradle:4.1.2"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath 'com.google.gms:google-services:4.3.5'
-        classpath 'com.google.firebase:firebase-crashlytics-gradle:2.4.1'
+        classpath 'com.google.firebase:firebase-crashlytics-gradle:2.5.0'
 
     }
 }
 
 allprojects {
+
     repositories {
         google()
+        maven { url 'https://jitpack.io' }
         jcenter()
     }
+
 }
 
 task clean(type: Delete) {

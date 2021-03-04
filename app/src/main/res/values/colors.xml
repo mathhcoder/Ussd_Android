@@ -10,6 +10,8 @@
     <color name="themeColorPale">#93949B</color>
     <color name="themeColorMidum">#93949B</color>
 
+    <color name="colorAccent">#93949B</color>
+
     <color name="colorMediumDark">#93949B</color>
     <color name="colorMedium">#C8C8C8</color>
 
@@ -20,5 +22,7 @@
 
     <color name= "themeColorDialogBack">@color/themeColorNormal</color>
     <color name="themeColorDialogItem">@color/themeColorLight</color>
+
+    <color name="colorStatusBar">#A0A0A0</color>
 
 </resources>

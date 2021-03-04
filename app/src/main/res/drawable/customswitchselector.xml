@@ -7,13 +7,14 @@
             android:dither="true"
             android:useLevel="false">
             <gradient
-                android:startColor="@color/colorAccent"
-                android:endColor="@color/colorAccent" />
+                android:startColor="#2075D5"
+                android:endColor="#2075D5"
+                android:angle="270"/>
             <corners
-                android:radius="12.5dp"/>
+                android:radius="10dp"/>
             <size
-                android:width="25dp"
-                android:height="25dp" />
+                android:width="20dp"
+                android:height="20dp" />
             <stroke
                 android:width="3dp"
                 android:color="#0000ffff"/>
@@ -30,10 +31,10 @@
                 android:endColor="#CFE0F6"
                 android:angle="270"/>
             <corners
-                android:radius="12.5dp"/>
+                android:radius="10dp"/>
             <size
-                android:width="25dp"
-                android:height="25dp" />
+                android:width="20dp"
+                android:height="20dp" />
             <stroke
                 android:width="3dp"
                 android:color="#0000ffff"/>

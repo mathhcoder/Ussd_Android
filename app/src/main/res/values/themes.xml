@@ -1,36 +1,43 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
     <style name="Theme.Ussd" parent="Theme.MaterialComponents.Light.NoActionBar">
-        <!-- Primary brand color. -->
+        <item name="fontFamily">@font/bold</item>
+        <item name="bottomSheetDialogTheme">@style/Widget.Ussd.BottomSheet.Dialog</item>
+        <item name="android:navigationBarColor">@color/themeColorNormal</item>
+        <item name="colorPrimaryDark">@color/colorStatusBar</item>
+        <item name="android:colorPrimaryDark">@color/colorStatusBar</item>
+        <item name="android:statusBarColor">@color/themeColorNormal</item>
+
+
+
+
+    </style>
+
+    <style name="Theme.Ussd.Main" parent="Theme.Ussd">
+        <item name="android:windowLightStatusBar" tools:targetApi="23">true</item>
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryVariant">@color/colorPrimary</item>
         <item name="colorOnPrimary">@color/colorSecondary</item>
-        <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/teal_200</item>
-        <item name="colorSecondaryVariant">@color/teal_700</item>
+
+        <item name="colorSecondary">@color/themeColorDark</item>
+        <item name="colorSecondaryVariant">@color/themeColorDark</item>
         <item name="colorOnSecondary">@color/black</item>
-        <!-- Status bar color. -->
-        <item name="android:statusBarColor" tools:targetApi="l">@color/colorPrimary</item>
-        <!-- Customize your theme here. -->
-        <item name="fontFamily">@font/bold</item>
-        <item name="bottomSheetDialogTheme">@style/UssdBottomSheetDialog</item>
+        <item name="colorSurface">#fff</item>
+
     </style>
 
 
-    <style name="UssdBottomSheetDialog" parent="@style/ThemeOverlay.MaterialComponents.BottomSheetDialog">
-        <item name="bottomSheetStyle">@style/UssdBottomSheet</item>
+    <style name="My.Switch" parent="Widget.MaterialComponents.CompoundButton.Switch">
+        <item name="android:inset">0dp</item>
+        <item name="android:thumb">@drawable/ic_thumb</item>
+        <item name="track">@drawable/ic_track</item>
+        <item name="trackTint">@drawable/bg_track</item>
+        <item name="thumbTint">@color/themeColorLight</item>
     </style>
 
-    <style name="UssdBottomSheet" parent="Widget.MaterialComponents.BottomSheet">
-        <item name="shapeAppearanceOverlay">@style/UssdShapeAppearanceBottomSheetDialog</item>
-    </style>
 
-    <style name="UssdShapeAppearanceBottomSheetDialog" parent="">
-        <item name="cornerFamily">rounded</item>
-        <item name="cornerSizeTopRight">16dp</item>
-        <item name="cornerSizeTopLeft">16dp</item>
-        <item name="cornerSizeBottomRight">0dp</item>
-        <item name="cornerSizeBottomLeft">0dp</item>
-    </style>
+
+
+
 
 </resources>

@@ -31,4 +31,11 @@ class StockPreference(val context: Context) {
         set(value) {
             context.getSharedPreferences("app", mode).edit().putInt("isDark", value).apply()
         }
+
+    var lastUpdate: Long
+       // get() = context.getSharedPreferences("app", mode).getLong("lastUpdate", 0L)
+        get() = 0L
+        set(value) {
+            context.getSharedPreferences("app", mode).edit().putLong("lastUpdate", value).apply()
+        }
 }

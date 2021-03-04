@@ -16,7 +16,7 @@ import uz.appme.ussd.model.data.Provider
 class CategoriesAdapter(
     val provider: Provider,
     val lang: Lang,
-    val onItemSelected: (section: Category) -> Unit
+    val onItemSelected: (section: Category) -> Unit,
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
 
@@ -47,7 +47,8 @@ class CategoriesAdapter(
 
         fun bind(category: Category) {
 
-            itemView.textViewCategoryName.text = if (lang == Lang.UZ) category.nameUz else category.nameRu
+            itemView.textViewCategoryName.text =
+                if (lang == Lang.UZ) category.nameUz else category.nameRu
 
             itemView.setOnClickListener {
                 onItemSelected(category)

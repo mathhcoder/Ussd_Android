@@ -1,19 +1,17 @@
 package uz.appme.ussd.ui.dialog
 
 import android.content.Context
-import android.content.Intent
 import android.graphics.Color
-import android.net.Uri
 import android.os.Bundle
 import android.widget.FrameLayout
-import androidx.core.content.ContextCompat.startActivity
 import com.google.android.material.bottomsheet.BottomSheetDialog
-import kotlinx.android.synthetic.main.bottom_sheet_language.*
 import kotlinx.android.synthetic.main.bottom_sheet_package.*
 import uz.appme.ussd.R
 import uz.appme.ussd.model.data.Lang
 import uz.appme.ussd.model.data.Pack
 import uz.appme.ussd.model.data.Provider
+import android.util.Log
+import androidx.core.content.ContextCompat
 
 class PackageDialog(
     context: Context ,
@@ -29,6 +27,8 @@ class PackageDialog(
         window?.findViewById<FrameLayout>(R.id.design_bottom_sheet)?.setBackgroundResource(
             R.drawable.background_bottom_sheet_dialog
         )
+        window?.navigationBarColor = ContextCompat.getColor(context , R.color.themeColorLight)
+
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

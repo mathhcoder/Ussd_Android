@@ -22,10 +22,11 @@ import uz.appme.ussd.R
 import uz.appme.ussd.model.data.Contact
 import uz.appme.ussd.model.data.Lang
 import uz.appme.ussd.model.data.Provider
+import uz.appme.ussd.ui.dialog.BaseDialog
+import uz.appme.ussd.ui.dialog.DialogItem
 import uz.appme.ussd.ui.dialog.LanguageDialog
 
 class SettingsFragment : BaseFragment() {
-
 
 
     private val viewModel by lazy {
@@ -34,21 +35,28 @@ class SettingsFragment : BaseFragment() {
         }
     }
 
+
     private val provider by lazy {
         arguments?.getSerializable("data") as? Provider
+
     }
 
-    private var contact : Contact? = null
+    var lang = Lang.UZ
 
-    private var lang : Lang = Lang.UZ
+    private var languagesDialog: LanguageDialog? = null
+
+
+    private var contact: Contact? = null
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View? {
         return inflater.inflate(R.layout.fragment_settings, container, false)
     }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -57,50 +65,61 @@ class SettingsFragment : BaseFragment() {
             findNavController().popBackStack()
         }
 
-        //val isDark = AppCompatDelegate.getDefaultNightMode() ==   AppCompatDelegate.MODE_NIGHT_NO
-        //viewModel?.setTheme(isDark)
         val isDark = viewModel?.isDark() == 1
 
+        provider?.let{
+            onProvider(it)
+        }
 
-        if(switchTheme.isChecked != isDark)
+
+        if (switchTheme.isChecked != isDark)
             switchTheme.isChecked = isDark
 
+
         viewTheme.setOnClickListener {
-            switchTheme.isChecked =  !switchTheme.isChecked
+            switchTheme.isChecked = !switchTheme.isChecked
         }
 
 
         textViewHeader.text = resources.getText(R.string.settings)
 
-        viewModel?.lang?.let{
-            it.value?.let{l ->
+        viewModel?.lang?.let {
+            it.value?.let { l ->
                 onLang(l)
             }
-            it.observe(viewLifecycleOwner , {l ->
+            it.observe(viewLifecycleOwner, { l ->
                 onLang(l)
             })
         }
 
-        viewModel?.contact?.let{
-            it.value?.let{c ->
+        viewModel?.contact?.let {
+            it.value?.let { c ->
                 onContact(c)
             }
-            it.observe(viewLifecycleOwner , {c ->
+            it.observe(viewLifecycleOwner, { c ->
                 onContact(c)
             })
         }
 
 
-        provider?.let{ p ->
-            layoutLang.setOnClickListener {
-                LanguageDialog(it.context , p) { lang, dialog ->
+
+
+        layoutLang.setOnClickListener {
+
+            provider?.let{
+                languagesDialog = LanguageDialog(view.context , it)
+                { lang, dialog ->
+                    changeLanguage(lang, view.context)
                     dialog.dismiss()
-                    this.context?.let { it1 -> changeLanguage(lang, it1) }
-                }.show()
+                }
+                languagesDialog?.lang = lang
+                languagesDialog?.show()
             }
+
+            languagesDialog?.show()
+
+
         }
-
-
 
 
 
@@ -108,25 +127,24 @@ class SettingsFragment : BaseFragment() {
             onTheme(isChecked)
             viewModel?.setTheme(isChecked)
         }
-        switchTheme. = Color.parseColor(provider.color)
 
 
         provider?.let {
             onProvider(it)
         }
 
-        layoutInfo.setOnClickListener{
+        layoutInfo.setOnClickListener {
 
             val bundle = Bundle()
-            bundle.putSerializable("data" , provider)
-            bundle.putSerializable("lang" , lang)
+            bundle.putSerializable("data", provider)
+            bundle.putSerializable("lang", lang)
 
 
-            contact?.let{
-                bundle.putSerializable("contact" , it)
+            contact?.let {
+                bundle.putSerializable("contact", it)
             }
 
-            findNavController().navigate(R.id.fragment_settings_to_fragment_about , bundle)
+            findNavController().navigate(R.id.fragment_settings_to_fragment_about, bundle)
         }
 
     }
@@ -147,19 +165,20 @@ class SettingsFragment : BaseFragment() {
         AppCompatDelegate.setDefaultNightMode(if (isDark) AppCompatDelegate.MODE_NIGHT_YES else AppCompatDelegate.MODE_NIGHT_NO)
     }
 
-    private fun onLang(lang : Lang){
+    private fun onLang(lang: Lang) {
         this.lang = lang
-        textViewSelectedLang.text = if(lang == Lang.UZ) resources.getString(R.string.langUz) else resources.getString(R.string.langRu)
+        textViewSelectedLang.text =
+            if (lang == Lang.UZ) resources.getString(R.string.langUz) else resources.getString(R.string.langRu)
+        languagesDialog?.lang = lang
     }
 
 
     private fun changeLanguage(lang: Lang, context: Context) {
-        viewModel?.changeLang(lang , context)
-
+        viewModel?.changeLang(lang, context)
     }
 
-    private fun onContact(data : Contact){
-        Log.e("contact" , data.toString())
+    private fun onContact(data: Contact) {
+        Log.e("contact", data.toString())
         contact = data
     }
 }

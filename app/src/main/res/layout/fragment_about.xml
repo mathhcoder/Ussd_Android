@@ -1,50 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout
 
-    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:background="@color/themeColorNormal"
-    xmlns:android="http://schemas.android.com/apk/res/android" >
+    android:layout_height="match_parent"
+    android:background="@color/themeColorNormal">
 
-
-    <ScrollView android:orientation="vertical"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingBottom="32dp"
-        >
+        android:orientation="vertical">
+
+        <include layout="@layout/layout_header" />
 
 
-
-        <LinearLayout
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:overScrollMode="never"
+            android:paddingBottom="32dp">
 
-            <include layout="@layout/layout_header" />
 
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:background="@color/themeColorNormal"
-                android:textColor="@color/themeColorDark"
-                android:layout_marginTop="16dp"
-                android:layout_marginHorizontal="16dp"
-                android:id="@+id/textViewAbout"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-
-           <androidx.recyclerview.widget.RecyclerView
-               android:layout_marginTop="24dp"
-               android:layout_marginHorizontal="8dp"
-               android:id="@+id/recyclerViewContact"
-               android:layout_width="match_parent"
-               android:layout_height="wrap_content"
-
-               />
-
-        </LinearLayout>
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
 
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textViewAbout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="16dp"
+                    android:background="@color/themeColorNormal"
+                    android:textColor="@color/themeColorDark" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerViewContact"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="8dp"
+                    android:layout_marginTop="24dp"
+                    android:overScrollMode="never"
+
+                    />
+
+            </LinearLayout>
 
 
-    </ScrollView>
+        </ScrollView>
+    </LinearLayout>
 </FrameLayout>

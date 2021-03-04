@@ -9,42 +9,50 @@
     app:cardElevation="0dp"
     app:cardBackgroundColor="@color/themeColorLight"
     app:cardCornerRadius="16dp">
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/textViewPackage"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="@color/themeColorDark"
-        app:fontFamily="@font/bold"
-        android:textSize="16sp"
-        android:layout_gravity="center_vertical"
-        android:layout_marginHorizontal="16dp"
-        android:layout_marginStart="16dp"
-        />
+        android:orientation="horizontal">
 
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/cardViewPackage"
-        android:layout_width="wrap_content"
-        app:cardElevation="0dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="end|center_vertical"
-        android:layout_margin="16dp"
-        app:cardCornerRadius="16dp">
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:gravity="center_horizontal"
-            android:id="@+id/textViewPrice"
+            android:id="@+id/textViewPackage"
             android:layout_width="wrap_content"
-            android:minWidth="72dp"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:textColor="#FFFF"
-            android:textSize="14sp"
-            app:fontFamily="@font/regular"
-            android:layout_margin="16dp" />
+            android:textColor="@color/themeColorDark"
+            app:fontFamily="@font/bold"
+            android:textSize="16sp"
+            android:layout_weight="1"
+            android:layout_gravity="center_vertical"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginStart="16dp"
+            />
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardViewPackage"
+            android:layout_width="wrap_content"
+            app:cardElevation="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|center_vertical"
+            android:layout_margin="16dp"
+            app:cardCornerRadius="16dp">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:gravity="center_horizontal"
+                android:id="@+id/textViewPrice"
+                android:layout_width="wrap_content"
+                android:minWidth="72dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textColor="#FFFF"
+                android:textSize="14sp"
+                app:fontFamily="@font/regular"
+                android:layout_margin="16dp" />
 
 
-    </com.google.android.material.card.MaterialCardView>
+        </com.google.android.material.card.MaterialCardView>
 
+
+    </LinearLayout>
 
 </com.google.android.material.card.MaterialCardView>

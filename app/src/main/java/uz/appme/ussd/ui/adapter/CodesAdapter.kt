@@ -15,7 +15,7 @@ import uz.appme.ussd.model.data.Code
 import uz.appme.ussd.model.data.Lang
 
 class CodesAdapter(
-    private val onItemSelected: (code: Code) -> (Unit)
+    private val onItemSelected: (code: Code) -> (Unit),
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     var data: List<Code> = emptyList()
@@ -25,8 +25,8 @@ class CodesAdapter(
         }
 
 
-    var lang : Lang = Lang.UZ
-        set(value){
+    var lang: Lang = Lang.UZ
+        set(value) {
             field = value
             notifyDataSetChanged()
         }
@@ -46,19 +46,19 @@ class CodesAdapter(
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
 
         data.getOrNull(position)?.let {
-            (holder as SimpleViewHolder).bind(it , position)
+            (holder as SimpleViewHolder).bind(it, position)
         }
 
     }
 
     inner class SimpleViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
-        fun bind(code: Code ,position: Int ) {
+        fun bind(code: Code, position: Int) {
 
             Timber.e("bind_code" + code.toString())
 
-            if(position != 0)
-                itemView.rootView.setPadding(0 ,1 , 0 , 0 )
+            if (position != 0)
+                itemView.rootView.setPadding(0, 1, 0, 0)
 
 
             itemView.textViewTitle.text = if (lang == Lang.UZ) code.nameUz else code.nameRu

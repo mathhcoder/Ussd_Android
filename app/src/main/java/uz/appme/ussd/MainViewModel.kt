@@ -6,12 +6,14 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import timber.log.Timber
 import uz.appme.ussd.model.data.*
 import uz.appme.ussd.model.BaseRepository
 import java.io.Serializable
+import java.util.*
 
 
 class MainViewModel : ViewModel() {
@@ -60,7 +62,7 @@ class MainViewModel : ViewModel() {
 
 
     init {
-        val l = if(BaseRepository.preference.lang == "uz") Lang.UZ else Lang.RU
+        val l = if (BaseRepository.preference.lang == "uz") Lang.UZ else Lang.RU
         langData.postValue(l)
         start()
     }
@@ -80,9 +82,9 @@ class MainViewModel : ViewModel() {
         return BaseRepository.preference.isDark
     }
 
-    fun changeLang(lang : Lang , context: Context){
-        val l : String = if(lang == Lang.UZ) "uz" else "ru"
-        BaseRepository.setLang(l , context)
+    fun changeLang(lang: Lang, context: Context) {
+        val l: String = if (lang == Lang.UZ) "uz" else "ru"
+        BaseRepository.setLang(l, context)
         langData.postValue(lang)
     }
 
@@ -95,36 +97,59 @@ class MainViewModel : ViewModel() {
     }
 
     private fun start() {
+
         if (BaseRepository.preference.token.isEmpty()) {
             auth()
+
         } else {
-            getDataFromNetwork()
-            // updateVersion()
+            Log.e("token_", BaseRepository.preference.token)
+            getDataFromDB()
+            updateVersion()
         }
     }
 
     private fun getDataFromDB() {
-        databaseDisposable?.dispose()
-        databaseDisposable = BaseRepository.roomDatabase.bannerDao().getData()
+        CompositeDisposable().add(BaseRepository.roomDatabase.operatorDao().getData()
+            .flatMap {
+                val selectedId = BaseRepository.preference.operatorId
+                val operators = it.map { o -> o.copy(selected = o.id == selectedId) }
+                operatorsData.postValue(operators.sortedBy { d -> d.id })
+                Log.e("operators_room", it.toString())
+                BaseRepository.roomDatabase.bannerDao().getData()
+            }
             .flatMap {
                 bannersData.postValue(it.sortedBy { d -> d.priority })
+                Log.e("banner_room", it.toString())
                 BaseRepository.roomDatabase.contactDao().getData()
             }.flatMap {
                 it.firstOrNull()?.let { c ->
                     contactData.postValue(c)
                 }
+                Log.e("contacts_room", it.toString())
                 BaseRepository.roomDatabase.packageDao().getData()
             }.flatMap {
-                // packagesData.postValue(it.sortedBy { d -> d.priority })
+                packagesData.postValue(it.sortedBy { d -> d.priority })
+                Log.e("packs_room", it.toString())
                 BaseRepository.roomDatabase.categoryDao().getData()
             }.flatMap {
                 categoriesData.postValue(it.sortedBy { d -> d.priority })
+                Log.e("categories_room", it.toString())
                 BaseRepository.roomDatabase.tariffDao().getData()
             }.flatMap {
                 tariffsData.postValue(it.sortedBy { d -> d.priority })
+                Log.e("tariffs_room", it.toString())
                 BaseRepository.roomDatabase.serviceDao().getData()
             }.flatMap {
-                // servicesData.postValue(it.sortedBy { d -> d.priority })
+                servicesData.postValue(it.sortedBy { d -> d.priority })
+                Log.e("services_room", it.toString())
+                BaseRepository.roomDatabase.codesDao().getData()
+            }.flatMap {
+                codesData.postValue(it.sortedBy { d -> d.priority })
+                Log.e("codes_room", it.toString())
+                BaseRepository.roomDatabase.salesDao().getData()
+            }.flatMap {
+                salesData.postValue(it.sortedBy { d -> d.priority })
+                Log.e("sales_data", it.toString())
                 BaseRepository.roomDatabase.newsDao().getData()
             }.observeOn(Schedulers.io())
             .subscribeOn(Schedulers.io())
@@ -134,9 +159,15 @@ class MainViewModel : ViewModel() {
             }, {
 
             })
+        )
     }
 
     private fun getDataFromNetwork() {
+        val current = Calendar.getInstance().timeInMillis
+        val lastUpdate = BaseRepository.preference.lastUpdate
+        if (current - lastUpdate < 12L * 1000 * 36000)
+            return
+        BaseRepository.preference.lastUpdate = current
         networkDisposable?.dispose()
         networkDisposable = BaseRepository.mainApi.getData().subscribeOn(Schedulers.io())
             .observeOn(Schedulers.io())
@@ -150,55 +181,55 @@ class MainViewModel : ViewModel() {
                 BaseRepository.roomDatabase.operatorDao().deleteAll()
                 BaseRepository.roomDatabase.operatorDao().insertAll(operators)
                 operatorsData.postValue(operators.sortedBy { d -> d.priority })
-                Log.e("operators_" , operators.toString())
+                Log.e("operators_", operators.toString())
 
                 val banners = it.banners
                 BaseRepository.roomDatabase.bannerDao().deleteAll()
                 BaseRepository.roomDatabase.bannerDao().insertAll(banners)
                 bannersData.postValue(banners.sortedBy { d -> d.priority })
-                Log.e("bannesrs_" , banners.toString())
+                Log.e("bannesrs_", banners.toString())
 
                 val tariffs = it.tariffs
                 BaseRepository.roomDatabase.tariffDao().deleteAll()
                 BaseRepository.roomDatabase.tariffDao().insertAll(tariffs)
                 tariffsData.postValue(tariffs.sortedBy { d -> d.priority })
-                Log.e("tariffs" , tariffs.toString())
+                Log.e("tariffs", tariffs.toString())
 
                 val categories = it.categories
                 BaseRepository.roomDatabase.categoryDao().deleteAll()
                 BaseRepository.roomDatabase.categoryDao().insertAll(categories)
                 categoriesData.postValue(categories.sortedBy { d -> d.priority })
-                Log.e("categoiries_" , categories.toString())
+                Log.e("categoiries_", categories.toString())
 
                 val services = it.services
                 BaseRepository.roomDatabase.serviceDao().deleteAll()
                 BaseRepository.roomDatabase.serviceDao().insertAll(services)
                 servicesData.postValue(services.sortedBy { d -> d.priority })
-                Log.e("services_" , services.toString())
+                Log.e("services_", services.toString())
 
                 val packs = it.packages
                 BaseRepository.roomDatabase.packageDao().deleteAll()
                 BaseRepository.roomDatabase.packageDao().insertAll(packs)
                 packagesData.postValue(packs.sortedBy { d -> d.priority })
-                Log.e("packs_" , packs.toString())
+                Log.e("packs_", packs.toString())
 
                 val codes = it.codes
                 BaseRepository.roomDatabase.codesDao().deleteAll()
                 BaseRepository.roomDatabase.codesDao().insertAll(codes)
                 codesData.postValue(codes.sortedByDescending { d -> d.id })
-                Log.e("codes_" , codes.toString())
+                Log.e("codes_", codes.toString())
 
                 val news = it.news
                 BaseRepository.roomDatabase.codesDao().deleteAll()
                 BaseRepository.roomDatabase.codesDao().insertAll(codes)
                 newsData.postValue(news.sortedByDescending { d -> d.date })
-                Log.e("news_" , news.toString())
+                Log.e("news_", news.toString())
 
                 val sales = it.sales
                 BaseRepository.roomDatabase.salesDao().deleteAll()
                 BaseRepository.roomDatabase.salesDao().insertAll(sales)
                 salesData.postValue(sales.sortedByDescending { d -> d.end })
-                Log.e("sales_" , sales.toString())
+                Log.e("sales_", sales.toString())
 
                 val contact = it.contacts
                 BaseRepository.roomDatabase.contactDao().deleteAll()
@@ -214,6 +245,7 @@ class MainViewModel : ViewModel() {
     }
 
     private fun auth() {
+        Log.e("auth__", "")
         val device = Device(
             os = "1",
             appVersion = BuildConfig.VERSION_NAME,
@@ -228,7 +260,7 @@ class MainViewModel : ViewModel() {
             .subscribe({
                 if (it.code() == 200) {
                     BaseRepository.preference.token = it.body()?.token ?: ""
-                    getDataFromNetwork()
+                    getDataFromDB()
                 }
             }, {
 
@@ -261,7 +293,6 @@ class MainViewModel : ViewModel() {
                     }
                 }
             }, {
-
             })
     }
 

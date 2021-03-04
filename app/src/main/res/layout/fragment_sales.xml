@@ -2,27 +2,19 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@color/themeColorNormal"
-    >
+    android:orientation="vertical">
 
     <include layout="@layout/layout_header" />
 
-    <androidx.core.widget.NestedScrollView
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewBody"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:overScrollMode="never"
+        android:paddingBottom="32dp"
+        android:scrollbars="none" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerViewBody"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:overScrollMode="never"
-            android:scrollbars="none"
-            android:paddingBottom="32dp"
-            />
-
-    </androidx.core.widget.NestedScrollView>
 
 </LinearLayout>
