@@ -1,5 +1,6 @@
 package uz.appme.ussd
 
+import android.content.Context
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
@@ -8,9 +9,12 @@ import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.app.ActivityCompat
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
-
+import uz.appme.ussd.model.BaseRepository
+import android.util.Log
+import uz.appme.ussd.model.data.Lang
 
 class MainActivity : AppCompatActivity() {
 
@@ -18,9 +22,16 @@ class MainActivity : AppCompatActivity() {
         ViewModelProvider(this).get(MainViewModel::class.java)
     }
 
-    @RequiresApi(Build.VERSION_CODES.M)
+    override fun attachBaseContext(base: Context) {
+        Log.e("Base","Attached")
+        super.attachBaseContext(RuntimeLocaleChanger.setLocale(base))
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        Log.e("lang_m" , BaseRepository.preference.lang)
+        val l = if( BaseRepository.preference.lang == "uz") Lang.UZ else Lang.RU
+        viewModel.changeLang(l , applicationContext)
 
         val isDark = when (viewModel.isDark()) {
             -1 -> AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_NO
@@ -31,6 +42,9 @@ class MainActivity : AppCompatActivity() {
         onTheme(isDark)
         setContentView(R.layout.activity_main)
         request()
+
+
+
     }
     override fun onRequestPermissionsResult(
         requestCode: Int, permissions: Array<String>,
@@ -85,6 +99,7 @@ class MainActivity : AppCompatActivity() {
     private fun onTheme(isDark: Boolean) {
         AppCompatDelegate.setDefaultNightMode(if (isDark) AppCompatDelegate.MODE_NIGHT_YES else AppCompatDelegate.MODE_NIGHT_NO)
     }
+
 
 
 }

@@ -21,6 +21,7 @@ import kotlinx.android.synthetic.main.layout_header.*
 import uz.appme.ussd.ui.BaseFragment
 import uz.appme.ussd.MainViewModel
 import uz.appme.ussd.R
+import uz.appme.ussd.RuntimeLocaleChanger
 import uz.appme.ussd.ui.adapter.CodesAdapter
 import uz.appme.ussd.model.data.Code
 import uz.appme.ussd.model.data.Lang
@@ -37,26 +38,19 @@ class CodesFragment : BaseFragment() {
         }
     }
 
-
-    private var lang : Lang = Lang.UZ
-        set(value){
-            field = value
-            adapterCode.lang = value
-        }
-
+    private val lang by lazy {
+        arguments?.getSerializable("lang") as? Lang
+    }
 
     private val adapterCode by lazy {
         CodesAdapter {code ->
             onCodeSelected(code)
         }
-
     }
-
 
     private val operator by lazy {
         arguments?.getSerializable("data") as? Provider
     }
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -64,6 +58,7 @@ class CodesFragment : BaseFragment() {
     ): View? {
         return inflater.inflate(R.layout.fragment_code, container, false)
     }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -84,12 +79,7 @@ class CodesFragment : BaseFragment() {
         }
 
 
-
-        viewModel?.lang?.let{
-            it.value?.let{ l ->
-                lang = l
-            }
-        }
+        adapterCode.lang = lang!!
 
         recyclerViewCodes.apply {
             layoutManager = LinearLayoutManager(recyclerViewCodes.context)

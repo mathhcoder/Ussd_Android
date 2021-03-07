@@ -35,7 +35,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:fontFamily="@font/regular"
-            android:text="O'zbek tili"
+            android:text="@string/langUz"
             android:textColor="@color/themeColorDark"
             android:textSize="14sp" />
 
@@ -59,7 +59,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:fontFamily="@font/regular"
-            android:text="Rus tili"
+            android:text="@string/langRu"
             android:textColor="@color/themeColorDark"
             android:textSize="14sp" />
 

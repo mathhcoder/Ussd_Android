@@ -77,6 +77,7 @@ class SalesAdapter(
 
     inner class SimpleSalesViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         fun bind(sale: Sale) {
+
             itemView.textViewTitleSaleSimple.text = if (lang == Lang.UZ) sale.nameUz else sale.nameRu
             itemView.textViewBodySaleSimple.text = if (lang == Lang.UZ) sale.bodyUz else sale.bodyRu
 
@@ -118,6 +119,15 @@ class SalesAdapter(
 
 
             }
+            Glide.with(itemView)
+                .load(R.drawable.ic_calendar)
+                .centerCrop()
+                .into(itemView.imageViewCalendarR)
+            Glide.with(itemView)
+                .load(R.drawable.ic_calendar)
+                .centerCrop()
+                .into(itemView.imageViewCalendarL)
+
 
             itemView.textViewTitleSaleImage.text = if (lang == Lang.UZ) sale.nameUz else sale.nameRu
             itemView.textViewBodySaleImage.text = if (lang == Lang.UZ) sale.bodyUz else sale.bodyRu

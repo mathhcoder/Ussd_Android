@@ -84,7 +84,6 @@ class MainViewModel : ViewModel() {
 
     fun changeLang(lang: Lang, context: Context) {
         val l: String = if (lang == Lang.UZ) "uz" else "ru"
-        BaseRepository.setLang(l, context)
         langData.postValue(lang)
     }
 
@@ -114,42 +113,33 @@ class MainViewModel : ViewModel() {
                 val selectedId = BaseRepository.preference.operatorId
                 val operators = it.map { o -> o.copy(selected = o.id == selectedId) }
                 operatorsData.postValue(operators.sortedBy { d -> d.id })
-                Log.e("operators_room", it.toString())
                 BaseRepository.roomDatabase.bannerDao().getData()
             }
             .flatMap {
                 bannersData.postValue(it.sortedBy { d -> d.priority })
-                Log.e("banner_room", it.toString())
                 BaseRepository.roomDatabase.contactDao().getData()
             }.flatMap {
                 it.firstOrNull()?.let { c ->
                     contactData.postValue(c)
                 }
-                Log.e("contacts_room", it.toString())
                 BaseRepository.roomDatabase.packageDao().getData()
             }.flatMap {
                 packagesData.postValue(it.sortedBy { d -> d.priority })
-                Log.e("packs_room", it.toString())
                 BaseRepository.roomDatabase.categoryDao().getData()
             }.flatMap {
                 categoriesData.postValue(it.sortedBy { d -> d.priority })
-                Log.e("categories_room", it.toString())
                 BaseRepository.roomDatabase.tariffDao().getData()
             }.flatMap {
                 tariffsData.postValue(it.sortedBy { d -> d.priority })
-                Log.e("tariffs_room", it.toString())
                 BaseRepository.roomDatabase.serviceDao().getData()
             }.flatMap {
                 servicesData.postValue(it.sortedBy { d -> d.priority })
-                Log.e("services_room", it.toString())
                 BaseRepository.roomDatabase.codesDao().getData()
             }.flatMap {
                 codesData.postValue(it.sortedBy { d -> d.priority })
-                Log.e("codes_room", it.toString())
                 BaseRepository.roomDatabase.salesDao().getData()
             }.flatMap {
                 salesData.postValue(it.sortedBy { d -> d.priority })
-                Log.e("sales_data", it.toString())
                 BaseRepository.roomDatabase.newsDao().getData()
             }.observeOn(Schedulers.io())
             .subscribeOn(Schedulers.io())
@@ -181,55 +171,46 @@ class MainViewModel : ViewModel() {
                 BaseRepository.roomDatabase.operatorDao().deleteAll()
                 BaseRepository.roomDatabase.operatorDao().insertAll(operators)
                 operatorsData.postValue(operators.sortedBy { d -> d.priority })
-                Log.e("operators_", operators.toString())
 
                 val banners = it.banners
                 BaseRepository.roomDatabase.bannerDao().deleteAll()
                 BaseRepository.roomDatabase.bannerDao().insertAll(banners)
                 bannersData.postValue(banners.sortedBy { d -> d.priority })
-                Log.e("bannesrs_", banners.toString())
 
                 val tariffs = it.tariffs
                 BaseRepository.roomDatabase.tariffDao().deleteAll()
                 BaseRepository.roomDatabase.tariffDao().insertAll(tariffs)
                 tariffsData.postValue(tariffs.sortedBy { d -> d.priority })
-                Log.e("tariffs", tariffs.toString())
 
                 val categories = it.categories
                 BaseRepository.roomDatabase.categoryDao().deleteAll()
                 BaseRepository.roomDatabase.categoryDao().insertAll(categories)
                 categoriesData.postValue(categories.sortedBy { d -> d.priority })
-                Log.e("categoiries_", categories.toString())
 
                 val services = it.services
                 BaseRepository.roomDatabase.serviceDao().deleteAll()
                 BaseRepository.roomDatabase.serviceDao().insertAll(services)
                 servicesData.postValue(services.sortedBy { d -> d.priority })
-                Log.e("services_", services.toString())
 
                 val packs = it.packages
                 BaseRepository.roomDatabase.packageDao().deleteAll()
                 BaseRepository.roomDatabase.packageDao().insertAll(packs)
                 packagesData.postValue(packs.sortedBy { d -> d.priority })
-                Log.e("packs_", packs.toString())
 
                 val codes = it.codes
                 BaseRepository.roomDatabase.codesDao().deleteAll()
                 BaseRepository.roomDatabase.codesDao().insertAll(codes)
                 codesData.postValue(codes.sortedByDescending { d -> d.id })
-                Log.e("codes_", codes.toString())
 
                 val news = it.news
                 BaseRepository.roomDatabase.codesDao().deleteAll()
                 BaseRepository.roomDatabase.codesDao().insertAll(codes)
                 newsData.postValue(news.sortedByDescending { d -> d.date })
-                Log.e("news_", news.toString())
 
                 val sales = it.sales
                 BaseRepository.roomDatabase.salesDao().deleteAll()
                 BaseRepository.roomDatabase.salesDao().insertAll(sales)
                 salesData.postValue(sales.sortedByDescending { d -> d.end })
-                Log.e("sales_", sales.toString())
 
                 val contact = it.contacts
                 BaseRepository.roomDatabase.contactDao().deleteAll()

@@ -12,6 +12,7 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import uz.appme.ussd.R
+import uz.appme.ussd.RuntimeLocaleChanger
 import uz.appme.ussd.model.data.Lang
 import uz.appme.ussd.model.data.Provider
 
@@ -23,10 +24,11 @@ class LanguageDialog(
 ) : BottomSheetDialog(context) {
 
 
-    var lang: Lang? = null
+    var lang = Lang.UZ
         set(value) {
             field = value
             onLang()
+
         }
 
 
@@ -58,9 +60,6 @@ class LanguageDialog(
         val colorTextDark = ContextCompat.getColor(context, R.color.themeColorDark)
 
 
-
-
-
         if (lang == Lang.UZ) {
 
             cardViewUzb.setCardBackgroundColor(selectedColor)
@@ -84,8 +83,4 @@ class LanguageDialog(
         }
     }
 
-    override fun onStart() {
-        super.onStart()
-        this?.window?.clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND)
-    }
 }

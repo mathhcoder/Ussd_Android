@@ -22,9 +22,9 @@
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/imageViewSales"
-                android:scaleType="fitXY"
                 android:layout_width="match_parent"
-                android:layout_height="144dp" />
+                android:layout_height="144dp"
+                android:scaleType="fitXY" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/textViewTitleSaleImage"
@@ -49,16 +49,17 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginBottom="16dp">
+                android:layout_marginBottom="16dp"
+                android:orientation="horizontal">
 
                 <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/imageViewCalendarR"
+                    android:layout_width="14dp"
+                    android:layout_height="14dp"
                     android:layout_gravity="center"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    app:srcCompat="@drawable/ic_calendar"
-                    app:tint="@color/themeColorDark" />
+
+                   />
 
 
                 <androidx.appcompat.widget.AppCompatTextView
@@ -66,34 +67,31 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="6dp"
-                    android:text="2020.02.22"
                     android:layout_weight="1"
+                    android:text="2020.02.22"
                     android:textColor="@color/themeColorDark"
                     android:textSize="14sp"
-                    app:fontFamily="@font/regular"
-                    app:layout_constraintStart_toEndOf="@+id/imageViewStartImage"
-                    tools:layout_editor_absoluteY="0dp" />
+                    app:fontFamily="@font/regular" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/imageViewCalendarL"
+                    android:layout_width="14dp"
+                    android:layout_height="14dp"
+                    android:layout_gravity="center"
+
+                    />
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/textViewEndDateImage"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="6dp"
-                    android:layout_marginEnd="6dp"
+                    android:layout_marginEnd="16dp"
+
                     android:text="2018.01.06"
                     android:textColor="@color/themeColorDark"
                     android:textSize="14sp"
-                    app:fontFamily="@font/regular"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    tools:layout_editor_absoluteY="0dp" />
-
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:layout_gravity="center"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="16dp"
-                    app:srcCompat="@drawable/ic_calendar"
-                    app:tint="@color/themeColorDark" />
+                    app:fontFamily="@font/regular" />
 
 
             </LinearLayout>

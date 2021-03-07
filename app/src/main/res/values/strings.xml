@@ -1,25 +1,25 @@
 <resources>
-    <string name="app_name">Ussd</string>
+    <string name="app_name">USSD</string>
 
     <string name="internet">Internet</string>
     <string name="minutes">Daqiqa</string>
     <string name="sms">SMS</string>
 
-    <string name="tariff">Tarifflar</string>
-    <string name="tariff_info">Tariff haqida</string>
+    <string name="tariff">Tariflar</string>
+    <string name="tariff_info">Tarif haqida</string>
     <string name="services">Xizmatlar</string>
 
-    <string name="codes">Tekshiruv kodlar</string>
+    <string name="codes">Tekshiruv kodlari</string>
     <string name="news">Yangiliklar</string>
     <string name="sales">Aksiyalar</string>
 
     <string name="chooseProvider">Operatorni tanlang</string>
 
     <string name="aboutUs">Biz haqimizda</string>
-    <string name="tariffPalan">Tariff rejasi</string>
+    <string name="tariffPlan">Tarif rejasi</string>
     <string name="changePrice">"O'tkazish narxi: "</string>
     <string name="goTariff">"Ushbu tarif rejasiga  o'tish"</string>
-    <string name="abonamentLimits">Abonament limit</string>
+    <string name="abonamentLimits">Abonament limiti</string>
     <string name="outLimitsPrice">Limitdan tashqari narxlar</string>
     <string name="tariffConditions">"Tarifga o'tish shartlari"</string>
     <string name="theme">Tungi rejim</string>
@@ -34,10 +34,10 @@
 
     <string name='settings'>Sozlamalar</string>
     <string name="langUz">"O'zbek tili"</string>
-    <string name="langRu">Rus tili</string>
+    <string name="langRu">Русский язык </string>
     <string name= "phone">Telefon</string>
     <string name= "instagram">Instagram</string>
-    <string name = "facebook">Facebook</string>
+    <string name = "facebook">Feysbuk</string>
     <string name ="telegram">Telegram</string>
     <string name="aboutService">Xizmat haqida</string>
 

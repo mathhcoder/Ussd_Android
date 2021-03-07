@@ -1,0 +1,44 @@
+<resources>
+    <string name="app_name">Ussd</string>
+
+    <string name="internet">Интернет </string>
+    <string name="minutes">Минуты </string>
+    <string name="sms">SMS</string>
+
+    <string name="tariff">Тарифы </string>
+    <string name="tariff_info">О тарифе</string>
+    <string name="services">Услуги </string>
+
+    <string name="codes">Коды подтверждения</string>
+    <string name="news">Новости </string>
+    <string name="sales">Акции </string>
+
+    <string name="chooseProvider">Выберите оператора</string>
+
+    <string name="aboutUs">О нас</string>
+    <string name="tariffPlan">Тарифный план</string>
+    <string name="changePrice">"Плата за перевод: "</string>
+    <string name="goTariff">"Перейти на этот тарифный  план"</string>
+    <string name="abonamentLimits">Лимит абонемента </string>
+    <string name="outLimitsPrice">Цена вне пределов </string>
+    <string name="tariffConditions">"Условии тарифного перехода "</string>
+    <string name="theme">Ночной режим </string>
+    <string name="info">Инфо</string>
+    <string name="language">Язык приложения</string>
+
+    <string name="service">Сервис</string>
+    <string name="priceAbonet">"Абонентская плата"</string>
+    <string name="goService">Использовать эту услугу</string>
+    <string name="buyPack">Купить </string>
+    <string name="serviceConditions">Условия использования сервиса</string>
+
+    <string name='settings'>Настройки</string>
+    <string name="langUz">"O'zbek tili"</string>
+    <string name="langRu">Русский язык </string>
+    <string name="phone">Телефон</string>
+    <string name="instagram">Инстаграм</string>
+    <string name="facebook">Фейсбук</string>
+    <string name="telegram">Телеграм</string>
+    <string name="aboutService">О сервисе</string>
+
+</resources>

@@ -1,29 +1,25 @@
 package uz.appme.ussd.ui.more
 
-import android.util.Log
+
 import android.content.Context
+import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.Animation
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import kotlinx.android.synthetic.main.fragment_settings.*
 import kotlinx.android.synthetic.main.layout_header.*
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 import uz.appme.ussd.ui.BaseFragment
 import uz.appme.ussd.MainViewModel
 import uz.appme.ussd.R
+import uz.appme.ussd.RuntimeLocaleChanger
 import uz.appme.ussd.model.data.Contact
 import uz.appme.ussd.model.data.Lang
 import uz.appme.ussd.model.data.Provider
-import uz.appme.ussd.ui.dialog.BaseDialog
-import uz.appme.ussd.ui.dialog.DialogItem
 import uz.appme.ussd.ui.dialog.LanguageDialog
 
 class SettingsFragment : BaseFragment() {
@@ -41,7 +37,8 @@ class SettingsFragment : BaseFragment() {
 
     }
 
-    var lang = Lang.UZ
+    var lang = arguments?.getSerializable("lang") as? Lang
+
 
     private var languagesDialog: LanguageDialog? = null
 
@@ -61,13 +58,15 @@ class SettingsFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        textViewSelectedLang.text =
+            if (lang == Lang.UZ) resources.getString(R.string.langUz) else resources.getString(R.string.langRu)
         cardBack.setOnClickListener {
             findNavController().popBackStack()
         }
 
         val isDark = viewModel?.isDark() == 1
 
-        provider?.let{
+        provider?.let {
             onProvider(it)
         }
 
@@ -76,12 +75,10 @@ class SettingsFragment : BaseFragment() {
             switchTheme.isChecked = isDark
 
 
+
         viewTheme.setOnClickListener {
             switchTheme.isChecked = !switchTheme.isChecked
         }
-
-
-        textViewHeader.text = resources.getText(R.string.settings)
 
         viewModel?.lang?.let {
             it.value?.let { l ->
@@ -91,6 +88,9 @@ class SettingsFragment : BaseFragment() {
                 onLang(l)
             })
         }
+
+        textViewHeader.text = resources.getText(R.string.settings)
+
 
         viewModel?.contact?.let {
             it.value?.let { c ->
@@ -106,18 +106,25 @@ class SettingsFragment : BaseFragment() {
 
         layoutLang.setOnClickListener {
 
-            provider?.let{
-                languagesDialog = LanguageDialog(view.context , it)
-                { lang, dialog ->
+            provider?.let {
+                languagesDialog = LanguageDialog(view.context, it) { lang, dialog ->
                     changeLanguage(lang, view.context)
+                    val l = if (lang == Lang.UZ) "uz" else "ru"
+                    RuntimeLocaleChanger.setNewLocale(requireContext(), l)
+                    parentFragmentManager.beginTransaction()
+                        .detach(this)
+                        .attach(this)
+                        .commit()
                     dialog.dismiss()
+
                 }
-                languagesDialog?.lang = lang
+
+                lang?.let { l ->
+                    languagesDialog?.lang = l
+                }
+
                 languagesDialog?.show()
             }
-
-            languagesDialog?.show()
-
 
         }
 
@@ -151,6 +158,7 @@ class SettingsFragment : BaseFragment() {
 
     private fun onProvider(provider: Provider) {
         Color.parseColor(provider.color).let { col ->
+            switchTheme.thumbTintList = ColorStateList.valueOf(col)
             arrayListOf(
                 imageViewTheme,
                 imageViewLanguage,
@@ -161,24 +169,23 @@ class SettingsFragment : BaseFragment() {
         }
     }
 
-    private fun onTheme(isDark: Boolean) {
-        AppCompatDelegate.setDefaultNightMode(if (isDark) AppCompatDelegate.MODE_NIGHT_YES else AppCompatDelegate.MODE_NIGHT_NO)
-    }
-
-    private fun onLang(lang: Lang) {
-        this.lang = lang
+    private fun onLang(l: Lang) {
+        lang = l
         textViewSelectedLang.text =
             if (lang == Lang.UZ) resources.getString(R.string.langUz) else resources.getString(R.string.langRu)
-        languagesDialog?.lang = lang
+
     }
 
+    private fun onTheme(isDark: Boolean) {
+        AppCompatDelegate.setDefaultNightMode(if (isDark) AppCompatDelegate.MODE_NIGHT_YES else AppCompatDelegate.MODE_NIGHT_NO)
+
+    }
 
     private fun changeLanguage(lang: Lang, context: Context) {
         viewModel?.changeLang(lang, context)
     }
 
     private fun onContact(data: Contact) {
-        Log.e("contact", data.toString())
         contact = data
     }
 }

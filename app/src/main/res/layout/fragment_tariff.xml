@@ -72,7 +72,7 @@
                         app:fontFamily="@font/regular"
                         android:textSize="16dp"
                         android:layout_gravity="center_horizontal"
-                        android:text="@string/tariffPalan"
+                        android:text="@string/tariffPlan"
                         android:textColor="#FFFFFF"
 
                         />

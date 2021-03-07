@@ -26,6 +26,7 @@ import uz.appme.ussd.ui.BaseFragment
 import uz.appme.ussd.ui.adapter.BannerPagerAdapter
 import uz.appme.ussd.ui.dialog.SelectOperatorDialog
 import android.util.Log
+import uz.appme.ussd.RuntimeLocaleChanger
 
 
 class HomeFragment : BaseFragment() {
@@ -62,6 +63,7 @@ class HomeFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        Log.e("lang_home" , lang.toString())
         viewPager.adapter = pagerAdapter
 
         viewModel?.operators?.let {
@@ -74,6 +76,7 @@ class HomeFragment : BaseFragment() {
                 onOperators(providers)
             })
         }
+
 
 
 
@@ -105,13 +108,7 @@ class HomeFragment : BaseFragment() {
 
             rotateView(imageViewSettings,60F)
             val bundle = bundleOf(Pair("data", provider), Pair("lang", lang))
-            GlobalScope.launch {
-                delay(180L)
-            }
             findNavController().navigate(R.id.action_fragment_home_to_fragment_settings, bundle)
-
-
-
 
         }
 
@@ -156,6 +153,7 @@ class HomeFragment : BaseFragment() {
         }
 
 
+        Log.e("lang__" , lang.toString())
     }
 
     private fun onBanners(data: List<Banner>) {
@@ -187,7 +185,6 @@ class HomeFragment : BaseFragment() {
 
 
         viewModel?.banners?.value?.let { b ->
-            Log.e("banners__" , b.toString())
             pagerAdapter.data = b.filter { p -> p.providerId == data.id }
         }
 
@@ -217,6 +214,7 @@ class HomeFragment : BaseFragment() {
 
     private fun onLang(l: Lang){
         lang = l
+
     }
 
     private fun rotateView(view: View, deg: Float){

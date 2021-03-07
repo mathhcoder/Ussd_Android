@@ -76,15 +76,13 @@ class SalesFragment : BaseFragment() {
             adapterSales.lang = it
         }
 
+
+
     }
 
 
     private fun onSales(data: List<Sale>) {
-        Log.e("__sales__" , data.toString())
-        Log.e("__provider__" , operator.toString())
         adapterSales.data = data.filter { it.providerId == operator?.id }
-        //adapterSales.data = data
-
     }
 
     private fun onSaleSelected(sale: Sale) {

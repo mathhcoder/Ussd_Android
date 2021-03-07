@@ -2,17 +2,20 @@ package uz.appme.ussd.ui.more
 
 import android.content.Intent
 import android.net.Uri
+import android.opengl.Visibility
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.util.Log
+import android.view.View.GONE
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import kotlinx.android.synthetic.main.fragment_about.*
 import kotlinx.android.synthetic.main.layout_header.*
 import uz.appme.ussd.ui.BaseFragment
 import uz.appme.ussd.R
+import uz.appme.ussd.RuntimeLocaleChanger
 import uz.appme.ussd.model.data.Contact
 import uz.appme.ussd.model.data.Lang
 import uz.appme.ussd.model.data.Provider
@@ -25,7 +28,7 @@ class AboutFragment : BaseFragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View? {
         return inflater.inflate(R.layout.fragment_about, container, false)
     }
@@ -38,12 +41,10 @@ class AboutFragment : BaseFragment() {
         arguments?.getSerializable("data") as? Provider
     }
 
-    private val lang by lazy {
-        arguments?.getSerializable("lang") as? Lang
-    }
+    private val lang = RuntimeLocaleChanger.getLocale(requireContext())
 
     private val contactAdapter by lazy {
-        ContactAdapter{
+        ContactAdapter {
             onItemSelected(it)
         }
     }
@@ -52,13 +53,9 @@ class AboutFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        Log.e("datas", data.toString())
-        Log.e("datas", lang.toString())
-        Log.e("datas", provider.toString())
-
         val contacts = arrayListOf<SingleContact>()
         if (data?.phone != null) {
-            contacts?.add(
+            contacts.add(
                 SingleContact(
                     type = 0,
                     number = data?.phone
@@ -66,57 +63,62 @@ class AboutFragment : BaseFragment() {
             )
         }
         if (data?.telegram != null) {
-            contacts?.add(
+            contacts.add(
                 SingleContact(
                     type = 1,
                     number = data?.telegram
                 )
             )
         }
-        if (data?.facebook != null && data?.facebook?.length!! > 2 ) {
-            contacts?.add(
+        if (data?.facebook != null && data?.facebook?.length!! > 2) {
+            contacts.add(
                 SingleContact(
                     type = 2,
                     number = data?.facebook
                 )
             )
         }
-        if (data?.instagram != null &&  data?.instagram?.length!! > 2) {
-            contacts?.add(
+        if (data?.instagram != null && data?.instagram?.length!! > 2) {
+            contacts.add(
                 SingleContact(
                     type = 3,
                     number = data?.instagram
                 )
             )
         }
-        val s = contacts?.size ?: 1
+        val s = contacts.size
 
         val r = if (s == 4) 2 else s
 
         contactAdapter.data = contacts
         contactAdapter.provider = provider
-        recyclerViewContact.layoutManager = GridLayoutManager(recyclerViewContact.context, r)
-        recyclerViewContact.adapter = contactAdapter
+        if (r == 0)
+            recyclerViewContact.visibility = GONE
+        else {
+            recyclerViewContact.layoutManager = GridLayoutManager(recyclerViewContact.context, r)
+            recyclerViewContact.adapter = contactAdapter
 
-        textViewAbout.text = if (lang == Lang.UZ) data?.aboutUz else data?.aboutRu
+            textViewAbout.text = if (lang == Lang.UZ) data?.aboutUz else data?.aboutRu
 
-        cardBack.setOnClickListener {
-            findNavController().popBackStack()
+            cardBack.setOnClickListener {
+                findNavController().popBackStack()
+            }
+            textViewHeader.text = resources.getString(R.string.aboutUs)
         }
-        textViewHeader.text = resources.getString(R.string.aboutUs)
 
     }
 
-    private fun onItemSelected(data : SingleContact){
+    private fun onItemSelected(data: SingleContact) {
         val intent = Intent(Intent.ACTION_VIEW)
         var uri = data.number
-        if(data.type == 0)
-            uri = "tel:"+uri
+        if (data.type == 0)
+            uri = "tel:" + uri
 
         intent.data = Uri.parse(uri)
-        try{
+        try {
             startActivity(intent)
-        }catch (e:Exception){}
+        } catch (e: Exception) {
+        }
 
     }
 

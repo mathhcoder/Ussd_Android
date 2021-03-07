@@ -11,7 +11,8 @@ import androidx.annotation.RequiresApi
 import com.google.firebase.FirebaseApp
 import com.google.firebase.messaging.FirebaseMessaging
 import timber.log.Timber
-
+import uz.appme.ussd.model.BaseRepository
+import android.util.Log
 
 /**
  * key store pass : ussdmobile
@@ -58,11 +59,15 @@ class UssdApp : Application() {
     }
 
     override fun attachBaseContext(base: Context) {
+        val lang = BaseRepository.getLang(base)
+        Log.e("lang_app" , lang)
         super.attachBaseContext(RuntimeLocaleChanger.setLocale(base))
     }
 
     override fun onConfigurationChanged(newConfig: Configuration) {
         super.onConfigurationChanged(newConfig)
+        val lang = BaseRepository.getLang(this)
+        Log.e("lang_onConfig_app" , lang)
         RuntimeLocaleChanger.setLocale(this)
     }
 

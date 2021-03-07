@@ -26,6 +26,8 @@ import kotlinx.android.synthetic.main.layout_header.*
 import timber.log.Timber.e
 import uz.appme.ussd.BuildConfig
 import uz.appme.ussd.R
+import uz.appme.ussd.RuntimeLocaleChanger
+import uz.appme.ussd.model.BaseRepository
 import uz.appme.ussd.model.data.Lang
 import uz.appme.ussd.model.data.Provider
 import uz.appme.ussd.model.data.Tariff

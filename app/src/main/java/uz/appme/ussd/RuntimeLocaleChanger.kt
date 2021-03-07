@@ -3,6 +3,7 @@ package uz.appme.ussd
 import android.content.Context
 import android.os.Build
 import uz.appme.ussd.model.BaseRepository
+import uz.appme.ussd.model.data.Lang
 
 import java.util.*
 
@@ -12,8 +13,9 @@ object RuntimeLocaleChanger {
         return updateResources(c, BaseRepository.getLang(c))
     }
 
-    fun getLocale(c: Context): String {
-        return BaseRepository.getLang(c)
+    fun getLocale(c: Context): Lang {
+        val l =  BaseRepository.getLang(c)
+        return if(l =="uz") Lang.UZ else Lang.RU
     }
 
     fun setNewLocale(c: Context, language: String) {
